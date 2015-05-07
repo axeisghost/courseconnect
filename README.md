@@ -1,12 +1,11 @@
 # courseconnect
-=====================
-Junior Design Project
+
+## Junior Design Project
 =====================
 
-How do I get started?
-=====================
+### How do I get started?
 
-Run server H2
+#### Run server
 
 We use Express.js for our server. Express.js is a particular framework for Node.js, which provides a robust set of features for web and mobile applications.
 
@@ -19,7 +18,7 @@ You can install the NodeMonitor by typing: `npm install node-monitor` in your te
 4. Clone this repository, type `nodemon ./courseconnectserr/bin/www`. The server should start running.
 
 
-Run a client page H2
+#### Run a client page
 
 Navigate to `./webapp`, open `json.html` in a browser, you should see a calendar, and the agenda sent from the server.
 
