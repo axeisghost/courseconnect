@@ -1,0 +1,425 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"target",
+				"target_index"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "<!DOCTYPE html>\n<html>\n<head>\n<meta charset='utf-8' />\n<link href='../fullcalendar-2.3.1/fullcalendar.css' rel='stylesheet' />\n<link href='../fullcalendar-2.3.1/fullcalendar.print.css' rel='stylesheet' media='print' />\n<script src='../fullcalendar-2.3.1/lib/moment.min.js'></script>\n<script src='../fullcalendar-2.3.1/lib/jquery.min.js'></script>\n<script src='../fullcalendar-2.3.1/fullcalendar.js'></script>\n<script>\n\n	$(document).ready(function() {\n	\n		$('#calendar').fullCalendar({\n			header: {\n				left: 'prev,next today',\n				center: 'title',\n				right: 'month,agendaWeek,agendaDay'\n			},\n			defaultDate: '2015-02-1',\n			editable: true,\n			eventLimit: true, // allow \"more\" link when too many events\n			eventSources:[\n			{\n				url: 'http://localhost:3000/json_agenda',\n				error: function() {\n					$('#script-warning').show();\n				}\n			}],\n			loading: function(bool) {\n				$('#loading').toggle(bool);\n			}\n		});\n		\n	});\n\n</script>\n<style>\n\n	body {\n		margin: 0;\n		padding: 0;\n		font-family: \"Lucida Grande\",Helvetica,Arial,Verdana,sans-serif;\n		font-size: 14px;\n	}\n\n	#script-warning {\n		display: none;\n		background: #eee;\n		border-bottom: 1px solid #ddd;\n		padding: 0 10px;\n		line-height: 40px;\n		text-align: center;\n		font-weight: bold;\n		font-size: 12px;\n		color: red;\n	}\n\n	#loading {\n		display: none;\n		position: absolute;\n		top: 10px;\n		right: 10px;\n	}\n\n	#calendar {\n		max-width: 900px;\n		margin: 40px auto;\n		padding: 0 10px;\n	}\n\n</style>\n</head>\n<body>\n\n	<div id='script-warning'>\n		<code>php/get-events.php</code> must be running.\n	</div>\n\n	<div id='loading'>loading...</div>\n\n	<div id='calendar'></div>\n\n</body>\n</html>\n",
+			"file": "webapp/json.html",
+			"file_size": 1657,
+			"file_write_time": 130753839708805829,
+			"settings":
+			{
+				"buffer_size": 1632,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "fullcalendar-2.3.1/fullcalendar.js",
+			"settings":
+			{
+				"buffer_size": 310818,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "courseconnectserver/routes/json_agenda.js",
+			"settings":
+			{
+				"buffer_size": 1172,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "fullcalendar-2.3.1/demos/php/get-events.php",
+			"settings":
+			{
+				"buffer_size": 1795,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "courseconnectserver/app.js",
+			"settings":
+			{
+				"buffer_size": 2239,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "courseconnectserver/routes/index.js",
+			"settings":
+			{
+				"buffer_size": 205,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/fan/Dropbox/src/courseconnect",
+		"/home/fan/Dropbox/src/courseconnect/courseconnectserver",
+		"/home/fan/Dropbox/src/courseconnect/courseconnectserver/routes",
+		"/home/fan/Dropbox/src/courseconnect/fullcalendar-2.3.1",
+		"/home/fan/Dropbox/src/courseconnect/fullcalendar-2.3.1/demos",
+		"/home/fan/Dropbox/src/courseconnect/fullcalendar-2.3.1/demos/php",
+		"/home/fan/Dropbox/src/courseconnect/webapp"
+	],
+	"file_history":
+	[
+		"/home/fan/Dropbox/src/courseconnect/fullcalendar-2.3.1/fullcalendar.js",
+		"/home/fan/Dropbox/src/courseconnect/fullcalendar-2.3.1/fullcalendar.min.js",
+		"/home/fan/Dropbox/src/courseconnect/fullcalendar-2.3.1/lib/jquery.min.js",
+		"/home/fan/Dropbox/src/courseconnect/fullcalendar-2.3.1/lib/jquery.min.map",
+		"/home/fan/Dropbox/src/courseconnect/courseconnectserver/routes/json_agenda.js",
+		"/home/fan/Dropbox/src/courseconnect/fullcalendar-2.3.1/demos/json.html",
+		"/home/fan/Documents/lengthOfLastWord.c"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"url",
+			"t.ajax.t",
+			"must be running",
+			"php/get-events.php must be running",
+			"error",
+			"script-warning",
+			"url",
+			"title",
+			"tittle",
+			"express",
+			"triggerEventRender",
+			"displayEvents",
+			"fullCalendar",
+			"events"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "webapp/json.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1632,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								452,
+								452
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "fullcalendar-2.3.1/fullcalendar.js",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 310818,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								261195,
+								261195
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 152934.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "courseconnectserver/routes/json_agenda.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1172,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								245,
+								245
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 51.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "fullcalendar-2.3.1/demos/php/get-events.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1795,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4,
+								4
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": -0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "courseconnectserver/app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2239,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								474,
+								474
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "courseconnectserver/routes/index.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 205,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "courseconnect.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 263.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
