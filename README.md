@@ -1,7 +1,6 @@
 # courseconnect
 
 ## Junior Design Project
-=====================
 
 ### How do I get started?
 
@@ -15,7 +14,7 @@ To run our server in Express.js, you will need to do the following:
 2. Install [Express.js](http://expressjs.com/starter/installing.html).
 3. Install NodeMonitor, which will retart the server whenever it detects a change of related files.
 You can install the NodeMonitor by typing: `npm install node-monitor` in your terminal. You don't need to worry about npm, because it came with Node.js.
-4. Clone this repository, type `nodemon ./courseconnectserr/bin/www`. The server should start running.
+4. If you don't have git, please intall [git](http://git-scm.com/downloads). Clone this repository by typing `git clone https://github.com/cffls/courseconnect.git`, type `nodemon ./courseconnectserr/bin/www`. The server should start running.
 
 
 #### Run a client page
