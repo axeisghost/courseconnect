@@ -1,0 +1,57 @@
+2015-05-18T20:44:54.689-0700 E NETWORK  [initandlisten] listen(): bind() failed errno:98 Address already in use for socket: 127.0.0.1:27017
+2015-05-18T20:44:54.689-0700 E NETWORK  [initandlisten]   addr already in use
+2015-05-18T20:44:54.702-0700 I JOURNAL  [initandlisten] journal dir=/home/fan/Dropbox/src/courseconnect/data/./db/journal
+2015-05-18T20:44:54.702-0700 I JOURNAL  [initandlisten] recover : no journal files present, no recovery needed
+2015-05-18T20:44:58.505-0700 I JOURNAL  [initandlisten] preallocateIsFaster=true 55.42
+2015-05-18T20:45:01.346-0700 I JOURNAL  [initandlisten] preallocateIsFaster=true 34.48
+2015-05-18T20:45:04.893-0700 I JOURNAL  [initandlisten] preallocateIsFaster=true 29.3
+2015-05-18T20:45:04.893-0700 I JOURNAL  [initandlisten] preallocateIsFaster check took 10.191 secs
+2015-05-18T20:45:04.893-0700 I JOURNAL  [initandlisten] preallocating a journal file /home/fan/Dropbox/src/courseconnect/data/./db/journal/prealloc.0
+2015-05-18T20:45:07.091-0700 I -        [initandlisten]   File Preallocator Progress: 387973120/1073741824 36%
+2015-05-18T20:45:10.288-0700 I -        [initandlisten]   File Preallocator Progress: 618659840/1073741824 57%
+2015-05-18T20:45:13.102-0700 I -        [initandlisten]   File Preallocator Progress: 901775360/1073741824 83%
+2015-05-18T20:45:18.092-0700 I JOURNAL  [initandlisten] preallocating a journal file /home/fan/Dropbox/src/courseconnect/data/./db/journal/prealloc.1
+2015-05-18T20:45:21.047-0700 I -        [initandlisten]   File Preallocator Progress: 482344960/1073741824 44%
+2015-05-18T20:45:24.047-0700 I -        [initandlisten]   File Preallocator Progress: 723517440/1073741824 67%
+2015-05-18T20:45:27.015-0700 I -        [initandlisten]   File Preallocator Progress: 996147200/1073741824 92%
+2015-05-18T20:45:30.628-0700 I JOURNAL  [initandlisten] preallocating a journal file /home/fan/Dropbox/src/courseconnect/data/./db/journal/prealloc.2
+2015-05-18T20:45:33.035-0700 I -        [initandlisten]   File Preallocator Progress: 377487360/1073741824 35%
+2015-05-18T20:45:36.643-0700 I -        [initandlisten]   File Preallocator Progress: 587202560/1073741824 54%
+2015-05-18T20:45:39.055-0700 I -        [initandlisten]   File Preallocator Progress: 859832320/1073741824 80%
+2015-05-18T20:45:44.848-0700 I JOURNAL  [durability] Durability thread started
+2015-05-18T20:45:44.851-0700 I JOURNAL  [journal writer] Journal writer thread started
+2015-05-18T20:45:45.150-0700 I CONTROL  [initandlisten] MongoDB starting : pid=23037 port=27017 dbpath=/home/fan/Dropbox/src/courseconnect/data/./db 64-bit host=fan-ThinkPad-T450s
+2015-05-18T20:45:45.150-0700 I CONTROL  [initandlisten] ** WARNING: You are running this process as the root user, which is not recommended.
+2015-05-18T20:45:45.150-0700 I CONTROL  [initandlisten] 
+2015-05-18T20:45:45.150-0700 I CONTROL  [initandlisten] 
+2015-05-18T20:45:45.150-0700 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/enabled is 'always'.
+2015-05-18T20:45:45.150-0700 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2015-05-18T20:45:45.150-0700 I CONTROL  [initandlisten] 
+2015-05-18T20:45:45.150-0700 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/defrag is 'always'.
+2015-05-18T20:45:45.150-0700 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2015-05-18T20:45:45.150-0700 I CONTROL  [initandlisten] 
+2015-05-18T20:45:45.150-0700 I CONTROL  [initandlisten] db version v3.0.3
+2015-05-18T20:45:45.150-0700 I CONTROL  [initandlisten] git version: b40106b36eecd1b4407eb1ad1af6bc60593c6105
+2015-05-18T20:45:45.150-0700 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.1f 6 Jan 2014
+2015-05-18T20:45:45.150-0700 I CONTROL  [initandlisten] build info: Linux ip-10-169-193-181 3.2.0-4-amd64 #1 SMP Debian 3.2.46-1 x86_64 BOOST_LIB_VERSION=1_49
+2015-05-18T20:45:45.150-0700 I CONTROL  [initandlisten] allocator: tcmalloc
+2015-05-18T20:45:45.150-0700 I CONTROL  [initandlisten] options: { config: "mongodb.conf", net: { bindIp: "127.0.0.1", port: 27017 }, processManagement: { fork: true }, storage: { dbPath: "./db", journal: { enabled: true } }, systemLog: { destination: "file", logAppend: true, path: "./log/mongodb.log" } }
+2015-05-18T20:45:45.192-0700 I INDEX    [initandlisten] allocating new ns file /home/fan/Dropbox/src/courseconnect/data/./db/local.ns, filling with zeroes...
+2015-05-18T20:45:45.590-0700 I STORAGE  [FileAllocator] allocating new datafile /home/fan/Dropbox/src/courseconnect/data/./db/local.0, filling with zeroes...
+2015-05-18T20:45:45.592-0700 I STORAGE  [FileAllocator] creating directory /home/fan/Dropbox/src/courseconnect/data/./db/_tmp
+2015-05-18T20:45:45.948-0700 I STORAGE  [FileAllocator] done allocating datafile /home/fan/Dropbox/src/courseconnect/data/./db/local.0, size: 64MB,  took 0.092 secs
+2015-05-18T20:45:46.051-0700 I CONTROL  [initandlisten] now exiting
+2015-05-18T20:45:46.051-0700 I NETWORK  [initandlisten] shutdown: going to close listening sockets...
+2015-05-18T20:45:46.051-0700 I NETWORK  [initandlisten] shutdown: going to flush diaglog...
+2015-05-18T20:45:46.051-0700 I NETWORK  [initandlisten] shutdown: going to close sockets...
+2015-05-18T20:45:46.052-0700 I STORAGE  [initandlisten] shutdown: waiting for fs preallocator...
+2015-05-18T20:45:46.052-0700 I STORAGE  [initandlisten] shutdown: final commit...
+2015-05-18T20:45:46.322-0700 I JOURNAL  [initandlisten] journalCleanup...
+2015-05-18T20:45:46.322-0700 I JOURNAL  [initandlisten] removeJournalFiles
+2015-05-18T20:45:46.672-0700 I JOURNAL  [initandlisten] Terminating durability thread ...
+2015-05-18T20:45:46.768-0700 I JOURNAL  [journal writer] Journal writer thread stopped
+2015-05-18T20:45:46.768-0700 I JOURNAL  [durability] Durability thread stopped
+2015-05-18T20:45:46.768-0700 I STORAGE  [initandlisten] shutdown: closing all files...
+2015-05-18T20:45:46.769-0700 I STORAGE  [initandlisten] closeAllFiles() finished
+2015-05-18T20:45:46.769-0700 I STORAGE  [initandlisten] shutdown: removing fs lock...
+2015-05-18T20:45:46.769-0700 I CONTROL  [initandlisten] dbexit:  rc: 48
