@@ -4,16 +4,29 @@ $(document).ready(function() {
         header: {
             left: 'prev,next today',
             center: 'title',
-            right: 'month,agendaWeek,agendaDay'
+            right: 'agendaWeek,agendaDay'
         },
-        defaultDate: '2015-02-1',
-        editable: true,
+        views: {
+            agenda: {
+                // options apply to agendaWeek and agendaDay views
+            },
+            day: {
+                // options apply to basicDay and agendaDay views
+            }
+        },
+        minTime: "08:00:00",
+        maxTime: "20:00:00",
+        editable: false,
+        weekends: false,
+        allDaySlot: false,
+        height: "auto",
+        contentHeight: 160,
+        defaultView: "agendaWeek",
         eventLimit: true, // allow "more" link when too many events
         eventSources:[
         {
             url: 'http://localhost:3000/json_agenda',
             error: function() {
-                $('#script-warning').show();
             }
         }],                                 
         loading: function(bool) {
