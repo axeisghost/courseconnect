@@ -93,3 +93,151 @@
 2015-05-24T21:08:41.301-0700 I STORAGE  [initandlisten] closeAllFiles() finished
 2015-05-24T21:08:41.301-0700 I STORAGE  [initandlisten] shutdown: removing fs lock...
 2015-05-24T21:08:41.301-0700 I CONTROL  [initandlisten] dbexit:  rc: 48
+2015-05-30T10:57:51.442-0700 I CONTROL  ***** SERVER RESTARTED *****
+2015-05-30T10:57:51.468-0700 E NETWORK  [initandlisten] listen(): bind() failed errno:98 Address already in use for socket: 127.0.0.1:27017
+2015-05-30T10:57:51.468-0700 E NETWORK  [initandlisten]   addr already in use
+2015-05-30T10:57:51.474-0700 I JOURNAL  [initandlisten] journal dir=/home/fan/Dropbox/src/courseconnect/courseconnectserver/data/./db/journal
+2015-05-30T10:57:51.474-0700 I JOURNAL  [initandlisten] recover : no journal files present, no recovery needed
+2015-05-30T10:57:51.606-0700 I JOURNAL  [durability] Durability thread started
+2015-05-30T10:57:51.607-0700 I JOURNAL  [journal writer] Journal writer thread started
+2015-05-30T10:57:51.608-0700 I CONTROL  [initandlisten] MongoDB starting : pid=30804 port=27017 dbpath=/home/fan/Dropbox/src/courseconnect/courseconnectserver/data/./db 64-bit host=fan-ThinkPad-T450s
+2015-05-30T10:57:51.608-0700 I CONTROL  [initandlisten] 
+2015-05-30T10:57:51.608-0700 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/enabled is 'always'.
+2015-05-30T10:57:51.608-0700 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2015-05-30T10:57:51.608-0700 I CONTROL  [initandlisten] 
+2015-05-30T10:57:51.608-0700 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/defrag is 'always'.
+2015-05-30T10:57:51.608-0700 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2015-05-30T10:57:51.608-0700 I CONTROL  [initandlisten] 
+2015-05-30T10:57:51.608-0700 I CONTROL  [initandlisten] db version v3.0.3
+2015-05-30T10:57:51.608-0700 I CONTROL  [initandlisten] git version: b40106b36eecd1b4407eb1ad1af6bc60593c6105
+2015-05-30T10:57:51.608-0700 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.1f 6 Jan 2014
+2015-05-30T10:57:51.608-0700 I CONTROL  [initandlisten] build info: Linux ip-10-169-193-181 3.2.0-4-amd64 #1 SMP Debian 3.2.46-1 x86_64 BOOST_LIB_VERSION=1_49
+2015-05-30T10:57:51.608-0700 I CONTROL  [initandlisten] allocator: tcmalloc
+2015-05-30T10:57:51.608-0700 I CONTROL  [initandlisten] options: { config: "mongodb.conf", net: { bindIp: "127.0.0.1", port: 27017 }, processManagement: { fork: false }, storage: { dbPath: "./db", journal: { enabled: true } }, systemLog: { destination: "file", logAppend: true, path: "./log/mongodb.log" } }
+2015-05-30T10:57:51.609-0700 I INDEX    [initandlisten] allocating new ns file /home/fan/Dropbox/src/courseconnect/courseconnectserver/data/./db/local.ns, filling with zeroes...
+2015-05-30T10:57:51.659-0700 I STORAGE  [FileAllocator] allocating new datafile /home/fan/Dropbox/src/courseconnect/courseconnectserver/data/./db/local.0, filling with zeroes...
+2015-05-30T10:57:51.659-0700 I STORAGE  [FileAllocator] creating directory /home/fan/Dropbox/src/courseconnect/courseconnectserver/data/./db/_tmp
+2015-05-30T10:57:51.663-0700 I STORAGE  [FileAllocator] done allocating datafile /home/fan/Dropbox/src/courseconnect/courseconnectserver/data/./db/local.0, size: 64MB,  took 0.001 secs
+2015-05-30T10:57:51.666-0700 I CONTROL  [initandlisten] now exiting
+2015-05-30T10:57:51.666-0700 I NETWORK  [initandlisten] shutdown: going to close listening sockets...
+2015-05-30T10:57:51.666-0700 I NETWORK  [initandlisten] shutdown: going to flush diaglog...
+2015-05-30T10:57:51.666-0700 I NETWORK  [initandlisten] shutdown: going to close sockets...
+2015-05-30T10:57:51.667-0700 I STORAGE  [initandlisten] shutdown: waiting for fs preallocator...
+2015-05-30T10:57:51.667-0700 I STORAGE  [initandlisten] shutdown: final commit...
+2015-05-30T10:57:51.673-0700 I JOURNAL  [initandlisten] journalCleanup...
+2015-05-30T10:57:51.673-0700 I JOURNAL  [initandlisten] removeJournalFiles
+2015-05-30T10:57:51.675-0700 I JOURNAL  [initandlisten] Terminating durability thread ...
+2015-05-30T10:57:51.770-0700 I JOURNAL  [journal writer] Journal writer thread stopped
+2015-05-30T10:57:51.770-0700 I JOURNAL  [durability] Durability thread stopped
+2015-05-30T10:57:51.770-0700 I STORAGE  [initandlisten] shutdown: closing all files...
+2015-05-30T10:57:51.771-0700 I STORAGE  [initandlisten] closeAllFiles() finished
+2015-05-30T10:57:51.771-0700 I STORAGE  [initandlisten] shutdown: removing fs lock...
+2015-05-30T10:57:51.771-0700 I CONTROL  [initandlisten] dbexit:  rc: 48
+2015-05-30T10:59:48.242-0700 I CONTROL  ***** SERVER RESTARTED *****
+2015-05-30T10:59:48.266-0700 E NETWORK  [initandlisten] listen(): bind() failed errno:98 Address already in use for socket: 127.0.0.1:27017
+2015-05-30T10:59:48.266-0700 E NETWORK  [initandlisten]   addr already in use
+2015-05-30T10:59:48.270-0700 I JOURNAL  [initandlisten] journal dir=/home/fan/Dropbox/src/courseconnect/courseconnectserver/data/./db/journal
+2015-05-30T10:59:48.270-0700 I JOURNAL  [initandlisten] recover : no journal files present, no recovery needed
+2015-05-30T10:59:48.400-0700 I JOURNAL  [durability] Durability thread started
+2015-05-30T10:59:48.400-0700 I JOURNAL  [journal writer] Journal writer thread started
+2015-05-30T10:59:48.403-0700 I CONTROL  [initandlisten] MongoDB starting : pid=30894 port=27017 dbpath=/home/fan/Dropbox/src/courseconnect/courseconnectserver/data/./db 64-bit host=fan-ThinkPad-T450s
+2015-05-30T10:59:48.403-0700 I CONTROL  [initandlisten] 
+2015-05-30T10:59:48.403-0700 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/enabled is 'always'.
+2015-05-30T10:59:48.403-0700 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2015-05-30T10:59:48.403-0700 I CONTROL  [initandlisten] 
+2015-05-30T10:59:48.403-0700 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/defrag is 'always'.
+2015-05-30T10:59:48.403-0700 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2015-05-30T10:59:48.403-0700 I CONTROL  [initandlisten] 
+2015-05-30T10:59:48.403-0700 I CONTROL  [initandlisten] db version v3.0.3
+2015-05-30T10:59:48.403-0700 I CONTROL  [initandlisten] git version: b40106b36eecd1b4407eb1ad1af6bc60593c6105
+2015-05-30T10:59:48.403-0700 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.1f 6 Jan 2014
+2015-05-30T10:59:48.403-0700 I CONTROL  [initandlisten] build info: Linux ip-10-169-193-181 3.2.0-4-amd64 #1 SMP Debian 3.2.46-1 x86_64 BOOST_LIB_VERSION=1_49
+2015-05-30T10:59:48.403-0700 I CONTROL  [initandlisten] allocator: tcmalloc
+2015-05-30T10:59:48.403-0700 I CONTROL  [initandlisten] options: { config: "mongodb.conf", net: { bindIp: "127.0.0.1", port: 27017 }, processManagement: { fork: false }, storage: { dbPath: "./db", journal: { enabled: true } }, systemLog: { destination: "file", logAppend: true, path: "./log/mongodb.log" } }
+2015-05-30T10:59:48.406-0700 I CONTROL  [initandlisten] now exiting
+2015-05-30T10:59:48.406-0700 I NETWORK  [initandlisten] shutdown: going to close listening sockets...
+2015-05-30T10:59:48.407-0700 I NETWORK  [initandlisten] shutdown: going to flush diaglog...
+2015-05-30T10:59:48.407-0700 I NETWORK  [initandlisten] shutdown: going to close sockets...
+2015-05-30T10:59:48.407-0700 I STORAGE  [initandlisten] shutdown: waiting for fs preallocator...
+2015-05-30T10:59:48.407-0700 I STORAGE  [initandlisten] shutdown: final commit...
+2015-05-30T10:59:48.410-0700 I JOURNAL  [initandlisten] journalCleanup...
+2015-05-30T10:59:48.410-0700 I JOURNAL  [initandlisten] removeJournalFiles
+2015-05-30T10:59:48.412-0700 I JOURNAL  [initandlisten] Terminating durability thread ...
+2015-05-30T10:59:48.509-0700 I JOURNAL  [journal writer] Journal writer thread stopped
+2015-05-30T10:59:48.509-0700 I JOURNAL  [durability] Durability thread stopped
+2015-05-30T10:59:48.509-0700 I STORAGE  [initandlisten] shutdown: closing all files...
+2015-05-30T10:59:48.510-0700 I STORAGE  [initandlisten] closeAllFiles() finished
+2015-05-30T10:59:48.510-0700 I STORAGE  [initandlisten] shutdown: removing fs lock...
+2015-05-30T10:59:48.510-0700 I CONTROL  [initandlisten] dbexit:  rc: 48
+2015-05-30T11:00:00.596-0700 I CONTROL  ***** SERVER RESTARTED *****
+2015-05-30T11:00:00.621-0700 E NETWORK  [initandlisten] listen(): bind() failed errno:98 Address already in use for socket: 127.0.0.1:27017
+2015-05-30T11:00:00.621-0700 E NETWORK  [initandlisten]   addr already in use
+2015-05-30T11:00:00.624-0700 I JOURNAL  [initandlisten] journal dir=/home/fan/Dropbox/src/courseconnect/courseconnectserver/data/./db/journal
+2015-05-30T11:00:00.624-0700 I JOURNAL  [initandlisten] recover : no journal files present, no recovery needed
+2015-05-30T11:00:00.761-0700 I JOURNAL  [durability] Durability thread started
+2015-05-30T11:00:00.761-0700 I JOURNAL  [journal writer] Journal writer thread started
+2015-05-30T11:00:00.764-0700 I CONTROL  [initandlisten] MongoDB starting : pid=30932 port=27017 dbpath=/home/fan/Dropbox/src/courseconnect/courseconnectserver/data/./db 64-bit host=fan-ThinkPad-T450s
+2015-05-30T11:00:00.764-0700 I CONTROL  [initandlisten] 
+2015-05-30T11:00:00.764-0700 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/enabled is 'always'.
+2015-05-30T11:00:00.764-0700 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2015-05-30T11:00:00.764-0700 I CONTROL  [initandlisten] 
+2015-05-30T11:00:00.764-0700 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/defrag is 'always'.
+2015-05-30T11:00:00.764-0700 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2015-05-30T11:00:00.764-0700 I CONTROL  [initandlisten] 
+2015-05-30T11:00:00.764-0700 I CONTROL  [initandlisten] db version v3.0.3
+2015-05-30T11:00:00.764-0700 I CONTROL  [initandlisten] git version: b40106b36eecd1b4407eb1ad1af6bc60593c6105
+2015-05-30T11:00:00.764-0700 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.1f 6 Jan 2014
+2015-05-30T11:00:00.764-0700 I CONTROL  [initandlisten] build info: Linux ip-10-169-193-181 3.2.0-4-amd64 #1 SMP Debian 3.2.46-1 x86_64 BOOST_LIB_VERSION=1_49
+2015-05-30T11:00:00.764-0700 I CONTROL  [initandlisten] allocator: tcmalloc
+2015-05-30T11:00:00.764-0700 I CONTROL  [initandlisten] options: { config: "mongodb.conf", net: { bindIp: "127.0.0.1", port: 27017 }, processManagement: { fork: true }, storage: { dbPath: "./db", journal: { enabled: true } }, systemLog: { destination: "file", logAppend: true, path: "./log/mongodb.log" } }
+2015-05-30T11:00:00.769-0700 I CONTROL  [initandlisten] now exiting
+2015-05-30T11:00:00.769-0700 I NETWORK  [initandlisten] shutdown: going to close listening sockets...
+2015-05-30T11:00:00.769-0700 I NETWORK  [initandlisten] shutdown: going to flush diaglog...
+2015-05-30T11:00:00.769-0700 I NETWORK  [initandlisten] shutdown: going to close sockets...
+2015-05-30T11:00:00.769-0700 I STORAGE  [initandlisten] shutdown: waiting for fs preallocator...
+2015-05-30T11:00:00.769-0700 I STORAGE  [initandlisten] shutdown: final commit...
+2015-05-30T11:00:00.773-0700 I JOURNAL  [initandlisten] journalCleanup...
+2015-05-30T11:00:00.773-0700 I JOURNAL  [initandlisten] removeJournalFiles
+2015-05-30T11:00:00.778-0700 I JOURNAL  [initandlisten] Terminating durability thread ...
+2015-05-30T11:00:00.871-0700 I JOURNAL  [journal writer] Journal writer thread stopped
+2015-05-30T11:00:00.871-0700 I JOURNAL  [durability] Durability thread stopped
+2015-05-30T11:00:00.872-0700 I STORAGE  [initandlisten] shutdown: closing all files...
+2015-05-30T11:00:00.872-0700 I STORAGE  [initandlisten] closeAllFiles() finished
+2015-05-30T11:00:00.872-0700 I STORAGE  [initandlisten] shutdown: removing fs lock...
+2015-05-30T11:00:00.872-0700 I CONTROL  [initandlisten] dbexit:  rc: 48
+2015-05-30T11:00:17.239-0700 I CONTROL  ***** SERVER RESTARTED *****
+2015-05-30T11:00:17.263-0700 E NETWORK  [initandlisten] listen(): bind() failed errno:98 Address already in use for socket: 127.0.0.1:27017
+2015-05-30T11:00:17.263-0700 E NETWORK  [initandlisten]   addr already in use
+2015-05-30T11:00:17.267-0700 I JOURNAL  [initandlisten] journal dir=/home/fan/Dropbox/src/courseconnect/courseconnectserver/data/./db/journal
+2015-05-30T11:00:17.268-0700 I JOURNAL  [initandlisten] recover : no journal files present, no recovery needed
+2015-05-30T11:00:17.399-0700 I JOURNAL  [durability] Durability thread started
+2015-05-30T11:00:17.399-0700 I JOURNAL  [journal writer] Journal writer thread started
+2015-05-30T11:00:17.402-0700 I CONTROL  [initandlisten] MongoDB starting : pid=30956 port=27017 dbpath=/home/fan/Dropbox/src/courseconnect/courseconnectserver/data/./db 64-bit host=fan-ThinkPad-T450s
+2015-05-30T11:00:17.402-0700 I CONTROL  [initandlisten] 
+2015-05-30T11:00:17.402-0700 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/enabled is 'always'.
+2015-05-30T11:00:17.402-0700 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2015-05-30T11:00:17.402-0700 I CONTROL  [initandlisten] 
+2015-05-30T11:00:17.402-0700 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/defrag is 'always'.
+2015-05-30T11:00:17.402-0700 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2015-05-30T11:00:17.402-0700 I CONTROL  [initandlisten] 
+2015-05-30T11:00:17.402-0700 I CONTROL  [initandlisten] db version v3.0.3
+2015-05-30T11:00:17.402-0700 I CONTROL  [initandlisten] git version: b40106b36eecd1b4407eb1ad1af6bc60593c6105
+2015-05-30T11:00:17.402-0700 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.1f 6 Jan 2014
+2015-05-30T11:00:17.402-0700 I CONTROL  [initandlisten] build info: Linux ip-10-169-193-181 3.2.0-4-amd64 #1 SMP Debian 3.2.46-1 x86_64 BOOST_LIB_VERSION=1_49
+2015-05-30T11:00:17.402-0700 I CONTROL  [initandlisten] allocator: tcmalloc
+2015-05-30T11:00:17.402-0700 I CONTROL  [initandlisten] options: { config: "mongodb.conf", net: { bindIp: "127.0.0.1", port: 27017 }, processManagement: { fork: true }, storage: { dbPath: "./db", journal: { enabled: true } }, systemLog: { destination: "file", logAppend: true, path: "./log/mongodb.log" } }
+2015-05-30T11:00:17.406-0700 I CONTROL  [initandlisten] now exiting
+2015-05-30T11:00:17.408-0700 I NETWORK  [initandlisten] shutdown: going to close listening sockets...
+2015-05-30T11:00:17.408-0700 I NETWORK  [initandlisten] shutdown: going to flush diaglog...
+2015-05-30T11:00:17.408-0700 I NETWORK  [initandlisten] shutdown: going to close sockets...
+2015-05-30T11:00:17.408-0700 I STORAGE  [initandlisten] shutdown: waiting for fs preallocator...
+2015-05-30T11:00:17.408-0700 I STORAGE  [initandlisten] shutdown: final commit...
+2015-05-30T11:00:17.414-0700 I JOURNAL  [initandlisten] journalCleanup...
+2015-05-30T11:00:17.414-0700 I JOURNAL  [initandlisten] removeJournalFiles
+2015-05-30T11:00:17.416-0700 I JOURNAL  [initandlisten] Terminating durability thread ...
+2015-05-30T11:00:17.511-0700 I JOURNAL  [journal writer] Journal writer thread stopped
+2015-05-30T11:00:17.512-0700 I JOURNAL  [durability] Durability thread stopped
+2015-05-30T11:00:17.512-0700 I STORAGE  [initandlisten] shutdown: closing all files...
+2015-05-30T11:00:17.512-0700 I STORAGE  [initandlisten] closeAllFiles() finished
+2015-05-30T11:00:17.512-0700 I STORAGE  [initandlisten] shutdown: removing fs lock...
+2015-05-30T11:00:17.512-0700 I CONTROL  [initandlisten] dbexit:  rc: 48
