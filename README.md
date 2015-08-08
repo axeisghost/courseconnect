@@ -7,8 +7,9 @@
 #### Run server
 
 We use Express.js for our server. Express.js is a particular framework for Node.js, which provides a robust set of features for web and mobile applications.
+For front end, we use Angular.js, a powerful framwork using the concept of [MVVM](https://en.wikipedia.org/wiki/Model_View_ViewModel) that can simplify our front end code and save us tremendous amount of time in development and testing.
 
-To run our server in Express.js, you will need to do the following:
+To run our server in Express.js, you will need to do the followings:
 
 1. Install [Node.js](https://nodejs.org/download/).
 2. Install NodeMonitor, which will retart the server whenever it detects a change of related files.
