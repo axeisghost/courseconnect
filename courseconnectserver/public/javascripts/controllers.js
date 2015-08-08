@@ -3,12 +3,15 @@
 var app = angular.module('courseconnect.controllers', ['ui.calendar']);
 app.controller('calendarController', function($scope) {
     /* config object */
+    $scope.eventSource = {
+      url: "/user_schedule",
+    };
     $scope.uiConfig = {
       calendar:{
         header: {
             left: 'prev,next today',
             center: 'title',
-            right: 'agendaWeek agendaDay'
+            right: 'agendaWeek agendaDay month'
         },
         minTime: "08:00:00",
         maxTime: "22:00:00",
@@ -20,5 +23,5 @@ app.controller('calendarController', function($scope) {
         eventLimit: true
       }
     };
-    $scope.eventSources = [];
+    
 });

@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var json_agenda = require('./routes/json_agenda');
+var user_schedule = require('./routes/user_schedule');
 
 var app = express();
 
@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'lib')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/json_agenda', json_agenda);
+app.use('/user_schedule', user_schedule);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
