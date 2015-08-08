@@ -1,49 +1,58 @@
 <!DOCTYPE html>
 <html ng-app="courseconnect">
-    <head>
-        <meta charset='utf-8' />
-        <link rel="stylesheet" href="javascripts/lib/bower_components/fullcalendar/dist/fullcalendar.css"/>
-        <link rel="stylesheet" href="javascripts/lib/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
-        <link rel="stylesheet" href="javascripts/lib/bower_components/bootstrap/dist/css/bootstrap-theme.min.css"/>
-        <!-- jquery, moment, and angular have to get included before fullcalendar -->
-        <script type="text/javascript" src="javascripts/lib/bower_components/jquery/dist/jquery.min.js"></script>
-        <script type="text/javascript" src="javascripts/lib/bower_components/moment/min/moment.min.js"></script>
-        <script type="text/javascript" src="javascripts/lib/bower_components/angular/angular.min.js"></script>
-        <script type="text/javascript" src="javascripts/lib/bower_components/angular-ui-calendar/src/calendar.js"></script>
-        <script type="text/javascript" src="javascripts/lib/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
-        <script type="text/javascript" src="javascripts/lib/bower_components/fullcalendar/dist/gcal.js"></script>
-        <script type="text/javascript" src="javascripts/lib/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="javascripts/app.js"></script>
-        <script src="javascripts/controllers.js"></script>
-        <script src="javascripts/services.js"></script>
-        <link rel="stylesheet" type="text/css" href="stylesheets/index.css"/>
-    </head>
-    <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Course Connect</a>
-                </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <div class="mainBody">
-            <div ng-controller="calendarController">
-                <div id="calendar" ui-calendar="uiConfig.calendar" ng-model='eventSource'></div>
-            </div>
-            <div></div>
+  <head>
+    <meta charset='utf-8' />
+    <link rel="stylesheet" href="javascripts/lib/bower_components/fullcalendar/dist/fullcalendar.css"/>
+    <link rel="stylesheet" href="javascripts/lib/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="javascripts/lib/bower_components/bootstrap/dist/css/bootstrap-theme.min.css"/>
+    <!-- jquery, moment, and angular have to get included before fullcalendar -->
+    <script type="text/javascript" src="javascripts/lib/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/lib/bower_components/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="javascripts/lib/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="javascripts/lib/bower_components/angular-ui-calendar/src/calendar.js"></script>
+    <script type="text/javascript" src="javascripts/lib/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="javascripts/lib/bower_components/fullcalendar/dist/gcal.js"></script>
+    <script type="text/javascript" src="javascripts/lib/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="javascripts/app.js"></script>
+    <script src="javascripts/controllers.js"></script>
+    <script src="javascripts/services.js"></script>
+    <link rel="stylesheet" type="text/css" href="stylesheets/index.css"/>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Course Connect</a>
         </div>
-    </body>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div ng-controller="calendarController">
+      <div id='displayPanel'>
+        <div id="calendar" ui-calendar="uiConfig.calendar" ng-model='eventSource'></div>
+      </div>
+      <div id='controlPanel' ng-controller="controlPanelController">
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="{{currentMode=='Schedule'?'active':''}}" ng-click="currentMode='Schedule'"><a>Schedules</a></li>
+          <li role="presentation" class="{{currentMode=='Friends'?'active':''}}" ng-click="currentMode='Friends'"><a>Friends</a></li>
+        </ul>
+        <div ng-switch on="currentMode">
+          <div class="animate-switch" ng-switch-when="Schedule">This will be Class scheduling tab</div>
+          <div class="animate-switch" ng-switch-when="Friends">This will be Friends tab</div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

@@ -5,7 +5,16 @@ body {
     font-size: 14px;
 }
 
-#calendar {
-    max-width: 900px;
-    margin: 100px auto;
+#displayPanel {
+    position: absolute;
+    max-width: 50%;
+    margin-top: 100px;
+    left: 15%;
+}
+
+#controlPanel {
+    position: absolute;
+    margin-top: 100px;
+    left: 70%;
+    max-width: 15%;
 }

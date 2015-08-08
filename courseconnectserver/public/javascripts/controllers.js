@@ -25,3 +25,8 @@ app.controller('calendarController', function($scope) {
     };
     
 });
+
+app.controller('controlPanelController', ['$scope', function($scope) {
+    $scope.operationModes = ['Schedule', 'Friends'];
+    $scope.currentMode = $scope.operationModes[0];
+}]);

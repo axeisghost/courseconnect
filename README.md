@@ -1,16 +1,17 @@
-# courseconnect
+# Course Connect
 
 ## Junior Design Project
 
+###Intro
+
 We use Express.js for our server. Express.js is a particular framework for Node.js, which provides a robust set of features for web and mobile applications.
 
-For front end, we use Angular.js, a powerful framwork using [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) and [MVVM](https://en.wikipedia.org/wiki/Model_View_ViewModel) architectures that can simplify our front end code and save us tremendous amount of time in development and testing.
+For front end, we use Angular.js, a powerful framwork using [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) and [MVVM](https://en.wikipedia.org/wiki/Model_View_ViewModel) architectures that simplify our front end code and save us tremendous amount of time in development and testing.
 
 ### How do I get started?
 
 #### Useful tutorials:
 [Angular js Developer Guide](https://docs.angularjs.org/guide/introduction)
-
 
 #### Run server
 
