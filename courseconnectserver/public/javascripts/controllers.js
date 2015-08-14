@@ -11,7 +11,7 @@ app.controller('calendarController', function($scope) {
         header: {
             left: 'prev,next today',
             center: 'title',
-            right: 'agendaWeek agendaDay month'
+            right: 'agendaWeek agendaDay'
         },
         minTime: "08:00:00",
         maxTime: "22:00:00",
@@ -26,7 +26,23 @@ app.controller('calendarController', function($scope) {
     
 });
 
-app.controller('controlPanelController', ['$scope', function($scope) {
+app.controller('controlPanelTab', ['$scope', function($scope) {
     $scope.operationModes = ['Schedule', 'Friends'];
     $scope.currentMode = $scope.operationModes[0];
+}]);
+
+app.controller('majorSelectionPanel', ['$scope', '$http', 
+    'getCourseoffQueryUrl', function($scope, $http, getCourseoffQueryUrl){
+    $scope.selectedCollege = 'gatech';
+    $scope.selectedTerm = '201508';
+    $scope.currentUrl = getCourseoffQueryUrl($scope);
+    $http.get($scope.currentUrl).then(
+        function(response) {
+        // this callback will be called asynchronously
+        // when the response is available
+            $scope.majors = response.data;
+        }, function(response) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+        });
 }]);

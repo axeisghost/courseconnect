@@ -7,14 +7,23 @@ body {
 
 #displayPanel {
     position: absolute;
-    max-width: 50%;
+    max-width: 40%;
     margin-top: 100px;
-    left: 15%;
+    left: 25%;
 }
 
 #controlPanel {
     position: absolute;
     margin-top: 100px;
-    left: 70%;
+    left: 68%;
     max-width: 15%;
+}
+
+a, u {
+    text-decoration: none;
+}
+
+.list-group{
+    max-height: 200px;
+    overflow-y:scroll; 
 }

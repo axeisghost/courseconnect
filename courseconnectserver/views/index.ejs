@@ -16,6 +16,7 @@
     <script src="javascripts/app.js"></script>
     <script src="javascripts/controllers.js"></script>
     <script src="javascripts/services.js"></script>
+    <script src="javascripts/directives.js"></script>
     <link rel="stylesheet" type="text/css" href="stylesheets/index.css"/>
   </head>
   <body>
@@ -40,19 +41,26 @@
       </div>
     </nav>
     <div ng-controller="calendarController">
+
       <div id='displayPanel'>
         <div id="calendar" ui-calendar="uiConfig.calendar" ng-model='eventSource'></div>
       </div>
-      <div id='controlPanel' ng-controller="controlPanelController">
+
+      <div id='controlPanel' ng-controller="controlPanelTab">
         <ul class="nav nav-tabs" role="tablist">
           <li role="presentation" class="{{currentMode=='Schedule'?'active':''}}" ng-click="currentMode='Schedule'"><a>Schedules</a></li>
           <li role="presentation" class="{{currentMode=='Friends'?'active':''}}" ng-click="currentMode='Friends'"><a>Friends</a></li>
         </ul>
         <div ng-switch on="currentMode">
-          <div class="animate-switch" ng-switch-when="Schedule">This will be Class scheduling tab</div>
+          <div class="animate-switch" ng-switch-when="Schedule">
+            <div ng-controller="majorSelectionPanel">
+              <major-selection-panel/>
+            </div>
+          </div>
           <div class="animate-switch" ng-switch-when="Friends">This will be Friends tab</div>
         </div>
       </div>
+
     </div>
   </body>
 </html>
