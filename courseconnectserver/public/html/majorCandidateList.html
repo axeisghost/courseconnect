@@ -1,0 +1,16 @@
+<div ng-repeat="major in majorCandidates" ng-controller="majorCandidate" ng-init="selectedMajor=major.ident"> 
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <div class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#{{major.ident}}">{{major.ident}} - {{major.name}}</a>
+      </div>
+    </div>
+    <div id="{{major.ident}}" class="panel-info collapse in">
+      <div class="list-group" >
+        <div class="list-group-item animate-repeat" ng-repeat="course in courses">
+          <major-candidate-course-item/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -31,11 +31,25 @@ app.controller('controlPanelTab', ['$scope', function($scope) {
     $scope.currentMode = $scope.operationModes[0];
 }]);
 
-app.controller('majorSelectionPanel', ['$scope', '$http', 
+app.controller('courseSelectionPanel', ['$scope', '$http', 
     'getCourseoffQueryUrl', function($scope, $http, getCourseoffQueryUrl){
     $scope.selectedCollege = 'gatech';
     $scope.selectedTerm = '201508';
     $scope.currentUrl = getCourseoffQueryUrl($scope);
+    $scope.majorCandidates = [];
+    $scope.courseCandidates = [];
+    // $scope.addCourseCandidates = function(major){
+    //     $scope.majorCandidates.push()
+    //     $scope.selectedMajor = major.ident;
+    //     $http.get(getCourseoffQueryUrl($scope)).then(
+    //         function(response) {
+    //             $scope.majorCandidates.push({
+    //                 "major" : major,
+    //                 "courses" : response.data,
+    //             });
+    //         });
+    //     $scope.selectedMajor = null;
+    // };
     $http.get($scope.currentUrl).then(
         function(response) {
         // this callback will be called asynchronously
@@ -44,5 +58,22 @@ app.controller('majorSelectionPanel', ['$scope', '$http',
         }, function(response) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
+        });
+
+    
+}]);
+
+app.controller('majorCandidate', ['$scope', '$http', 
+    'getCourseoffQueryUrl', function($scope, $http, getCourseoffQueryUrl){
+        $scope.$watch("selectedMajor",function(){
+            $http.get(getCourseoffQueryUrl($scope)).then(
+            function(response) {
+            // this callback will be called asynchronously
+            // when the response is available
+                $scope.courses = response.data;
+            }, function(response) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            });
         });
 }]);

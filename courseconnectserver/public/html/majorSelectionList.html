@@ -1,0 +1,14 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <div class="panel-title">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapse">Select Major</a>
+    </div>
+  </div>
+  <div id="collapse" class="panel-primary collapse in">
+    <div class="list-group">
+      <div class="list-group-item animate-repeat" ng-repeat="major in majors">
+        <major-Selection-Item/>
+      </div>
+    </div>
+  </div>
+</div>

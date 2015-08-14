@@ -51,10 +51,13 @@
           <li role="presentation" class="{{currentMode=='Schedule'?'active':''}}" ng-click="currentMode='Schedule'"><a>Schedules</a></li>
           <li role="presentation" class="{{currentMode=='Friends'?'active':''}}" ng-click="currentMode='Friends'"><a>Friends</a></li>
         </ul>
+
         <div ng-switch on="currentMode">
+          <div class="placeholder" style="height:10px"></div>
           <div class="animate-switch" ng-switch-when="Schedule">
-            <div ng-controller="majorSelectionPanel">
-              <major-selection-panel/>
+            <div ng-controller="courseSelectionPanel">
+              <major-selection-panel></major-selection-panel>
+              <major-candidate-list></major-candidate-list>
             </div>
           </div>
           <div class="animate-switch" ng-switch-when="Friends">This will be Friends tab</div>
