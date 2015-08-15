@@ -37,19 +37,6 @@ app.controller('courseSelectionPanel', ['$scope', '$http',
     $scope.selectedTerm = '201508';
     $scope.currentUrl = getCourseoffQueryUrl($scope);
     $scope.majorCandidates = [];
-    $scope.courseCandidates = [];
-    // $scope.addCourseCandidates = function(major){
-    //     $scope.majorCandidates.push()
-    //     $scope.selectedMajor = major.ident;
-    //     $http.get(getCourseoffQueryUrl($scope)).then(
-    //         function(response) {
-    //             $scope.majorCandidates.push({
-    //                 "major" : major,
-    //                 "courses" : response.data,
-    //             });
-    //         });
-    //     $scope.selectedMajor = null;
-    // };
     $http.get($scope.currentUrl).then(
         function(response) {
         // this callback will be called asynchronously
@@ -65,12 +52,28 @@ app.controller('courseSelectionPanel', ['$scope', '$http',
 
 app.controller('majorCandidate', ['$scope', '$http', 
     'getCourseoffQueryUrl', function($scope, $http, getCourseoffQueryUrl){
+        $scope.courseCandidates = [];
         $scope.$watch("selectedMajor",function(){
             $http.get(getCourseoffQueryUrl($scope)).then(
             function(response) {
             // this callback will be called asynchronously
             // when the response is available
                 $scope.courses = response.data;
+            }, function(response) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            });
+        });
+}]);
+
+app.controller('courseCandidate', ['$scope', '$http', 
+    'getCourseoffQueryUrl', function($scope, $http, getCourseoffQueryUrl){
+        $scope.$watch("selectedCourse",function(){
+            $http.get(getCourseoffQueryUrl($scope)).then(
+            function(response) {
+            // this callback will be called asynchronously
+            // when the response is available
+                $scope.sections = response.data;
             }, function(response) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.

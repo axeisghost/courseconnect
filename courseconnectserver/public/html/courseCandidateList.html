@@ -1,0 +1,16 @@
+<div ng-repeat="course in courseCandidates" ng-controller="courseCandidate" ng-init="selectedCourse=course.ident">
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <div class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#{{course.ident}}">{{course.ident}} - {{course.name}}</a>
+      </div>
+    </div>
+    <div id="{{course.ident}}" class="panel-success collapse in">
+      <div class="list-group" >
+        <div class="list-group-item animate-repeat" ng-repeat="section in sections">
+          <course-candidate-section-item></course-candidate-section-item>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

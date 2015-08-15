@@ -9,14 +9,14 @@ body {
     position: absolute;
     max-width: 40%;
     margin-top: 100px;
-    left: 25%;
+    left: 20%;
 }
 
 #controlPanel {
     position: absolute;
     margin-top: 100px;
-    left: 68%;
-    max-width: 15%;
+    left: 63%;
+    max-width: 20%;
 }
 
 

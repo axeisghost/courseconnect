@@ -29,3 +29,17 @@ app.directive('majorCandidateCourseItem', function(){
         templateUrl: 'html/majorCandidateCourseItem.html'
     }
 });
+
+app.directive('courseCandidateList', function(){
+    return {
+        restrict: 'E',
+        templateUrl: 'html/courseCandidateList.html'
+    }
+});
+
+app.directive('courseCandidateSectionItem', function(){
+    return {
+        restrict: 'E',
+        templateUrl: 'html/courseCandidateSectionItem.html'
+    }
+});
