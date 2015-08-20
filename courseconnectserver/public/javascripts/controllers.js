@@ -35,9 +35,8 @@ app.controller('courseSelectionPanel', ['$scope', '$http',
     'getCourseoffQueryUrl', function($scope, $http, getCourseoffQueryUrl){
     $scope.selectedCollege = 'gatech';
     $scope.selectedTerm = '201508';
-    $scope.currentUrl = getCourseoffQueryUrl($scope);
     $scope.majorCandidates = [];
-    $http.get($scope.currentUrl).then(
+    $http.get(getCourseoffQueryUrl($scope)).then(
         function(response) {
         // this callback will be called asynchronously
         // when the response is available
@@ -46,8 +45,6 @@ app.controller('courseSelectionPanel', ['$scope', '$http',
         // called asynchronously if an error occurs
         // or server returns response with an error status.
         });
-
-    
 }]);
 
 app.controller('majorCandidate', ['$scope', '$http', 
@@ -71,12 +68,24 @@ app.controller('courseCandidate', ['$scope', '$http',
         $scope.$watch("selectedCourse",function(){
             $http.get(getCourseoffQueryUrl($scope)).then(
             function(response) {
-            // this callback will be called asynchronously
-            // when the response is available
-                $scope.sections = response.data;
+                var sections = response.data;
+                $scope.instructors = [];
+                for (var i = 0; i < sections.length; i++) {
+                    var exist = false;
+                    for(var j in $scope.instructors){
+                        if(JSON.stringify(sections[i].instructor)===JSON.stringify($scope.instructors[j].instructorInfo)){
+                            $scope.instructors[j].sections.push(sections[i]);
+                            exist = true;
+                            break;
+                        }
+                    }
+                    if(!exist){
+                        var newInstructor = {"instructorInfo" : sections[i].instructor,
+                            "sections" : [sections[i]]};
+                        $scope.instructors.push(newInstructor);
+                    }
+                };
             }, function(response) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
             });
         });
 }]);

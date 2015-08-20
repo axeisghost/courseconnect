@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-    font-size: 14px;
+    /*font-size: 14px;*/
 }
 
 #displayPanel {
@@ -16,12 +16,41 @@ body {
     position: absolute;
     margin-top: 100px;
     left: 63%;
-    max-width: 20%;
+    min-width: 22%;
+    overflow-y: scroll;
 }
 
+/*.panel{
+    max-height: 30px;
+}
+*/
 
+
+.panel-heading{
+    max-height: 34px;
+}
+
+.panel-title{
+    min-height: 15px;
+    max-height: 15px;
+}
+
+/*.list-item{
+    max-height: 20px;
+}*/
+
+.list-item:hover {
+    cursor: pointer;
+    background-color: #E8E8E8;
+}
+
+.panel-heading:hover {
+    cursor: pointer;
+    background-color: #E8E8E8;
+}
 
 .list-group{
     max-height: 300px;
     overflow-y:scroll; 
 }
+
