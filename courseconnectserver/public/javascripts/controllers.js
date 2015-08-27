@@ -88,4 +88,7 @@ app.controller('courseCandidate', ['$scope', '$http',
             }, function(response) {
             });
         });
+        $scope.sectionAvailable = function(){
+            return $scope.instructors.length == 0;
+        };
 }]);

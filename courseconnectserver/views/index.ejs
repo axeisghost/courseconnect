@@ -4,7 +4,6 @@
     <meta charset='utf-8' />
     <link rel="stylesheet" href="javascripts/lib/bower_components/fullcalendar/dist/fullcalendar.css"/>
     <link rel="stylesheet" href="javascripts/lib/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="javascripts/lib/bower_components/bootstrap/dist/css/bootstrap-theme.min.css"/>
     <!-- jquery, moment, and angular have to get included before fullcalendar -->
     <script type="text/javascript" src="javascripts/lib/bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="javascripts/lib/bower_components/moment/min/moment.min.js"></script>
@@ -52,18 +51,15 @@
           <li role="presentation" class="{{currentMode=='Friends'?'active':''}}" ng-click="currentMode='Friends'"><a>Friends</a></li>
         </ul>
 
-        <div ng-switch on="currentMode">
-          <div class="placeholder" style="height:10px"></div>
-          <div class="animate-switch" ng-switch-when="Schedule">
-            <div ng-controller="courseSelectionPanel">
-              <major-selection-panel></major-selection-panel>
-              <major-candidate-list></major-candidate-list>
-            </div>
+        <div class="placeholder" style="height:10px"></div>
+        <div class="animate-switch" ng-show="currentMode=='Schedule'">
+          <div ng-controller="courseSelectionPanel">
+            <major-selection-panel></major-selection-panel>
+            <major-candidate-list></major-candidate-list>
           </div>
-          <div class="animate-switch" ng-switch-when="Friends">This will be Friends tab</div>
         </div>
+        <div class="animate-switch" ng-show="currentMode=='Friends'">This will be Friends tab</div>
       </div>
-
     </div>
   </body>
 </html>

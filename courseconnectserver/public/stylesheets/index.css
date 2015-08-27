@@ -16,8 +16,9 @@ body {
     position: absolute;
     margin-top: 100px;
     left: 63%;
-    min-width: 22%;
-    overflow-y: scroll;
+    min-width: 20%;
+    max-height: 80%;
+    overflow-y: auto;
 }
 
 /*.panel{
@@ -46,11 +47,14 @@ body {
 
 .panel-heading:hover {
     cursor: pointer;
-    background-color: #E8E8E8;
 }
 
 .list-group{
     max-height: 300px;
-    overflow-y:scroll; 
+    overflow-y:auto; 
 }
 
+.not-available{
+    text-align: center;
+    color: #aaa;
+}
