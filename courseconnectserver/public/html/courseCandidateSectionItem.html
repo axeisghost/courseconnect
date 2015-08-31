@@ -1,8 +1,8 @@
 <div>
   <h5>{{instructor.instructorInfo.fname}}{{instructor.instructorInfo.lname}}</h5>
   <div>
-    <div class="list-group-item list-item" ng-repeat="section in instructor.sections">
-      <major-candidate-course-item/>
+    <div ng-click="toggleSection(instructor.sections[0],course)" class="list-group-item list-item" ng-repeat="section in instructor.sections">
+      <section-item/>
     </div>
   </div>
 </div>

@@ -43,3 +43,10 @@ app.directive('courseCandidateSectionItem', function(){
         templateUrl: 'html/courseCandidateSectionItem.html'
     }
 });
+
+app.directive('sectionItem', function(){
+    return {
+        restrict: 'E',
+        templateUrl: 'html/sectionItem.html'
+    }
+});

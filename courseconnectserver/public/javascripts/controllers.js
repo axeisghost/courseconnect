@@ -3,9 +3,60 @@
 var app = angular.module('courseconnect.controllers', ['ui.calendar']);
 app.controller('calendarController', function($scope) {
     /* config object */
+    /*
     $scope.eventSource = {
       url: "/user_schedule",
+    };*/
+    $scope.eventSource = [];
+    $scope.selectedSectionIDs = [];
+    $scope.curCourse;
+    /*
+    var json_conversion = function(section){
+        var weekdays = {
+            'M',
+            'T',
+            'W',
+            'R',
+            'F'
+        };
+        var ui_form = [];
+        for(var i = 0; i < section.timeslots.length; i++){
+            ui_form[i].title = $scope.curCourse.name;
+            ui_form[i].start = section.timeslots.start_time;
+            ui_form[i].end = section.timeslots.end_time;
+            ui_form.[i].dow = weekdays.indexOf(section.timeslots.day);
+        }
+        return ui_form;
+    }
+
+    var addSection = function(section){
+        $scope.eventSource.push(json_conversion(section));
+        selectedSectionIDs[section._id] = true;
     };
+
+    var removeSection = function(section){
+        var index = $scope.eventSource.indexOf(json_conversion(section));
+        $scope.eventSource.splice(index,1);
+        selectedSectionIDs[section._id] = false;
+    };
+    */
+    $scope.toggleSection = function(section,course){
+        $scope.curCourse = course;
+        if($scope.isSelected(section)) {
+            removeSection(section);
+        } else {
+            addSection(section);
+        }
+    };
+
+    $scope.isSelected = function(section){
+        if($scope.selectedSectionIDs[section._id]){
+            return true;
+        } else {
+            return false;
+        }
+    };
+
     $scope.uiConfig = {
       calendar:{
         header: {
@@ -23,6 +74,7 @@ app.controller('calendarController', function($scope) {
         eventLimit: true
       }
     };
+
     
 });
 
