@@ -8,9 +8,9 @@ app.controller('calendarController', function($scope) {
     //   url: "/user_schedule",
     // };
     
-    
+    $scope.count=0;
     $scope.eventSource = [];
-    $scope.selectedSectionIDs = [];
+    $scope.selectedSectionIDs = {};
     $scope.curCourse;
     
     var json_conversion = function(section){
@@ -28,37 +28,35 @@ app.controller('calendarController', function($scope) {
             ui_form[i]['start'] = startDate.toISOString();
             ui_form[i]['end'] = endDate.toISOString();
             ui_form[i]['dow'] = [weekdays.indexOf(section.timeslots[i]['day'])+1];
+            console.log("uiform:");
             console.log(ui_form[i]);
         }
         return ui_form;
     }
 
-    var addSection = function(section){
-        $scope.eventSource.push(json_conversion(section));
-        selectedSectionIDs[section._id] = true;
-    };
-
-    var removeSection = function(section){
-        var index = $scope.eventSource.indexOf(json_conversion(section));
-        $scope.eventSource.splice(index,1);
-        selectedSectionIDs[section._id] = false;
-    };
     
-    $scope.toggleSection = function(section,course){
+      $scope.toggleSection = function(section,course){
+          $scope.count ++;
+          console.log($scope.count);
         $scope.curCourse = course;
-        if($scope.isSelected(section)) {
-            removeSection(section);
-        } else {
-            addSection(section);
+        if($scope.selectedSectionIDs[section._id] == undefined) {
+            console.log("undefined");
+            $scope.eventSource.push(json_conversion(section));
+            $scope.selectedSectionIDs[section._id] = true;
+        } 
+        else if($scope.selectedSectionIDs[section._id] == true) {
+             console.log("true");
+            var index = $scope.eventSource.indexOf(json_conversion(section));
+            $scope.eventSource.splice(index,1);
+            $scope.selectedSectionIDs[section._id] = false;
         }
-    };
-
-    $scope.isSelected = function(section){
-        if($scope.selectedSectionIDs[section._id]){
-            return true;
-        } else {
-            return false;
+        else{
+             console.log("false");
+            $scope.eventSource.push(json_conversion(section));
+            $scope.selectedSectionIDs[section._id] = true;
         }
+        console.log($scope.eventSource);
+        
     };
 
     $scope.uiConfig = {
