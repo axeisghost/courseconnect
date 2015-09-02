@@ -3,28 +3,32 @@
 var app = angular.module('courseconnect.controllers', ['ui.calendar']);
 app.controller('calendarController', function($scope) {
     /* config object */
-    /*
-    $scope.eventSource = {
-      url: "/user_schedule",
-    };*/
+    
+    // $scope.eventSource = {
+    //   url: "/user_schedule",
+    // };
+    
+    
     $scope.eventSource = [];
     $scope.selectedSectionIDs = [];
     $scope.curCourse;
-    /*
+    
     var json_conversion = function(section){
-        var weekdays = {
-            'M',
-            'T',
-            'W',
-            'R',
-            'F'
-        };
+        var weekdays = ['M','T','W','R','F']; 
         var ui_form = [];
         for(var i = 0; i < section.timeslots.length; i++){
-            ui_form[i].title = $scope.curCourse.name;
-            ui_form[i].start = section.timeslots.start_time;
-            ui_form[i].end = section.timeslots.end_time;
-            ui_form.[i].dow = weekdays.indexOf(section.timeslots.day);
+            ui_form[i]={};
+            ui_form[i]['title']= $scope.curCourse['name'];
+            var startDate = new Date();
+            startDate.setHours(section.timeslots[i].start_time/60 | 0);
+            startDate.setMinutes(section.timeslots[i].start_time - startDate.getHours()*60);
+            var endDate = new Date();
+            endDate.setHours(section.timeslots[i].end_time/60 | 0);
+            endDate.setMinutes(section.timeslots[i].end_time - endDate.getHours()*60);
+            ui_form[i]['start'] = startDate.toISOString();
+            ui_form[i]['end'] = endDate.toISOString();
+            ui_form[i]['dow'] = [weekdays.indexOf(section.timeslots[i]['day'])+1];
+            console.log(ui_form[i]);
         }
         return ui_form;
     }
@@ -39,7 +43,7 @@ app.controller('calendarController', function($scope) {
         $scope.eventSource.splice(index,1);
         selectedSectionIDs[section._id] = false;
     };
-    */
+    
     $scope.toggleSection = function(section,course){
         $scope.curCourse = course;
         if($scope.isSelected(section)) {
@@ -127,6 +131,7 @@ app.controller('courseCandidate', ['$scope', '$http',
                     for(var j in $scope.instructors){
                         if(JSON.stringify(sections[i].instructor)===JSON.stringify($scope.instructors[j].instructorInfo)){
                             $scope.instructors[j].sections.push(sections[i]);
+                           
                             exist = true;
                             break;
                         }
