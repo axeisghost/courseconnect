@@ -1,9 +1,10 @@
-<div ng-click="toggleSection(instructor.sections[0],course)">
+<div ng-click="toggleSection(section,course)">
   <!--Pin to Show Taken-->
   <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
   <!--Course Time Slots-->
   <span>
-  	<div ng-repeat="timeslot in sectionTimeSlots">
+  	<div ng-repeat="timeslot in section.sectionTimeSlot">
+
   		<div class="detailed-view">
   			<span ng-repeat="day in timeslot.days">{{day}}</span>
   		</div>

@@ -1,7 +1,8 @@
 'use strict';
 
 var app = angular.module('courseconnect.controllers', ['ui.calendar']);
-app.controller('calendarController', function($scope) {
+app.controller('calendarController', ['$scope','getHoursAndMinutes', function($scope,
+        getHoursAndMinutes) {
     /* config object */
     
     // $scope.eventSource = {
@@ -20,11 +21,14 @@ app.controller('calendarController', function($scope) {
             ui_form[i]={};
             ui_form[i]['title']= $scope.curCourse['name'];
             var startDate = new Date();
-            startDate.setHours(section.timeslots[i].start_time/60 | 0);
-            startDate.setMinutes(section.timeslots[i].start_time - startDate.getHours()*60);
+            var startTime = getHoursAndMinutes(section.timeslots[i].start_time);
+            console.log(startTime);
+            startDate.setHours(startTime.hour);
+            startDate.setMinutes(startTime.minute);
             var endDate = new Date();
-            endDate.setHours(section.timeslots[i].end_time/60 | 0);
-            endDate.setMinutes(section.timeslots[i].end_time - endDate.getHours()*60);
+            var endTime = getHoursAndMinutes(section.timeslots[i].end_time);
+            endDate.setHours(endTime.hour);
+            endDate.setMinutes(endTime.minute);
             ui_form[i]['start'] = startDate.toISOString();
             ui_form[i]['end'] = endDate.toISOString();
             ui_form[i]['dow'] = [weekdays.indexOf(section.timeslots[i]['day'])+1];
@@ -32,12 +36,12 @@ app.controller('calendarController', function($scope) {
             console.log(ui_form[i]);
         }
         return ui_form;
-    }
+    };
 
     
-      $scope.toggleSection = function(section,course){
-          $scope.count ++;
-          console.log($scope.count);
+    $scope.toggleSection = function(section,course){
+        $scope.count ++;
+        console.log($scope.count);
         $scope.curCourse = course;
         if($scope.selectedSectionIDs[section._id] == undefined) {
             console.log("undefined");
@@ -75,10 +79,10 @@ app.controller('calendarController', function($scope) {
         defaultView: "agendaWeek",
         eventLimit: true
       }
-    };
+    }; 
+}]);
 
-    
-});
+
 
 app.controller('controlPanelTab', ['$scope', function($scope) {
     $scope.operationModes = ['Schedule', 'Friends'];
@@ -118,31 +122,64 @@ app.controller('majorCandidate', ['$scope', '$http',
 }]);
 
 app.controller('courseCandidate', ['$scope', '$http', 
-    'getCourseoffQueryUrl', function($scope, $http, getCourseoffQueryUrl){
+    'getCourseoffQueryUrl','getHoursAndMinutes', 
+    function($scope, $http, getCourseoffQueryUrl, getHoursAndMinutes){
         $scope.$watch("selectedCourse",function(){
             $http.get(getCourseoffQueryUrl($scope)).then(
             function(response) {
                 var sections = response.data;
+
+                var parseSectionTimeSlots = function(timeSlots){
+                    var sectionTimeSlots = {}
+                    for(var i in timeSlots){
+                        var key = timeSlots[i].start_time.toString() + 
+                            timeSlots[i].end_time.toString();
+                        if (sectionTimeSlots[key]){
+                            sectionTimeSlots[key].days.push(timeSlots[i].day);
+                        } else {
+                            sectionTimeSlots[key] = {
+                                startTime : getHoursAndMinutes(timeSlots[i].start_time),
+                                endTime : getHoursAndMinutes(timeSlots[i].end_time),
+                                days : [timeSlots[i].day]
+                            };
+                        }
+                    }
+                    var returnArray = []
+                    for (var key in sectionTimeSlots){
+                        returnArray.push(sectionTimeSlots[key]);
+                    }
+                    return returnArray;
+                };
+
                 $scope.instructors = [];
                 for (var i = 0; i < sections.length; i++) {
                     var exist = false;
                     for(var j in $scope.instructors){
                         if(JSON.stringify(sections[i].instructor)===JSON.stringify($scope.instructors[j].instructorInfo)){
+                            sections[i].sectionTimeSlot = parseSectionTimeSlots(sections[i].timeslots);
+                            console.log(sections[i]);
                             $scope.instructors[j].sections.push(sections[i]);
-                           
                             exist = true;
                             break;
                         }
                     }
                     if(!exist){
+                        sections[i].sectionTimeSlot = parseSectionTimeSlots(sections[i].timeslots);
+                        console.log(sections[i]);
                         var newInstructor = {"instructorInfo" : sections[i].instructor,
                             "sections" : [sections[i]]};
                         $scope.instructors.push(newInstructor);
                     }
                 };
+
+                
+
             }, function(response) {
             });
         });
+        
+        
+
         $scope.sectionAvailable = function(){
             return $scope.instructors.length == 0;
         };

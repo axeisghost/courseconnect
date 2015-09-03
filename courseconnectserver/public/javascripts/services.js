@@ -8,17 +8,6 @@
 // }
 
 var app = angular.module('courseconnect.services', []);
-// app.factory('getNextStage', function(){
-//     return function(currentStage){
-//         nextStage = {
-//             'terms' : 'majors',
-//             'majors' : 'courses',
-//             'courses' : 'sections',
-//             'sections' : null
-//         }
-//         return nextStage[currentStage];
-//     }
-// });
 
 app.factory('getCourseoffQueryUrl', function(){
     var hierarchies = {
@@ -41,11 +30,11 @@ app.factory('getCourseoffQueryUrl', function(){
         return url;
     };
 });
-// app.factory('getSubLevelInfo', ['$http', 'getNextStage', function($http, currentPath, currentStage, ident){
-//     nextStage = getNextStage(currentStage);
-//     if (nextStage){
-
-//     } else{
-//         return null;
-//     }
-// }]);
+app.factory('getHoursAndMinutes', function(){
+    return function(time){
+        var tempTime = {};
+        tempTime.hour = time / 60 | 0;
+        tempTime.minute = time % 60;
+        return tempTime;
+    };
+});
