@@ -58,3 +58,8 @@ body {
     text-align: center;
     color: #aaa;
 }
+
+.section-item{
+    display:inline-block;
+    text-align: center;
+}

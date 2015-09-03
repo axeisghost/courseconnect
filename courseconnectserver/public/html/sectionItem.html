@@ -1,20 +1,17 @@
 <div ng-click="toggleSection(section,course)">
   <!--Pin to Show Taken-->
-  <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
+  <span class="glyphicon glyphicon-pushpin" aria-hidden="true" class="section-item"></span>
   <!--Course Time Slots-->
-  <span>
+  <span class="section-item">
   	<div ng-repeat="timeslot in section.sectionTimeSlot">
-
-  		<div class="detailed-view">
-  			<span ng-repeat="day in timeslot.days">{{day}}</span>
-  		</div>
+  		<span ng-repeat="day in timeslot.days">{{day}}</span>
   		<span>{{timeslot.startTime.hour}}:{{timeslot.startTime.minute}}</span>
   		<span> - </span>
   		<span>{{timeslot.endTime.hour}}:{{timeslot.endTime.minute}}</span>
   	</div>
   </span>
   <!--Course Section Number-->
-  <span>{{section.ident}}</span>
+  <span class="section-item">{{section.ident}}</span>
   <!--Course Availability-->
-  <span>{{section.seats.remaining}}/{{section.seats.capacity}}</span>
+  <span class="section-item">{{section.seats.remaining}}/{{section.seats.capacity}}</span>
 </div>
