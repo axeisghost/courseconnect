@@ -12,6 +12,9 @@
     <script type="text/javascript" src="javascripts/lib/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
     <script type="text/javascript" src="javascripts/lib/bower_components/fullcalendar/dist/gcal.js"></script>
     <script type="text/javascript" src="javascripts/lib/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="javascripts/lib/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script type="text/javascript" src="javascripts/lib/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="javascripts/lib/bower_components/angular-bootstrap/ui-bootstrap-csp.css"></script>
     <script src="javascripts/app.js"></script>
     <script src="javascripts/controllers.js"></script>
     <script src="javascripts/services.js"></script>
@@ -55,7 +58,7 @@
         <div class="animate-switch" ng-show="currentMode=='Schedule'">
           <div ng-controller="courseSelectionPanel">
             <major-selection-panel></major-selection-panel>
-            <major-candidate-list></major-candidate-list>
+            
           </div>
         </div>
         <div class="animate-switch" ng-show="currentMode=='Friends'">This will be Friends tab</div>

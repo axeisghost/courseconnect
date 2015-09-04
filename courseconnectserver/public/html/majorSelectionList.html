@@ -1,14 +1,8 @@
-<div class="panel panel-primary">
-  <div class="panel-heading">
-    <h4 class="panel-title" data-toggle="collapse" href="#collapse">
-      Select Major
-    </h4>
-  </div>
-  <div id="collapse" class="panel-primary collapse in">
-    <div class="list-group">
-      <div class="list-group-item list-item animate-repeat" ng-repeat="major in majors">
-        <major-Selection-Item/>
-      </div>
+<accordion close-others="true" ng-controller="accordionController">
+  <accordion-group heading="Select Major" panel-class="panel-primary" is-open="true">
+    <div class="list-item" ng-repeat="major in majors">
+      <major-Selection-Item/>
     </div>
-  </div>
-</div>
+  </accordion-group>
+  <major-candidate-list></major-candidate-list>
+</accordion>

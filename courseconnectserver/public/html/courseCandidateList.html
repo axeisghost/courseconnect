@@ -1,17 +1,7 @@
 <div ng-repeat="course in courseCandidates" ng-controller="courseCandidate" ng-init="selectedCourse=course.ident">
-  <div class="panel panel-success">
-    <div class="panel-heading">
-      <h4 class="panel-title" data-toggle="collapse" href="#{{major.ident+course.ident}}">
-        {{course.ident}} - {{course.name}}
-      </h4>
+  <accordion-group  heading="{{course.ident}} - {{course.name}}" is-open="true">
+    <div class="list-item" ng-repeat="instructor in instructors">
+      <course-candidate-section-item></course-candidate-section-item>
     </div>
-    <div id="{{major.ident+course.ident}}" class="panel-success collapse in">
-      <div class="list-group" >
-        <div class="list-group-item animate-repeat" ng-repeat="instructor in instructors">
-          <course-candidate-section-item></course-candidate-section-item>
-        </div>
-        <div ng-show="sectionAvailable()" class="not-available">No Sections Available</div>
-      </div>
-    </div>
-  </div>
+  </accordion-group> 
 </div>

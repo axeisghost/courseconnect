@@ -36,9 +36,11 @@ body {
     max-height: 15px;
 }
 
-/*.list-item{
-    max-height: 20px;
-}*/
+.list-item{
+    font-size: 15px;
+    vertical-align: middle;
+    min-height: 28px;
+}
 
 .list-item:hover {
     cursor: pointer;
