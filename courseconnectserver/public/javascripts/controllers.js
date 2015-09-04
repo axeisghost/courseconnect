@@ -9,7 +9,7 @@ app.controller('calendarController', ['$scope','getHoursAndMinutes', function($s
     //   url: "/user_schedule",
     // };
     
-    $scope.count=0;
+    // $scope.count=0;
     $scope.eventSource = [];
     $scope.selectedSectionIDs = {};
     $scope.curCourse;
@@ -19,47 +19,49 @@ app.controller('calendarController', ['$scope','getHoursAndMinutes', function($s
         var ui_form = [];
         for(var i = 0; i < section.timeslots.length; i++){
             ui_form[i]={};
-            ui_form[i]['title']= $scope.curCourse['name'];
+            ui_form[i]['title']= $scope.curCourse['name']+"\nSection "+section['ident'];
             var startDate = new Date();
             var startTime = getHoursAndMinutes(section.timeslots[i].start_time);
-            console.log(startTime);
+            //console.log(startTime);
             startDate.setHours(startTime.hour);
             startDate.setMinutes(startTime.minute);
             var endDate = new Date();
             var endTime = getHoursAndMinutes(section.timeslots[i].end_time);
             endDate.setHours(endTime.hour);
             endDate.setMinutes(endTime.minute);
-            ui_form[i]['start'] = startDate.toISOString();
-            ui_form[i]['end'] = endDate.toISOString();
+            // console.log("startDte: "+startDate.toISOString());
+            // console.log("endDte: "+endDate.toISOString());
+            ui_form[i]['start'] = startDate;
+            ui_form[i]['end'] = endDate;
             ui_form[i]['dow'] = [weekdays.indexOf(section.timeslots[i]['day'])+1];
-            console.log("uiform:");
-            console.log(ui_form[i]);
+            // console.log("uiform:");
+            // console.log(ui_form[i]);
         }
         return ui_form;
     };
 
     
     $scope.toggleSection = function(section,course){
-        $scope.count ++;
-        console.log($scope.count);
+        // $scope.count ++;
+        // console.log($scope.count);
         $scope.curCourse = course;
         if($scope.selectedSectionIDs[section._id] == undefined) {
-            console.log("undefined");
+            //console.log("undefined");
             $scope.eventSource.push(course_info_converter(section));
             $scope.selectedSectionIDs[section._id] = true;
         } 
         else if($scope.selectedSectionIDs[section._id] == true) {
-             console.log("true");
+            //console.log("true");
             var index = $scope.eventSource.indexOf(course_info_converter(section));
             $scope.eventSource.splice(index,1);
             $scope.selectedSectionIDs[section._id] = false;
         }
         else{
-             console.log("false");
+            //console.log("false");
             $scope.eventSource.push(course_info_converter(section));
             $scope.selectedSectionIDs[section._id] = true;
         }
-        console.log($scope.eventSource);
+        //console.log($scope.eventSource);
         
     };
 
