@@ -4,14 +4,8 @@ var app = angular.module('courseconnect.controllers', ['ui.calendar']);
 app.controller('calendarController', ['$scope','getHoursAndMinutes', function($scope,
         getHoursAndMinutes) {
     /* config object */
-    
-    // $scope.eventSource = {
-    //   url: "/user_schedule",
-    // };
-    
-    // $scope.count=0;
     $scope.eventSource = [];
-    $scope.selectedSectionIDs = {};
+    $scope.selectedSectionID = {};
     $scope.curCourse;
     $scope.curMajor;
     
@@ -21,7 +15,7 @@ app.controller('calendarController', ['$scope','getHoursAndMinutes', function($s
         for(var i = 0; i < section.timeslots.length; i++){
             ui_form[i]={};
             ui_form[i]['title']= $scope.curMajor['ident']+" - "+ $scope.curCourse['ident']+
-                "\nSection "+section['ident'];
+                "\nSection "+section['ident']+"\n\n";
             var startDate = new Date();
             var startTime = getHoursAndMinutes(section.timeslots[i].start_time);
             startDate.setHours(startTime.hour);
@@ -34,6 +28,11 @@ app.controller('calendarController', ['$scope','getHoursAndMinutes', function($s
             ui_form[i]['end'] = endDate;
             ui_form[i]['dow'] = [weekdays.indexOf(section.timeslots[i]['day'])+1];
             ui_form[i]['backgroundColor'] = color;
+            ui_form[i]['description'] = $scope.curCourse['name']+'\n'+
+                'Ref number: \n'+section.call_number +'\n\n'+
+                'Credits: \n'+section.credits +'\n\n'+
+                'Instructor: \n'+section.instructor.lname+", "+section.instructor.fname +'\n\n'+
+                'Location: \n'+section.timeslots[i].location;
         }
         return ui_form;
     };
@@ -42,21 +41,49 @@ app.controller('calendarController', ['$scope','getHoursAndMinutes', function($s
     $scope.toggleSection = function(section,course,major){
         $scope.curCourse = course;
         $scope.curMajor = major;
-        if($scope.selectedSectionIDs[section._id] == undefined) {
-            $scope.eventSource.push(course_info_converter(section,'rgb(0,125,125)'));
-            $scope.selectedSectionIDs[section._id] = true;
-        } 
-        else if($scope.selectedSectionIDs[section._id] == true) {
+        if($scope.selectedSectionID[section._id] == true) {
             var index = $scope.eventSource.indexOf(course_info_converter(section,'rgb(0,125,125)'));
             $scope.eventSource.splice(index,1);
-            $scope.selectedSectionIDs[section._id] = false;
+            $scope.selectedSectionID[section._id] = false;
         }
         else{
             $scope.eventSource.push(course_info_converter(section,'rgb(0,125,125)'));
-            $scope.selectedSectionIDs[section._id] = true;
+            $scope.selectedSectionID[section._id] = true;
         }
-        
     };
+    
+    // The following code is for configuring mouseover event
+    // var tooltip = $('<div/>').qtip({
+    //     id: 'fullcalendar',
+    //     prerender: true,
+    //     content: {
+    //         text: ' ',
+    //         title: {
+    //             button: true
+    //         }
+    //     },
+    //     position: {
+    //         my: 'bottom center',
+    //         at: 'top center',
+    //         target: 'mouse',
+    //         viewport: $('#fullcalendar'),
+    //         adjust: {
+    //             mouse: false,
+    //             scroll: false
+    //         }
+    //     },
+    //     show: false,
+    //     hide: false,
+    //     style: 'qtip-light'
+    // }).qtip('api');
+    
+    // $scope.mouseover = 
+    
+    // $scope.eventRender = function( event, element, view ) { 
+    //     console.log('mouse here');
+    //     element.attr('tooltip', event.title);
+    //     $compile(element)($scope);
+    // };
 
     $scope.uiConfig = {
       calendar:{
@@ -72,7 +99,28 @@ app.controller('calendarController', ['$scope','getHoursAndMinutes', function($s
         allDaySlot: false,
         height: "auto",
         defaultView: "agendaWeek",
-        eventLimit: true
+        eventLimit: true,
+        
+        // eventMouseover : function(data, event, view) {
+        //     var content = '<h3>'+data.title+'</h3>' + 
+        //         '<p><b>Start:</b> '+data.start+'<br />' + 
+        //         (data.end && '<p><b>End:</b> '+data.end+'</p>' || '');
+
+        //     tooltip.set({
+        //         'content.text': content
+        //     })
+        //     .reposition(event).show(event);
+        // },
+        eventRender: function(event, element) {
+            console.log("description: "+event.description);
+             $(element).tooltip({position: "bottom center",
+                 title: event.description
+                 });   
+            // tooltip.set({
+            //     'content.text': event.description
+            // })
+            // .reposition(event).show(event);
+        }
       }
     }; 
 }]);
