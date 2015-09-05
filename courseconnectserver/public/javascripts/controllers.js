@@ -28,11 +28,12 @@ app.controller('calendarController', ['$scope','getHoursAndMinutes', function($s
             ui_form[i]['end'] = endDate;
             ui_form[i]['dow'] = [weekdays.indexOf(section.timeslots[i]['day'])+1];
             ui_form[i]['backgroundColor'] = color;
-            ui_form[i]['description'] = 'Section '+section['ident']+'\n\n'+
-                'Ref number: \n'+section.call_number +'\n\n'+
-                'Credits: \n'+section.credits +'\n\n'+
-                'Instructor: \n'+section.instructor.lname+", "+section.instructor.fname +'\n\n'+
-                'Location: \n'+section.timeslots[i].location;
+            ui_form[i]['description'] ={};
+            ui_form[i]['description']['section'] = section['ident'];
+            ui_form[i]['description']['number'] = section.call_number;
+            ui_form[i]['description']['credit'] = section.credits;
+            ui_form[i]['description']['instructor'] = section.instructor.lname+", "+section.instructor.fname;
+            ui_form[i]['description']['location'] = section.timeslots[i].location;
         }
         return ui_form;
     };
@@ -51,39 +52,6 @@ app.controller('calendarController', ['$scope','getHoursAndMinutes', function($s
             $scope.selectedSectionID[section._id] = true;
         }
     };
-    
-    // The following code is for configuring mouseover event
-    // var tooltip = $('<div/>').qtip({
-    //     id: 'fullcalendar',
-    //     prerender: true,
-    //     content: {
-    //         text: ' ',
-    //         title: {
-    //             button: true
-    //         }
-    //     },
-    //     position: {
-    //         my: 'bottom center',
-    //         at: 'top center',
-    //         target: 'mouse',
-    //         viewport: $('#fullcalendar'),
-    //         adjust: {
-    //             mouse: false,
-    //             scroll: false
-    //         }
-    //     },
-    //     show: false,
-    //     hide: false,
-    //     style: 'qtip-light'
-    // }).qtip('api');
-    
-    // $scope.mouseover = 
-    
-    // $scope.eventRender = function( event, element, view ) { 
-    //     console.log('mouse here');
-    //     element.attr('tooltip', event.title);
-    //     $compile(element)($scope);
-    // };
 
     $scope.uiConfig = {
       calendar:{
@@ -100,31 +68,19 @@ app.controller('calendarController', ['$scope','getHoursAndMinutes', function($s
         height: "auto",
         defaultView: "agendaWeek",
         eventLimit: true,
-        
-        // eventMouseover : function(data, event, view) {
-        //     var content = '<h3>'+data.title+'</h3>' + 
-        //         '<p><b>Start:</b> '+data.start+'<br />' + 
-        //         (data.end && '<p><b>End:</b> '+data.end+'</p>' || '');
-
-        //     tooltip.set({
-        //         'content.text': content
-        //     })
-        //     .reposition(event).show(event);
-        // },
         eventRender: function(event, element) {
-            console.log("description: "+event.description);
-            //  $(element).tooltip({placement: "bottom",
-            //      title: event.description,
-            //      html: true,
-            //      template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
-            //      });   
+            console.log("description: "+event.description); 
             var title = event.title.split('\n')[2];
             $(element).popover({placement: "bottom",
                  title: title,
-                 content: event.description,
+                 content:   '<h5>'+"Ref Number: \n"+'</h5>'+event.description.number+
+                            '<h5>'+"Section: \n"+'</h5>'+event.description.section+
+                            '<h5>'+"Credits: \n"+'</h5>'+event.description.credit+'<h5>'+"Instructor: \n"+
+                            '</h5>'+event.description.instructor+'<h5>'+"Location: \n"+
+                            '</h5>'+event.description.location,
                  trigger: "hover",
-                 html: true,
-                 viewport: { selector: 'body', padding: 10 }                 
+                 html: true,   
+                 viewport: { selector: 'body', padding: 10}        
             });
             
         }
