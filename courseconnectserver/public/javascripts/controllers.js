@@ -15,7 +15,7 @@ app.controller('calendarController', ['$scope','getHoursAndMinutes', function($s
         for(var i = 0; i < section.timeslots.length; i++){
             ui_form[i]={};
             ui_form[i]['title']= $scope.curMajor['ident']+" - "+ $scope.curCourse['ident']+
-                "\nSection "+section['ident']+"\n\n";
+                "\nSection "+section['ident']+'\n'+''+$scope.curCourse['name']+'\n';
             var startDate = new Date();
             var startTime = getHoursAndMinutes(section.timeslots[i].start_time);
             startDate.setHours(startTime.hour);
@@ -28,7 +28,7 @@ app.controller('calendarController', ['$scope','getHoursAndMinutes', function($s
             ui_form[i]['end'] = endDate;
             ui_form[i]['dow'] = [weekdays.indexOf(section.timeslots[i]['day'])+1];
             ui_form[i]['backgroundColor'] = color;
-            ui_form[i]['description'] = $scope.curCourse['name']+'\n'+
+            ui_form[i]['description'] = 'Section '+section['ident']+'\n\n'+
                 'Ref number: \n'+section.call_number +'\n\n'+
                 'Credits: \n'+section.credits +'\n\n'+
                 'Instructor: \n'+section.instructor.lname+", "+section.instructor.fname +'\n\n'+
@@ -113,13 +113,20 @@ app.controller('calendarController', ['$scope','getHoursAndMinutes', function($s
         // },
         eventRender: function(event, element) {
             console.log("description: "+event.description);
-             $(element).tooltip({position: "bottom center",
-                 title: event.description
-                 });   
-            // tooltip.set({
-            //     'content.text': event.description
-            // })
-            // .reposition(event).show(event);
+            //  $(element).tooltip({placement: "bottom",
+            //      title: event.description,
+            //      html: true,
+            //      template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
+            //      });   
+            var title = event.title.split('\n')[2];
+            $(element).popover({placement: "bottom",
+                 title: title,
+                 content: event.description,
+                 trigger: "hover",
+                 html: true,
+                 viewport: { selector: 'body', padding: 10 }                 
+            });
+            
         }
       }
     }; 
