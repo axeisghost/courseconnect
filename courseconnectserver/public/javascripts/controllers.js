@@ -71,7 +71,7 @@ app.controller('calendarController', ['$scope','getHoursAndMinutes', function($s
         eventRender: function(event, element) {
             console.log("description: "+event.description); 
             var title = event.title.split('\n')[2];
-            $(element).popover({placement: "bottom",
+            $(element).popover({placement: "auto",
                  title: title,
                  content:   '<h5>'+"Ref Number: \n"+'</h5>'+event.description.number+
                             '<h5>'+"Section: \n"+'</h5>'+event.description.section+

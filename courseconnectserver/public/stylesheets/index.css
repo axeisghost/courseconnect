@@ -7,9 +7,9 @@ body {
 
 #displayPanel {
     position: absolute;
-    max-width: 40%;
+    max-width: 60%;
     margin-top: 100px;
-    left: 20%;
+    left: 2%;
 }
 
 #controlPanel {
