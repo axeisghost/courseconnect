@@ -13,13 +13,15 @@ app.controller('calendarController', ['$scope','getHoursAndMinutes', function($s
     $scope.eventSource = [];
     $scope.selectedSectionIDs = {};
     $scope.curCourse;
+    $scope.curMajor;
     
     var course_info_converter = function(section,color){
         var weekdays = ['M','T','W','R','F']; 
         var ui_form = [];
         for(var i = 0; i < section.timeslots.length; i++){
             ui_form[i]={};
-            ui_form[i]['title']= $scope.curCourse['name']+"\nSection "+section['ident'];
+            ui_form[i]['title']= $scope.curMajor['ident']+" - "+ $scope.curCourse['ident']+
+                "\nSection "+section['ident'];
             var startDate = new Date();
             var startTime = getHoursAndMinutes(section.timeslots[i].start_time);
             startDate.setHours(startTime.hour);
@@ -37,8 +39,9 @@ app.controller('calendarController', ['$scope','getHoursAndMinutes', function($s
     };
 
     
-    $scope.toggleSection = function(section,course){
+    $scope.toggleSection = function(section,course,major){
         $scope.curCourse = course;
+        $scope.curMajor = major;
         if($scope.selectedSectionIDs[section._id] == undefined) {
             $scope.eventSource.push(course_info_converter(section,'rgb(0,125,125)'));
             $scope.selectedSectionIDs[section._id] = true;
