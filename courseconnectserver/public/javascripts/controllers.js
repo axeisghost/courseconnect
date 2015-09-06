@@ -1,54 +1,24 @@
 'use strict';
 
 var app = angular.module('courseconnect.controllers', ['ui.calendar']);
-app.controller('calendarController', ['$scope','getHoursAndMinutes', function($scope,
-        getHoursAndMinutes) {
+app.controller('calendarController', ['$scope','parseCourseInfo', function($scope,
+        parseCourseInfo) {
     /* config object */
     $scope.eventSource = [];
     $scope.selectedSectionID = {};
     $scope.curCourse;
     $scope.curMajor;
     
-    var course_info_converter = function(section,color){
-        var weekdays = ['M','T','W','R','F']; 
-        var ui_form = [];
-        for(var i = 0; i < section.timeslots.length; i++){
-            ui_form[i]={};
-            ui_form[i]['title']= $scope.curMajor['ident']+" - "+ $scope.curCourse['ident']+
-                "\nSection "+section['ident']+'\n'+''+$scope.curCourse['name']+'\n';
-            var startDate = new Date();
-            var startTime = getHoursAndMinutes(section.timeslots[i].start_time);
-            startDate.setHours(startTime.hour);
-            startDate.setMinutes(startTime.minute);
-            var endDate = new Date();
-            var endTime = getHoursAndMinutes(section.timeslots[i].end_time);
-            endDate.setHours(endTime.hour);
-            endDate.setMinutes(endTime.minute);
-            ui_form[i]['start'] = startDate;
-            ui_form[i]['end'] = endDate;
-            ui_form[i]['dow'] = [weekdays.indexOf(section.timeslots[i]['day'])+1];
-            ui_form[i]['backgroundColor'] = color;
-            ui_form[i]['description'] ={};
-            ui_form[i]['description']['section'] = section['ident'];
-            ui_form[i]['description']['number'] = section.call_number;
-            ui_form[i]['description']['credit'] = section.credits;
-            ui_form[i]['description']['instructor'] = section.instructor.lname+", "+section.instructor.fname;
-            ui_form[i]['description']['location'] = section.timeslots[i].location;
-        }
-        return ui_form;
-    };
-
-    
     $scope.toggleSection = function(section,course,major){
         $scope.curCourse = course;
         $scope.curMajor = major;
         if($scope.selectedSectionID[section._id] == true) {
-            var index = $scope.eventSource.indexOf(course_info_converter(section,'rgb(0,125,125)'));
+            var index = $scope.eventSource.indexOf(parseCourseInfo(major, course, section,'rgb(0,125,125)'));
             $scope.eventSource.splice(index,1);
             $scope.selectedSectionID[section._id] = false;
         }
         else{
-            $scope.eventSource.push(course_info_converter(section,'rgb(0,125,125)'));
+            $scope.eventSource.push(parseCourseInfo(major, course, section,'rgb(0,125,125)'));
             $scope.selectedSectionID[section._id] = true;
         }
     };
