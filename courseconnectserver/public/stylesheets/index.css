@@ -5,6 +5,10 @@ body {
     /*font-size: 14px;*/
 }
 
+.fc-toolbar {
+    visibility: hidden;
+}
+
 #displayPanel {
     position: absolute;
     max-width: 60%;
