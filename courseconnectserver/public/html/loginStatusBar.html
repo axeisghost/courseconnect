@@ -1,0 +1,6 @@
+<div ng-controller="loginStatusController" style="float: right">
+	<img ng-src='{{picture}}' ng-hide="!isLoggedIn" />&nbsp
+	<font color='white'>{{name}}</font>&nbsp
+	<button type="button" ng-click="login()" ng-hide="isLoggedIn" class="btn btn-default navbar-btn">Login with Facebook</button>
+	<button type="button" ng-click="logout()" ng-hide="!isLoggedIn" class="btn btn-default navbar-btn">Logout</button>
+</div>

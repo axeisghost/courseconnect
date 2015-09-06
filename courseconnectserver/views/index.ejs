@@ -15,6 +15,7 @@
     <script type="text/javascript" src="javascripts/lib/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
     <script type="text/javascript" src="javascripts/lib/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <link rel="stylesheet" type="text/css" href="javascripts/lib/bower_components/angular-bootstrap/ui-bootstrap-csp.css"></script>
+    <script src="//rawgithub.com/GoDisco/ngFacebook/master/ngFacebook.js"></script>
     <script src="javascripts/app.js"></script>
     <script src="javascripts/controllers.js"></script>
     <script src="javascripts/services.js"></script>
@@ -39,7 +40,9 @@
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
+          <login-status-bar></login-status-bar>
         </div>
+        <div id="fb-root"></div>
       </div>
     </nav>
     <div ng-controller="calendarController">

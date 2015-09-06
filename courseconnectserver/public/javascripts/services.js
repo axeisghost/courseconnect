@@ -9,7 +9,15 @@
 
 var app = angular.module('courseconnect.services', []);
 
-app.factory('getCourseoffQueryUrl', function(){
+// app.factory('userInfo', function() {
+//     var fbid = null;
+//     var isLoggedIn = false;
+//     return {
+//         fbid: fbid,
+//         isLoggedIn: isLoggedIn
+//     };
+// });
+app.factory('getCourseoffQueryUrl', function() {
     var hierarchies = {
         'terms':'selectedTerm',
         'majors':'selectedMajor',

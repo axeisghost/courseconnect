@@ -50,3 +50,10 @@ app.directive('sectionItem', function(){
         templateUrl: 'html/sectionItem.html'
     }
 });
+
+app.directive('loginStatusBar', function(){
+    return {
+        restrict: 'E',
+        templateUrl: 'html/loginStatusBar.html'
+    }
+});

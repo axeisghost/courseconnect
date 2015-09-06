@@ -161,3 +161,38 @@ app.controller('courseCandidate', ['$scope', '$http',
             return $scope.instructors.length == 0;
         };
 }]);
+app.controller('loginStatusController', ['$scope', '$rootScope', 
+    '$facebook', function($scope, $rootScope, $facebook){
+    $rootScope.isLoggedIn = false;
+    $rootScope.userid = '';
+    $scope.name = '';
+    $scope.login = function() {
+        $facebook.login().then(function() {
+            refresh();
+        });
+    }
+    $scope.logout = function() {
+        $rootScope.isLoggedIn = false;
+        $scope.name = '';
+        $scope.picture = '';
+        $rootScope.userid = '';
+    }
+    function refresh() {
+        $facebook.api("/me").then( 
+        function(response) {
+            $scope.name = response.name;
+            $rootScope.userid = response.id;
+            $rootScope.isLoggedIn = true;
+        },
+        function(err) {
+            $scope.name = '';
+            $rootScope.userid = '';
+            $rootScope.isLoggedIn = false;
+        });
+        $facebook.api("/984649201595148/picture").then( 
+        function(response) {
+            $scope.picture = response.data.url;
+        });
+    }
+    refresh();
+}]);
