@@ -172,27 +172,29 @@ app.controller('loginStatusController', ['$scope', '$rootScope',
         });
     }
     $scope.logout = function() {
-        $rootScope.isLoggedIn = false;
-        $scope.name = '';
-        $scope.picture = '';
-        $rootScope.userid = '';
+         $facebook.logout().then(function() {
+            $rootScope.isLoggedIn = false;
+            $scope.name = '';
+            $scope.picture = '';
+            $rootScope.userid = '';
+        });
     }
     function refresh() {
         $facebook.api("/me").then( 
-        function(response) {
-            $scope.name = response.name;
-            $rootScope.userid = response.id;
-            $rootScope.isLoggedIn = true;
-        },
-        function(err) {
-            $scope.name = '';
-            $rootScope.userid = '';
-            $rootScope.isLoggedIn = false;
-        });
-        $facebook.api("/984649201595148/picture").then( 
-        function(response) {
-            $scope.picture = response.data.url;
-        });
+            function(response) {
+                $scope.name = response.name;
+                $rootScope.userid = response.id;
+                $rootScope.isLoggedIn = true;
+            },
+            function(err) {
+                $scope.name = '';
+                $rootScope.userid = '';
+                $rootScope.isLoggedIn = false;
+            });
+        $facebook.api("/me/picture").then( 
+            function(response) {
+                $scope.picture = response.data.url;
+            });
     }
     refresh();
 }]);
