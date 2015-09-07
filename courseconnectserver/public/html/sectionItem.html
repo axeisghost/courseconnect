@@ -1,8 +1,8 @@
-<div ng-click="toggleSection(section,course,major)">
+<div class="list-item" ng-mouseenter="addSection(section,course,major,true)" ng-mouseleave="removeSection(section,'mouseleave')" ng-click="toggleSection(section,course,major)">
   <!--Pin to Show Taken-->
   <span class="glyphicon glyphicon-pushpin" aria-hidden="true" class="section-item"></span>
   <!--Course Time Slots-->
-  <span class="section-item">
+  <span  class="section-item">
   	<div ng-repeat="timeslot in section.sectionTimeSlot">
   		<span ng-repeat="day in timeslot.days">{{day}}</span>
   		<span>{{timeslot.startTime.hour}}:{{timeslot.startTime.minute}}</span>

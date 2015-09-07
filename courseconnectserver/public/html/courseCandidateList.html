@@ -1,6 +1,6 @@
 <div ng-repeat="course in courseCandidates" ng-controller="courseCandidate" ng-init="selectedCourse=course.ident">
   <accordion-group  heading="{{course.ident}} - {{course.name}}" is-open="true">
-    <div class="list-item" ng-repeat="instructor in instructors">
+    <div  ng-repeat="instructor in instructors">
       <course-candidate-section-item></course-candidate-section-item>
     </div>
   </accordion-group> 

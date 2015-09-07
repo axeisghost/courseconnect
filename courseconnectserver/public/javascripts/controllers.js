@@ -1,25 +1,73 @@
 'use strict';
 
 var app = angular.module('courseconnect.controllers', ['ui.calendar']);
-app.controller('calendarController', ['$scope', '$compile', 'parseCourseInfo', function($scope,
-        $compile, parseCourseInfo) {
+
+app.controller('calendarController', ['$scope', '$compile', 'parseCourseInfo', 
+    'hasSectionConflict', function($scope, $compile, parseCourseInfo, hasSectionConflict) {
     /* config object */
     $scope.eventSource = [];
-    $scope.selectedSectionID = {};
+    var selectedSections = {};
     $scope.curCourse;
     $scope.curMajor;
+
+
+    var exist = function(section) {
+        return selectedSections[section._id] != null;
+    };
+
+    var isPreview = function(section){
+        return selectedSections[section._id] != null &&
+            selectedSections[section._id]['isPreview'] === true;
+    }
+
+    var conflitsWithCurrentSections = function(section) {
+        for (var i in selectedSections) {
+            if (selectedSections[i] && hasSectionConflict(selectedSections[i].section,section)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    $scope.addSection = function(section,course,major,isPreview){
+        if (!exist(section)){
+            var color = 'rgb(0,125,125)';
+            if (conflitsWithCurrentSections(section)){
+                color = 'rgba(0,125,125, 0.3)';
+            }
+            $scope.eventSource.push(parseCourseInfo(major, course, section,color));
+            selectedSections[section._id] = {
+                "section" : section,
+                "isPreview" : isPreview
+            };
+        }
+    }
+
+    $scope.removeSection = function(section, behavior){
+        if (behavior === 'click' ||
+                (behavior === 'mouseleave' && isPreview(section))){
+            var index = 0;
+            for (var i = 0; i < $scope.eventSource.length; i++) {
+                if ($scope.eventSource[i][0]['id'] === section._id){
+                    index = i;
+                }
+            };
+            $scope.eventSource.splice(index,1);
+            selectedSections[section._id] = null;
+        }
+    }
     
-    $scope.toggleSection = function(section,course,major){
+    $scope.toggleSection = function(section,course,major) {
         $scope.curCourse = course;
         $scope.curMajor = major;
-        if($scope.selectedSectionID[section._id] == true) {
-            var index = $scope.eventSource.indexOf(parseCourseInfo(major, course, section,'rgb(0,125,125)'));
-            $scope.eventSource.splice(index,1);
-            $scope.selectedSectionID[section._id] = false;
-        }
-        else{
-            $scope.eventSource.push(parseCourseInfo(major, course, section,'rgb(0,125,125)'));
-            $scope.selectedSectionID[section._id] = true;
+        if(exist(section)) {
+            if(isPreview(section)){
+                selectedSections[section._id]['isPreview'] = false;
+            } else {
+                $scope.removeSection(section, 'click');
+            }
+        } else {
+            $scope.addSection(section,course,major,false);
         }
     };
 

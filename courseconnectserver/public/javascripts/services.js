@@ -30,6 +30,7 @@ app.factory('getCourseoffQueryUrl', function() {
         return url;
     };
 });
+
 app.factory('getHoursAndMinutes', function(){
     return function(time){
         var tempTime = {};
@@ -38,6 +39,47 @@ app.factory('getHoursAndMinutes', function(){
         return tempTime;
     };
 });
+
+app.factory('getMinutes', function(){
+    return function(time){
+        return time.hour * 60 + time.minute;
+    };
+});
+
+app.factory('hasSectionConflict', ['getMinutes', function(getMinutes){
+    return function (section1, section2){
+        for (var i = 0; i < section1.sectionTimeSlot.length; i++) {
+            for (var j = 0; j < section2.sectionTimeSlot.length; j++) {
+                var earlierSection = null;
+                var laterSection = null;
+                if (getMinutes(section1.sectionTimeSlot[i].startTime) <=
+                    getMinutes(section2.sectionTimeSlot[j].startTime)) {
+                    earlierSection = section1.sectionTimeSlot[i];
+                    laterSection = section2.sectionTimeSlot[j];
+                } else {
+                    earlierSection = section2.sectionTimeSlot[j];
+                    laterSection = section1.sectionTimeSlot[i];
+                }
+                console.log(earlierSection.endTime);
+                console.log(laterSection.startTime);
+                if (getMinutes(earlierSection.endTime) >= 
+                    getMinutes(laterSection.startTime)) {
+                    console.log('found problem');
+                    for (var l = 0; l < earlierSection.days.length; l++) {
+                        for (var k = 0; k < laterSection.days.length; k++) {
+                            if (laterSection.days[k] == earlierSection.days[l]){
+                                return true;
+                            }
+                        };
+                        earlierSection.days[i]
+                    };
+                }
+            };
+        };
+        return false;
+    };
+}]);
+
 app.factory('parseCourseInfo', ['getHoursAndMinutes', function(getHoursAndMinutes) {
     return function(major, course, section, color) {
         var weekdays = ['M','T','W','R','F']; 
@@ -54,6 +96,7 @@ app.factory('parseCourseInfo', ['getHoursAndMinutes', function(getHoursAndMinute
             var endTime = getHoursAndMinutes(section.timeslots[i].end_time);
             endDate.setHours(endTime.hour);
             endDate.setMinutes(endTime.minute);
+            ui_form[i]['id'] = section._id;
             ui_form[i]['start'] = startDate;
             ui_form[i]['end'] = endDate;
             ui_form[i]['dow'] = [weekdays.indexOf(section.timeslots[i]['day'])+1];
