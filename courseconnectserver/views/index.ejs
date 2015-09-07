@@ -22,7 +22,7 @@
     <script src="javascripts/directives.js"></script>
     <link rel="stylesheet" type="text/css" href="stylesheets/index.css"/>
   </head>
-  <body>
+  <body ng-controller="themeComtroller">
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -41,6 +41,12 @@
             <li><a href="#contact">Contact</a></li>
           </ul>
           <login-status-bar></login-status-bar>
+          <div class="dropdown" style="float: right">
+            <button class="dropdown-toggle" type="button" data-toggle="dropdown">Theme<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li ng-repeat="(schemeName, colors) in schemeList" ng-click="selectScheme(schemeName)">{{schemeName}}</li>
+            </ul>
+          </div>
         </div>
         <div id="fb-root"></div>
       </div>

@@ -29,9 +29,8 @@ app.controller('calendarController', ['$scope', '$compile', 'parseCourseInfo',
         return false;
     }
 
-    $scope.addSection = function(section,course,major,isPreview){
+    $scope.addSection = function(section,course,major,isPreview,color){
         if (!exist(section)){
-            var color = 'rgb(0,125,125)';
             if (conflitsWithCurrentSections(section)){
                 color = 'rgba(0,125,125, 0.3)';
             }
@@ -57,7 +56,7 @@ app.controller('calendarController', ['$scope', '$compile', 'parseCourseInfo',
         }
     }
     
-    $scope.toggleSection = function(section,course,major) {
+    $scope.toggleSection = function(section,course,major,color) {
         $scope.curCourse = course;
         $scope.curMajor = major;
         if(exist(section)) {
@@ -67,7 +66,7 @@ app.controller('calendarController', ['$scope', '$compile', 'parseCourseInfo',
                 $scope.removeSection(section, 'click');
             }
         } else {
-            $scope.addSection(section,course,major,false);
+            $scope.addSection(section,course,major,false,color);
         }
     };
 
@@ -145,8 +144,8 @@ app.controller('majorCandidate', ['$scope', '$http',
 }]);
 
 app.controller('courseCandidate', ['$scope', '$http', 
-    'getCourseoffQueryUrl','getHoursAndMinutes', 
-    function($scope, $http, getCourseoffQueryUrl, getHoursAndMinutes){
+    'getCourseoffQueryUrl','getHoursAndMinutes', 'colorFactory',
+    function($scope, $http, getCourseoffQueryUrl, getHoursAndMinutes, colorFactory){
         $scope.$watch("selectedCourse",function(){
             $http.get(getCourseoffQueryUrl($scope)).then(
             function(response) {
@@ -195,10 +194,14 @@ app.controller('courseCandidate', ['$scope', '$http',
             }, function(response) {
             });
         });
-
+        $scope.sectionColor = colorFactory.getNextColor();
         $scope.sectionAvailable = function(){
             return $scope.instructors.length == 0;
         };
+        $scope.$on("SchemeChanged", function(){
+            $scope.sectionColor = colorFactory.getNextColor();
+            console.log("new section color");
+        })
 }]);
 app.controller('loginStatusController', ['$scope', '$rootScope', 
     '$facebook', function($scope, $rootScope, $facebook){
@@ -236,4 +239,12 @@ app.controller('loginStatusController', ['$scope', '$rootScope',
             });
     }
     refresh();
+}]);
+
+app.controller('themeComtroller', ['$scope', 'colorFactory', function($scope, colorFactory){
+    $scope.schemeList = colorFactory.getSchemeList();
+    $scope.selectScheme = function(selection){
+        colorFactory.changeScheme(selection);
+        $scope.$broadcast("SchemeChanged");
+    };
 }]);

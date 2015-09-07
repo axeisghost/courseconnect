@@ -1,7 +1,7 @@
-<div ng-repeat="course in courseCandidates" ng-controller="courseCandidate" ng-init="selectedCourse=course.ident">
-  <accordion-group  heading="{{course.ident}} - {{course.name}}" is-open="true">
-    <div  ng-repeat="instructor in instructors">
-      <course-candidate-section-item></course-candidate-section-item>
-    </div>
-  </accordion-group> 
+<div ng-repeat="course in courseCandidates" ng-controller="courseCandidate" ng-init="selectedCourse=course.ident" style="border-left: 5px solid {{sectionColor}}">
+  	<accordion-group  heading="{{course.ident}} - {{course.name}}" is-open="true">
+    	<div  ng-repeat="instructor in instructors">
+      		<course-candidate-section-item></course-candidate-section-item>
+    	</div>
+  	</accordion-group> 
 </div>

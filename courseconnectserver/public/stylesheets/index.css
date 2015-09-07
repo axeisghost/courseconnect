@@ -69,3 +69,7 @@ body {
     display:inline-block;
     text-align: center;
 }
+
+.color-scheme{
+    background-color: blue;
+}

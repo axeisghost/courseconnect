@@ -111,3 +111,28 @@ app.factory('parseCourseInfo', ['getHoursAndMinutes', function(getHoursAndMinute
         return ui_form;
     }
 }]);
+
+app.factory('colorFactory',function(){
+    var colorSchemes = {
+        defaultColor:['#F16745', '#FFC65D', '#7BC8A4', '#4CC3D9', '#93648D'],
+        color1:['#FFCB74', '#F78D63', '#E2646D', '#C3658F', '#996E93'],
+        color2:['#88B0C1', '#627192', '#4B4261', '#2F1232', '#ECE7E1'],
+        color3:['#A1A584', '#CDD3A7', '#EFEAC0', '#9CB6B5', '#9ED5D2'],
+    };
+    var currentScheme = colorSchemes.defaultColor;
+    return {
+        getNextColor: function(){
+            var whichColor = Math.floor((Math.random()*10))%5;
+            return currentScheme[whichColor];
+        },
+        getSchemeList: function(){
+            return colorSchemes;
+        },
+        getCurrentScheme: function(){
+            return currentScheme;
+        },
+        changeScheme: function(selection){
+            currentScheme = colorSchemes[selection];
+        }
+    }
+});
