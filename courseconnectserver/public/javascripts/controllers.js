@@ -1,8 +1,8 @@
 'use strict';
 
 var app = angular.module('courseconnect.controllers', ['ui.calendar']);
-app.controller('calendarController', ['$scope','parseCourseInfo', function($scope,
-        parseCourseInfo) {
+app.controller('calendarController', ['$scope', '$compile', 'parseCourseInfo', function($scope,
+        $compile, parseCourseInfo) {
     /* config object */
     $scope.eventSource = [];
     $scope.selectedSectionID = {};
@@ -39,20 +39,11 @@ app.controller('calendarController', ['$scope','parseCourseInfo', function($scop
         defaultView: "agendaWeek",
         eventLimit: true,
         eventRender: function(event, element) {
-            console.log("description: "+event.description); 
-            var title = event.title.split('\n')[2];
-            $(element).popover({placement: "auto",
-                 title: title,
-                 content:   '<h5>'+"Ref Number: \n"+'</h5>'+event.description.number+
-                            '<h5>'+"Section: \n"+'</h5>'+event.description.section+
-                            '<h5>'+"Credits: \n"+'</h5>'+event.description.credit+'<h5>'+"Instructor: \n"+
-                            '</h5>'+event.description.instructor+'<h5>'+"Location: \n"+
-                            '</h5>'+event.description.location,
-                 trigger: "hover",
-                 html: true,   
-                 viewport: { selector: 'body', padding: 10}        
-            });
-            
+            element.attr({'course-tooltip': JSON.stringify({
+                title: event.title.split('\n')[2], 
+                description: event.description
+            })});
+            $compile(element)($scope);
         }
       }
     }; 
