@@ -40,6 +40,10 @@ body {
     max-height: 15px;
 }
 
+.clip-circle {
+    border-radius: 50%;
+}
+
 .list-item{
     font-size: 15px;
     vertical-align: middle;

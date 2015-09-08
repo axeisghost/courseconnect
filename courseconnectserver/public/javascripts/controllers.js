@@ -16,13 +16,14 @@ app.controller('calendarController', ['$scope', '$compile', 'parseCourseInfo',
     };
 
     var isPreview = function(section){
-        return selectedSections[section._id] != null &&
-            selectedSections[section._id]['isPreview'] === true;
+        return exist(section) &&
+            selectedSections[section._id]['isPreview'];
     }
 
     var conflitsWithCurrentSections = function(section) {
         for (var i in selectedSections) {
-            if (selectedSections[i] && hasSectionConflict(selectedSections[i].section,section)){
+            if (selectedSections[i] &&
+                hasSectionConflict(selectedSections[i].section,section)){
                 return true;
             }
         }
@@ -49,6 +50,7 @@ app.controller('calendarController', ['$scope', '$compile', 'parseCourseInfo',
             for (var i = 0; i < $scope.eventSource.length; i++) {
                 if ($scope.eventSource[i][0]['id'] === section._id){
                     index = i;
+                    break;
                 }
             };
             $scope.eventSource.splice(index,1);
@@ -97,13 +99,13 @@ app.controller('calendarController', ['$scope', '$compile', 'parseCourseInfo',
 }]);
 
 
-app.controller('accordionController', function ($scope) {
-  $scope.oneAtATime = true;
-  // $scope.addItem = function() {
-  //   var newItemNo = $scope.items.length + 1;
-  //   $scope.items.push('Item ' + newItemNo);
-  // };
-});
+// app.controller('accordionController', function ($scope) {
+//   $scope.oneAtATime = true;
+//   // $scope.addItem = function() {
+//   //   var newItemNo = $scope.items.length + 1;
+//   //   $scope.items.push('Item ' + newItemNo);
+//   // };
+// });
 
 
 app.controller('controlPanelTab', ['$scope', function($scope) {

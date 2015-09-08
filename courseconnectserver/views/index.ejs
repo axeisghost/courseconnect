@@ -40,13 +40,16 @@
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
+          
           <login-status-bar></login-status-bar>
-          <div class="dropdown" style="float: right">
-            <button class="dropdown-toggle" type="button" data-toggle="dropdown">Theme<span class="caret"></span></button>
-            <ul class="dropdown-menu">
-              <li ng-repeat="(schemeName, colors) in schemeList" ng-click="selectScheme(schemeName)">{{schemeName}}</li>
-            </ul>
-          </div>
+          <ul class="nav navbar-nav pull-right">
+            <li class="dropdown">
+              <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">Theme<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li ng-repeat="(schemeName, colors) in schemeList" ng-click="selectScheme(schemeName)"><a>{{schemeName}}</a></li>
+              </ul>
+            </li>
+          </ul>
         </div>
         <div id="fb-root"></div>
       </div>
