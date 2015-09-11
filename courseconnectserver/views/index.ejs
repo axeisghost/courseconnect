@@ -44,9 +44,9 @@
           <login-status-bar></login-status-bar>
           <ul class="nav navbar-nav pull-right">
             <li class="dropdown">
-              <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">Theme<span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Theme<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li ng-repeat="(schemeName, colors) in schemeList" ng-click="selectScheme(schemeName)"><a>{{schemeName}}</a></li>
+                <li ng-repeat="(schemeName, colors) in schemeList" ng-click="selectScheme(schemeName)"><a href="">{{schemeName}}</a></li>
               </ul>
             </li>
           </ul>

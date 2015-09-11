@@ -99,15 +99,6 @@ app.controller('calendarController', ['$scope', '$compile', 'parseCourseInfo',
 }]);
 
 
-// app.controller('accordionController', function ($scope) {
-//   $scope.oneAtATime = true;
-//   // $scope.addItem = function() {
-//   //   var newItemNo = $scope.items.length + 1;
-//   //   $scope.items.push('Item ' + newItemNo);
-//   // };
-// });
-
-
 app.controller('controlPanelTab', ['$scope', function($scope) {
     $scope.operationModes = ['Schedule', 'Friends'];
     $scope.currentMode = $scope.operationModes[0];

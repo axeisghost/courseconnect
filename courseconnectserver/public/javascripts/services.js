@@ -80,6 +80,49 @@ app.factory('hasSectionConflict', ['getMinutes', function(getMinutes){
     };
 }]);
 
+app.factory('conflictWithSections', ['hasSectionConflict', function(hasSectionConflict){
+    return function(section, otherSections) {
+        for (var i in otherSections) {
+            if (otherSections[i] &&
+                hasSectionConflict(otherSections[i].section,section)){
+                return true;
+            }
+        }
+        return false;
+    };
+}]);
+
+
+app.factory('getPossibleSchedules', ['hasSectionConflict', function(hasSectionConflict){
+    return function(courses){
+        var schedules = [];
+        for(var i in courses){
+            var currentCourse = courses[i];
+            for(var j in currentCourse){
+                var currentSection = currentCourse[j];
+                var newSchedules = [];
+                if(!schedules){
+                    if(i == 0){
+                        newSchedules.push([currentSection]);
+                    } else {
+                        return [];
+                    }
+                } else {
+                    for(var k in schedules){
+                        currentSchedule = schedules[k];
+                        if(!hasSectionConflict(currentSection,currentSchedule)){
+                            currentSchedule.push(currentSection);
+                            newSchedules.push(currentSchedule);
+                        }
+                    }
+                }
+                schedules = newSchedules;
+            }
+        }
+        return schedules;
+    };
+}]);
+
 app.factory('parseCourseInfo', ['getHoursAndMinutes', function(getHoursAndMinutes) {
     return function(major, course, section, color) {
         var weekdays = ['M','T','W','R','F']; 
@@ -109,7 +152,7 @@ app.factory('parseCourseInfo', ['getHoursAndMinutes', function(getHoursAndMinute
             ui_form[i]['description']['location'] = section.timeslots[i].location;
         }
         return ui_form;
-    }
+    };
 }]);
 
 app.factory('colorFactory',function(){
@@ -134,5 +177,5 @@ app.factory('colorFactory',function(){
         changeScheme: function(selection){
             currentScheme = colorSchemes[selection];
         }
-    }
+    };
 });
