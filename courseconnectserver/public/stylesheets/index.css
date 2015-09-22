@@ -55,6 +55,11 @@ body {
     background-color: #E8E8E8;
 }
 
+.selected{
+    cursor: pointer;
+    background-color: #E8E8E8;
+}
+
 .panel-heading:hover {
     cursor: pointer;
 }

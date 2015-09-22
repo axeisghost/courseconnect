@@ -30,7 +30,10 @@ app.controller('calendarController', ['$scope', '$compile', 'parseCourseInfo',
         return false;
     }
 
+
+
     $scope.addSection = function(section,course,major,isPreview,color){
+        
         if (!exist(section)){
             if (conflitsWithCurrentSections(section)){
                 color = 'rgba(0,125,125, 0.3)';
@@ -44,6 +47,7 @@ app.controller('calendarController', ['$scope', '$compile', 'parseCourseInfo',
     }
 
     $scope.removeSection = function(section, behavior){
+        
         if (behavior === 'click' ||
                 (behavior === 'mouseleave' && isPreview(section))){
             var index = 0;
@@ -63,11 +67,14 @@ app.controller('calendarController', ['$scope', '$compile', 'parseCourseInfo',
         $scope.curMajor = major;
         if(exist(section)) {
             if(isPreview(section)){
+                section.status = "selected";
                 selectedSections[section._id]['isPreview'] = false;
             } else {
+                section.status = "unselected";
                 $scope.removeSection(section, 'click');
             }
         } else {
+            section.status = "selected";
             $scope.addSection(section,course,major,false,color);
         }
     };
