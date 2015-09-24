@@ -16,16 +16,15 @@ app.factory('getCourseoffQueryUrl', function() {
         'courses':'selectedCourse',
         'sections':'selectedSection'
     };
-    return function(scope){
+    return function(scope, level){
         var url = 'https://soc.courseoff.com/' + scope.selectedCollege;
         for(var key in hierarchies){
             var currentIdent = scope[hierarchies[key]];
             url += ('/' + key);
-            if(currentIdent){
-                url += ('/' + currentIdent);
-            } else{
+            if (key === level){
                 return url;
             }
+            url += ('/' + currentIdent);
         }
         return url;
     };
@@ -124,12 +123,12 @@ app.factory('getPossibleSchedules', ['hasSectionConflict', function(hasSectionCo
 }]);
 
 app.factory('parseCourseInfo', ['getHoursAndMinutes', function(getHoursAndMinutes) {
-    return function(major, course, section, color) {
+    return function(course, section, color) {
         var weekdays = ['M','T','W','R','F']; 
         var ui_form = [];
         for(var i = 0; i < section.timeslots.length; i++){
             ui_form[i]={};
-            ui_form[i]['title']= major['ident']+" - "+ course['ident']+
+            ui_form[i]['title']= course.major+" - "+ course['ident']+
                 "\nSection "+section['ident']+'\n'+''+course['name']+'\n';
             var startDate = new Date();
             var startTime = getHoursAndMinutes(section.timeslots[i].start_time);

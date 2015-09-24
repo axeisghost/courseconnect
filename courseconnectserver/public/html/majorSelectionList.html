@@ -1,8 +1,9 @@
 <accordion close-others="true">
-  <accordion-group heading="Select Major" panel-class="panel-primary" is-open="true">
+  <accordion-group heading="Select Major" panel-class="panel-primary" is-open="false">
     <div class="list-item" ng-repeat="major in majors">
       <major-Selection-Item/>
     </div>
   </accordion-group>
   <major-candidate-list></major-candidate-list>
+  <course-candidate-list></course-candidate-list>
 </accordion>

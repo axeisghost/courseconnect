@@ -1,8 +1,7 @@
-<div ng-controller="majorCandidate" ng-repeat="major in majorCandidates" ng-init="selectedMajor=major.ident">
-  <accordion-group  heading="{{major.ident}} - {{major.name}}" panel-class="panel-info" is-open="true">
+<div ng-controller="majorCandidate" ng-repeat="major in majorCandidates" >
+  <accordion-group heading="{{major.ident}} - {{major.name}}" panel-class="panel-info" is-open="true">
     <div class="list-item" ng-repeat="course in courses">
       <major-candidate-course-item/>
     </div>
   </accordion-group>
-  <course-candidate-list></course-candidate-list>
 </div>
