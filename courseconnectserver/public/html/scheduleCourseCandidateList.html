@@ -4,10 +4,16 @@
             {{course.major}} {{course.ident}} - {{course.name}}
         </span>
         <span>
-            <input type="checkbox" ng-checked="" style="float:right">
+            <input type="checkbox" ng-click="toggleCourse(course)" style="float:right">
         </span>
     </div>
-    <div class="panel-body">
-        
+    <div class="list-group">
+        <div class="list-group-item" ng-click="showAutoSchedule(schedule)" ng-repeat="schedule in schedules" >
+            <div ng-repeat="section in schedule">
+                <span>{{section.course.major}} </span>
+                <span>{{section.course.ident}}</span>
+                <span>{{section.ident}}</span>
+            </div>
+        </div>
     </div>
 </div>

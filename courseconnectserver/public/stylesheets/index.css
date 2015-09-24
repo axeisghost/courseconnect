@@ -50,10 +50,16 @@ body {
     min-height: 28px;
 }
 
-.list-item:hover {
+.list-item:hover{
     cursor: pointer;
     background-color: #E8E8E8;
 }
+
+.list-group-item:hover {
+    cursor: pointer;
+    background-color: #E8E8E8;
+}
+
 
 .selected{
     cursor: pointer;

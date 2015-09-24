@@ -72,6 +72,17 @@ app.controller('calendarController', ['$scope', '$rootScope', '$compile', 'parse
         }
     };
 
+    $rootScope.showAutoSchedule = function(schedule){
+        $scope.eventSource.splice(0,$scope.eventSource.length)
+        for (var i = 0; i < schedule.length; i++) {
+            $scope.eventSource.push(parseCourseInfo(schedule[i].course, schedule[i],'rgba(0,125,100)'))
+        };
+    };
+
+    $rootScope.showManualSchedule = function(){
+
+    };
+
     $scope.uiConfig = {
       calendar:{
         header: {
@@ -174,10 +185,10 @@ app.controller('courseCandidate', ['$scope', '$rootScope', '$http',
                 }
                 return returnArray;
             };
-
             $scope.instructors = [];
             for (var i = 0; i < sections.length; i++) {
                 var exist = false;
+                sections[i].course = $
                 for(var j in $scope.instructors){
                     if(JSON.stringify(sections[i].instructor)===JSON.stringify($scope.instructors[j].instructorInfo)){
                         sections[i].sectionTimeSlot = parseSectionTimeSlots(sections[i].timeslots);
@@ -196,8 +207,15 @@ app.controller('courseCandidate', ['$scope', '$rootScope', '$http',
             for (var i = 0; i < $scope.courseCandidates.length; i++) {
                 if($scope.courseCandidates[i].major === $scope.selectedMajor &&
                     $scope.courseCandidates[i].ident === $scope.selectedCourse){
-                    $scope.courseCandidates[i].displaySections = sections;
-                    $scope.courseCandidates[i].instructors = $scope.instructors;
+                    $scope.courseCandidates[i].sections = sections;
+                    for(var j in sections){
+                        sections[j].course = 
+                        {
+                            major : $scope.courseCandidates[i].major,
+                            ident : $scope.courseCandidates[i].ident,
+                            name : $scope.courseCandidates[i].name
+                        };
+                    }
                 }
             };
         }, function(response) {
@@ -211,17 +229,35 @@ app.controller('courseCandidate', ['$scope', '$rootScope', '$http',
             console.log("new section color");
         })
 }]);
-app.controller('scheduler', ['$scope','$rootScope',function($scope,$rootScope){
-    $scope.coursesToBeScheduled = {};
+app.controller('scheduler', ['$scope','$rootScope','getPossibleSchedules',
+    function($scope,$rootScope,getPossibleSchedules){
+    var coursesToBeScheduled = {};
+    $scope.schedules = [];
+    var auto_schedule = function(){
+        var courses = [];
+        for(var i in coursesToBeScheduled){
+            if(coursesToBeScheduled[i]){
+                courses.push(coursesToBeScheduled[i]);
+            }
+        }
+        $scope.schedules = getPossibleSchedules(courses);
+    };
+    var addCourse = function(course){
+        coursesToBeScheduled[course.major+course.ident] = course;
+        auto_schedule();
+    };
+    var removeCourse = function(course){
+        coursesToBeScheduled[course.major+course.ident] = null;
+        auto_schedule();
+    };
     $scope.toggleCourse = function(course){
-
+        if(coursesToBeScheduled[course.major+course.ident]){
+            removeCourse(course);
+        } else{
+            addCourse(course);
+        }
     };
-    $scope.addCourse = function(course){
-
-    };
-    $scope.removeCourse = function(course){
-
-    };
+    
 }]);
 app.controller('loginStatusController', ['$scope', '$rootScope', 
     '$facebook', function($scope, $rootScope, $facebook){

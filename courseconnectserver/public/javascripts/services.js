@@ -83,7 +83,7 @@ app.factory('conflictWithSections', ['hasSectionConflict', function(hasSectionCo
     return function(section, otherSections) {
         for (var i in otherSections) {
             if (otherSections[i] &&
-                hasSectionConflict(otherSections[i].section,section)){
+                hasSectionConflict(otherSections[i],section)){
                 return true;
             }
         }
@@ -92,31 +92,29 @@ app.factory('conflictWithSections', ['hasSectionConflict', function(hasSectionCo
 }]);
 
 
-app.factory('getPossibleSchedules', ['hasSectionConflict', function(hasSectionConflict){
+app.factory('getPossibleSchedules', ['conflictWithSections', function(conflictWithSections){
     return function(courses){
         var schedules = [];
         for(var i in courses){
             var currentCourse = courses[i];
-            for(var j in currentCourse){
-                var currentSection = currentCourse[j];
-                var newSchedules = [];
-                if(!schedules){
-                    if(i == 0){
-                        newSchedules.push([currentSection]);
-                    } else {
-                        return [];
-                    }
+            var newSchedules = [];
+            for(var j in currentCourse.sections){
+                var currentSection = currentCourse.sections[j];
+                if(i == 0){ //Handle the first course.
+                    newSchedules.push([currentSection]); 
+                } else if(schedules.length == 0) {
+                    return [];
                 } else {
                     for(var k in schedules){
-                        currentSchedule = schedules[k];
-                        if(!hasSectionConflict(currentSection,currentSchedule)){
-                            currentSchedule.push(currentSection);
-                            newSchedules.push(currentSchedule);
+                        var currentSchedule = schedules[k];
+                        if(!conflictWithSections(currentSection,currentSchedule)){
+                            var newSchedule = currentSchedule.concat(currentSection);
+                            newSchedules.push(newSchedule);
                         }
                     }
                 }
-                schedules = newSchedules;
             }
+            schedules = newSchedules;
         }
         return schedules;
     };
