@@ -208,8 +208,8 @@ app.controller('courseCandidate', ['$scope', '$http',
 app.controller('loginStatusController', ['$scope', '$rootScope', 
     '$facebook', function($scope, $rootScope, $facebook){
     $rootScope.isLoggedIn = false;
-    $rootScope.userid = '';
-    $scope.name = '';
+    $rootScope.user = {};
+    $rootScope.friends = [];
     $scope.login = function() {
         $facebook.login().then(function() {
             refresh();
@@ -218,26 +218,37 @@ app.controller('loginStatusController', ['$scope', '$rootScope',
     $scope.logout = function() {
          $facebook.logout().then(function() {
             $rootScope.isLoggedIn = false;
-            $scope.name = '';
-            $scope.picture = '';
-            $rootScope.userid = '';
+            $rootScope.user = {};
+            $rootScope.friends = [];
         });
     }
     function refresh() {
         $facebook.api("/me").then( 
             function(response) {
-                $scope.name = response.name;
-                $rootScope.userid = response.id;
+                $rootScope.user.id = response.id;
+                $rootScope.user.name = response.name;
                 $rootScope.isLoggedIn = true;
             },
             function(err) {
-                $scope.name = '';
-                $rootScope.userid = '';
+                $rootScope.user = {};
                 $rootScope.isLoggedIn = false;
             });
         $facebook.api("/me/picture").then( 
             function(response) {
-                $scope.picture = response.data.url;
+                $rootScope.user.picture = response.data.url;
+            });
+        $facebook.api("/me/friends").then( 
+            function(response) {
+                response.data.forEach(function(fdata) {
+                    var friend = {};
+                    friend.id = fdata.id;
+                    friend.name = fdata.name;
+                    $facebook.api("/" + fdata.id + "/picture").then( 
+                        function(response) {
+                            friend.picture = response.data.url;
+                        });
+                    $rootScope.friends.push(friend);
+                });
             });
     }
     refresh();
