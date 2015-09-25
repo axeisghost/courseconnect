@@ -79,3 +79,10 @@ app.directive('courseTooltip', function() {
         }
     };
 });
+
+app.directive('scheduleCourseCandidateList', function(){
+    return {
+        restrict: 'E',
+        templateUrl: 'html/scheduleCourseCandidateList.html'
+    }
+});

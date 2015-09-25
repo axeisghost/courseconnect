@@ -16,16 +16,15 @@ app.factory('getCourseoffQueryUrl', function() {
         'courses':'selectedCourse',
         'sections':'selectedSection'
     };
-    return function(scope){
+    return function(scope, level){
         var url = 'https://soc.courseoff.com/' + scope.selectedCollege;
         for(var key in hierarchies){
             var currentIdent = scope[hierarchies[key]];
             url += ('/' + key);
-            if(currentIdent){
-                url += ('/' + currentIdent);
-            } else{
+            if (key === level){
                 return url;
             }
+            url += ('/' + currentIdent);
         }
         return url;
     };
@@ -80,13 +79,54 @@ app.factory('hasSectionConflict', ['getMinutes', function(getMinutes){
     };
 }]);
 
+app.factory('conflictWithSections', ['hasSectionConflict', function(hasSectionConflict){
+    return function(section, otherSections) {
+        for (var i in otherSections) {
+            if (otherSections[i] &&
+                hasSectionConflict(otherSections[i],section)){
+                return true;
+            }
+        }
+        return false;
+    };
+}]);
+
+
+app.factory('getPossibleSchedules', ['conflictWithSections', function(conflictWithSections){
+    return function(courses){
+        var schedules = [];
+        for(var i in courses){
+            var currentCourse = courses[i];
+            var newSchedules = [];
+            for(var j in currentCourse.sections){
+                var currentSection = currentCourse.sections[j];
+                if(i == 0){ //Handle the first course.
+                    newSchedules.push([currentSection]); 
+                } else if(schedules.length == 0) {
+                    return [];
+                } else {
+                    for(var k in schedules){
+                        var currentSchedule = schedules[k];
+                        if(!conflictWithSections(currentSection,currentSchedule)){
+                            var newSchedule = currentSchedule.concat(currentSection);
+                            newSchedules.push(newSchedule);
+                        }
+                    }
+                }
+            }
+            schedules = newSchedules;
+        }
+        return schedules;
+    };
+}]);
+
 app.factory('parseCourseInfo', ['getHoursAndMinutes', function(getHoursAndMinutes) {
-    return function(major, course, section, color) {
+    return function(course, section, color) {
         var weekdays = ['M','T','W','R','F']; 
         var ui_form = [];
         for(var i = 0; i < section.timeslots.length; i++){
             ui_form[i]={};
-            ui_form[i]['title']= major['ident']+" - "+ course['ident']+
+            ui_form[i]['title']= course.major+" - "+ course['ident']+
                 "\nSection "+section['ident']+'\n'+''+course['name']+'\n';
             var startDate = new Date();
             var startTime = getHoursAndMinutes(section.timeslots[i].start_time);
@@ -109,7 +149,7 @@ app.factory('parseCourseInfo', ['getHoursAndMinutes', function(getHoursAndMinute
             ui_form[i]['description']['location'] = section.timeslots[i].location;
         }
         return ui_form;
-    }
+    };
 }]);
 
 app.factory('colorFactory',function(){
@@ -134,5 +174,5 @@ app.factory('colorFactory',function(){
         changeScheme: function(selection){
             currentScheme = colorSchemes[selection];
         }
-    }
+    };
 });

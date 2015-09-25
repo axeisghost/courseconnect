@@ -11,15 +11,15 @@ body {
 
 #displayPanel {
     position: absolute;
-    max-width: 60%;
+    max-width: 45%;
     margin-top: 100px;
-    left: 2%;
+    left: 15%;
 }
 
 #controlPanel {
     position: absolute;
     margin-top: 100px;
-    left: 63%;
+    left: 62%;
     min-width: 20%;
     max-height: 80%;
     overflow-y: auto;
@@ -50,7 +50,18 @@ body {
     min-height: 28px;
 }
 
-.list-item:hover {
+.list-item:hover{
+    cursor: pointer;
+    background-color: #E8E8E8;
+}
+
+.list-group-item:hover {
+    cursor: pointer;
+    background-color: #E8E8E8;
+}
+
+
+.selected{
     cursor: pointer;
     background-color: #E8E8E8;
 }

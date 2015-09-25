@@ -44,9 +44,9 @@
           <login-status-bar></login-status-bar>
           <ul class="nav navbar-nav pull-right">
             <li class="dropdown">
-              <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">Theme<span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Theme<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li ng-repeat="(schemeName, colors) in schemeList" ng-click="selectScheme(schemeName)"><a>{{schemeName}}</a></li>
+                <li ng-repeat="(schemeName, colors) in schemeList" ng-click="selectScheme(schemeName)"><a href="">{{schemeName}}</a></li>
               </ul>
             </li>
           </ul>
@@ -64,16 +64,19 @@
         <ul class="nav nav-tabs" role="tablist">
           <li role="presentation" class="{{currentMode=='Schedule'?'active':''}}" ng-click="currentMode='Schedule'"><a>Schedules</a></li>
           <li role="presentation" class="{{currentMode=='Friends'?'active':''}}" ng-click="currentMode='Friends'"><a>Friends</a></li>
+          <li role="presentation" class="{{currentMode=='Auto-schedule'?'active':''}}" ng-click="currentMode='Auto-schedule'"><a>Auto-Scheduler</a></li>
         </ul>
 
         <div class="placeholder" style="height:10px"></div>
         <div class="animate-switch" ng-show="currentMode=='Schedule'">
           <div ng-controller="courseSelectionPanel">
             <major-selection-panel></major-selection-panel>
-            
           </div>
         </div>
         <div class="animate-switch" ng-show="currentMode=='Friends'">This will be Friends tab</div>
+        <div class="animate-switch" ng-show="currentMode=='Auto-schedule'">
+          <schedule-course-candidate-list></schedule-course-candidate-list>
+        </div>
       </div>
     </div>
   </body>
