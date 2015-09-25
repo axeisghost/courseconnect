@@ -6,6 +6,7 @@ app.controller('calendarController', ['$scope', '$rootScope', '$compile', 'parse
     'hasSectionConflict', function($scope, $rootScope, $compile, parseCourseInfo, hasSectionConflict) {
     /* config object */
     $scope.eventSource = [];
+    $scope.storedManualEventSource = null;
     $rootScope.selectedSections = {};
 
     var exist = function(section) {
@@ -35,6 +36,7 @@ app.controller('calendarController', ['$scope', '$rootScope', '$compile', 'parse
                 color = 'rgba(0,125,125, 0.3)';
             }
             $scope.eventSource.push(parseCourseInfo(course, section,color));
+            section.course = course;
             $rootScope.selectedSections[section._id] = {
                 "section" : section,
                 "isPreview" : isPreview
@@ -72,15 +74,27 @@ app.controller('calendarController', ['$scope', '$rootScope', '$compile', 'parse
         }
     };
 
-    $rootScope.showAutoSchedule = function(schedule){
-        $scope.eventSource.splice(0,$scope.eventSource.length)
-        for (var i = 0; i < schedule.length; i++) {
-            $scope.eventSource.push(parseCourseInfo(schedule[i].course, schedule[i],'rgba(0,125,100)'))
-        };
+    $rootScope.showAutoSchedule = function(){
+        if(!$scope.storedManualEventSource){
+            $scope.storedManualEventSource = $scope.eventSource.splice(0,$scope.eventSource.length);
+        } else{
+            $scope.eventSource.splice(0,$scope.eventSource.length);
+        }
+        if($rootScope.selectedAutoSchedule){
+            for (var i = 0; i < $rootScope.selectedAutoSchedule.length; i++) {
+                $scope.eventSource.push(parseCourseInfo($rootScope.selectedAutoSchedule[i].course, $rootScope.selectedAutoSchedule[i],'rgba(0,125,100)'))
+            };
+        }
     };
 
     $rootScope.showManualSchedule = function(){
-
+        $scope.eventSource.splice(0,$scope.eventSource.length)
+        if($scope.storedManualEventSource){
+            for (var i in $scope.storedManualEventSource) {
+                $scope.eventSource.push($scope.storedManualEventSource[i]);
+            };
+        }
+        $scope.storedManualEventSource = null;
     };
 
     $scope.uiConfig = {
@@ -111,7 +125,7 @@ app.controller('calendarController', ['$scope', '$rootScope', '$compile', 'parse
 
 
 app.controller('controlPanelTab', ['$scope', function($scope) {
-    $scope.operationModes = ['Schedule', 'Friends'];
+    $scope.operationModes = ['Schedule', 'Friends','Auto_Schedule'];
     $scope.currentMode = $scope.operationModes[0];
 }]);
 
@@ -232,7 +246,8 @@ app.controller('courseCandidate', ['$scope', '$rootScope', '$http',
 app.controller('scheduler', ['$scope','$rootScope','getPossibleSchedules',
     function($scope,$rootScope,getPossibleSchedules){
     var coursesToBeScheduled = {};
-    $scope.schedules = [];
+    $rootScope.auto_schedules = [];
+    $rootScope.selectedAutoSchedule = null;
     var auto_schedule = function(){
         var courses = [];
         for(var i in coursesToBeScheduled){
@@ -240,7 +255,7 @@ app.controller('scheduler', ['$scope','$rootScope','getPossibleSchedules',
                 courses.push(coursesToBeScheduled[i]);
             }
         }
-        $scope.schedules = getPossibleSchedules(courses);
+        $rootScope.auto_schedules = getPossibleSchedules(courses);
     };
     var addCourse = function(course){
         coursesToBeScheduled[course.major+course.ident] = course;
@@ -257,7 +272,10 @@ app.controller('scheduler', ['$scope','$rootScope','getPossibleSchedules',
             addCourse(course);
         }
     };
-    
+    $scope.setSelectedAutoSchedule = function(schedule){
+        $rootScope.selectedAutoSchedule = schedule;
+        $rootScope.showAutoSchedule();
+    };
 }]);
 app.controller('loginStatusController', ['$scope', '$rootScope', 
     '$facebook', function($scope, $rootScope, $facebook){
