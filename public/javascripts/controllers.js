@@ -13,9 +13,9 @@ app.controller('calendarController', ['$scope', '$rootScope', '$compile', '$http
     
     $scope.$watchCollection('schedule', function() {
         if ((!$scope.lockUpdate) && $rootScope.isLoggedIn) {
-            console.log('update stsart');
-            $http.put('/users/' + $rootScope.user.id, $scope.schedule).success(function() {
-                console.log('update complete');
+            console.log('update start');
+            $http.put('/users/' + $rootScope.user.id, $scope.schedule).success(function(res) {
+                console.log(res);
             });
         }
     });

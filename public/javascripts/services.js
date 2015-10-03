@@ -59,8 +59,8 @@ app.factory('hasSectionConflict', ['getMinutes', function(getMinutes){
                     earlierSection = section2.sectionTimeSlot[j];
                     laterSection = section1.sectionTimeSlot[i];
                 }
-                console.log(earlierSection.endTime);
-                console.log(laterSection.startTime);
+                // console.log(earlierSection.endTime);
+                // console.log(laterSection.startTime);
                 if (getMinutes(earlierSection.endTime) >= 
                     getMinutes(laterSection.startTime)) {
                     console.log('found problem');

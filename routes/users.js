@@ -23,9 +23,9 @@ router.post('/:id', function(req, res, next) {
 
 router.put('/:id', function(req, res, next) {
     console.log('update received');
-    User.update({fbid: req.params.id}, {schedule: req.body}, function(err, user){
+    User.update({fbid: req.params.id}, {schedule: req.body}, {}, function(err, user){
         if(err){ return next(err); }
-        return true;
+        res.write('update complete');
     });
 });
 
