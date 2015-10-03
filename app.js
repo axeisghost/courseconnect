@@ -9,7 +9,8 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var user_schedule = require('./routes/user_schedule');
 
-// var mongoose = require('mongoose');
+var mongoose = require('mongoose');
+require('./models/Users');
 
 var app = express();
 
@@ -30,7 +31,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/user_schedule', user_schedule);
 
-// mongoose.connect('mongodb://localhost/courseconnect');
+mongoose.connect('mongodb://localhost/courseconnect');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

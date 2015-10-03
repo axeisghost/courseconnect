@@ -2,13 +2,40 @@
 
 var app = angular.module('courseconnect.controllers', ['ui.calendar']);
 
-app.controller('calendarController', ['$scope', '$rootScope', '$compile', 'parseCourseInfo', 
-    'hasSectionConflict', function($scope, $rootScope, $compile, parseCourseInfo, hasSectionConflict) {
+app.controller('calendarController', ['$scope', '$rootScope', '$compile', '$http', 'parseCourseInfo', 
+    'hasSectionConflict', function($scope, $rootScope, $compile, $http, parseCourseInfo, hasSectionConflict) {
     /* config object */
     $scope.eventSource = [];
     $scope.storedManualEventSource = null;
     $rootScope.selectedSections = {};
+    $scope.schedule = [];
+    $scope.lockUpdate = true;
+    
+    $scope.$watchCollection('schedule', function() {
+        if ((!$scope.lockUpdate) && $rootScope.isLoggedIn) {
+            console.log('update stsart');
+            $http.put('/users/' + $rootScope.user.id, $scope.schedule).success(function() {
+                console.log('update complete');
+            });
+        }
+    });
 
+    $rootScope.$watch('isLoggedIn', function() {
+        if ($rootScope.isLoggedIn) {
+            $http.get('/users/' + $rootScope.user.id).success(function(res) {
+                if (res) {
+                    $scope.lockUpdate = true;
+                    $scope.eventSource.splice(0,$scope.eventSource.length);
+                    $rootScope.selectedSections = {};
+                    res.schedule.forEach(function(s) {
+                        $scope.addSection(s.section,s.course,false,s.color);
+                    });
+                    $scope.lockUpdate = false;
+                }
+            })
+        }
+    });
+    
     var exist = function(section) {
         return $rootScope.selectedSections[section._id] != null;
     };
@@ -28,26 +55,28 @@ app.controller('calendarController', ['$scope', '$rootScope', '$compile', 'parse
         return false;
     }
 
-
-
     $rootScope.addSection = function(section,course,isPreview,color){
         if (!exist(section)){
             if (conflitsWithCurrentSections(section)){
                 color = 'rgba(0,125,125, 0.3)';
             }
             $scope.eventSource.push(parseCourseInfo(course, section,color));
-            section.course = course;
+            // section.course = course;
             $rootScope.selectedSections[section._id] = {
                 "section" : section,
                 "isPreview" : isPreview
             };
+            
+            if (!isPreview) {
+                $scope.schedule.push({section: section, course: course, color: color});
+            }
         }
     }
 
     $rootScope.removeSection = function(section, behavior){
+        var index = 0;
         if (behavior === 'click' ||
                 (behavior === 'mouseleave' && isPreview(section))){
-            var index = 0;
             for (var i = 0; i < $scope.eventSource.length; i++) {
                 if ($scope.eventSource[i][0]['id'] === section._id){
                     index = i;
@@ -57,6 +86,16 @@ app.controller('calendarController', ['$scope', '$rootScope', '$compile', 'parse
             $scope.eventSource.splice(index,1);
             $rootScope.selectedSections[section._id] = null;
         }
+        
+        if (behavior == 'click') {
+            for (var i = 0; i < $scope.schedule.length; i++) {
+                if ($scope.schedule[i].section._id === section._id){
+                    index = i;
+                    break;
+                }
+            };
+            $scope.schedule.splice(index,1);
+        }
     }
     
     $rootScope.toggleSection = function(section,course,color) {
@@ -64,6 +103,7 @@ app.controller('calendarController', ['$scope', '$rootScope', '$compile', 'parse
             if(isPreview(section)){
                 section.status = "selected";
                 $rootScope.selectedSections[section._id]['isPreview'] = false;
+                $scope.schedule.push({section: section, course: course, color: color});
             } else {
                 section.status = "unselected";
                 $scope.removeSection(section, 'click');
@@ -278,7 +318,7 @@ app.controller('scheduler', ['$scope','$rootScope','getPossibleSchedules',
     };
 }]);
 app.controller('loginStatusController', ['$scope', '$rootScope', 
-    '$facebook', function($scope, $rootScope, $facebook){
+    '$facebook', '$http', function($scope, $rootScope, $facebook, $http){
     $rootScope.isLoggedIn = false;
     $rootScope.user = {};
     $rootScope.friends = [];
@@ -300,6 +340,8 @@ app.controller('loginStatusController', ['$scope', '$rootScope',
                 $rootScope.user.id = response.id;
                 $rootScope.user.name = response.name;
                 $rootScope.isLoggedIn = true;
+                
+                $http.post('/users/' + $rootScope.user.id);
             },
             function(err) {
                 $rootScope.user = {};
