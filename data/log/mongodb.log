@@ -241,3 +241,54 @@
 2015-05-30T11:00:17.512-0700 I STORAGE  [initandlisten] closeAllFiles() finished
 2015-05-30T11:00:17.512-0700 I STORAGE  [initandlisten] shutdown: removing fs lock...
 2015-05-30T11:00:17.512-0700 I CONTROL  [initandlisten] dbexit:  rc: 48
+2015-10-02T23:19:15.177-0400 I CONTROL  ***** SERVER RESTARTED *****
+2015-10-02T23:19:15.237-0400 I JOURNAL  [initandlisten] journal dir=/Users/apple/Documents/courseconnect/data/db/journal
+2015-10-02T23:19:15.239-0400 I JOURNAL  [initandlisten] recover : no journal files present, no recovery needed
+2015-10-02T23:19:15.266-0400 I JOURNAL  [durability] Durability thread started
+2015-10-02T23:19:15.266-0400 I CONTROL  [initandlisten] MongoDB starting : pid=9080 port=27017 dbpath=/Users/apple/Documents/courseconnect/data/db 64-bit host=appledeMacBook-Air.local
+2015-10-02T23:19:15.267-0400 I JOURNAL  [journal writer] Journal writer thread started
+2015-10-02T23:19:15.267-0400 I CONTROL  [initandlisten] 
+2015-10-02T23:19:15.271-0400 I CONTROL  [initandlisten] ** WARNING: soft rlimits too low. Number of files is 256, should be at least 1000
+2015-10-02T23:19:15.272-0400 I CONTROL  [initandlisten] db version v3.0.6
+2015-10-02T23:19:15.273-0400 I CONTROL  [initandlisten] git version: 1ef45a23a4c5e3480ac919b28afcba3c615488f2
+2015-10-02T23:19:15.273-0400 I CONTROL  [initandlisten] build info: Darwin mci-osx108-7.build.10gen.cc 12.5.0 Darwin Kernel Version 12.5.0: Sun Sep 29 13:33:47 PDT 2013; root:xnu-2050.48.12~1/RELEASE_X86_64 x86_64 BOOST_LIB_VERSION=1_49
+2015-10-02T23:19:15.274-0400 I CONTROL  [initandlisten] allocator: system
+2015-10-02T23:19:15.274-0400 I CONTROL  [initandlisten] options: { config: "./data/mongodb.conf", net: { bindIp: "127.0.0.1", port: 27017 }, processManagement: { fork: true }, storage: { dbPath: "data/db", journal: { enabled: true } }, systemLog: { destination: "file", logAppend: true, path: "data/log/mongodb.log" } }
+2015-10-02T23:19:15.444-0400 I NETWORK  [initandlisten] waiting for connections on port 27017
+2015-10-02T23:19:32.058-0400 I CONTROL  ***** SERVER RESTARTED *****
+2015-10-02T23:19:32.076-0400 E NETWORK  [initandlisten] listen(): bind() failed errno:48 Address already in use for socket: 127.0.0.1:27017
+2015-10-02T23:19:32.077-0400 E NETWORK  [initandlisten]   addr already in use
+2015-10-02T23:19:32.077-0400 W -        [initandlisten] Detected unclean shutdown - /Users/apple/Documents/courseconnect/data/db/mongod.lock is not empty.
+2015-10-02T23:19:32.081-0400 I STORAGE  [initandlisten] exception in initAndListen: 98 Unable to lock file: /Users/apple/Documents/courseconnect/data/db/mongod.lock errno:35 Resource temporarily unavailable. Is a mongod instance already running?, terminating
+2015-10-02T23:19:32.081-0400 I CONTROL  [initandlisten] dbexit:  rc: 100
+2015-10-02T23:20:16.428-0400 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:62593 #1 (1 connection now open)
+2015-10-02T23:33:50.090-0400 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:62826 #2 (2 connections now open)
+2015-10-02T23:33:50.091-0400 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:62827 #3 (3 connections now open)
+2015-10-02T23:33:50.092-0400 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:62828 #4 (4 connections now open)
+2015-10-02T23:33:50.092-0400 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:62829 #5 (5 connections now open)
+2015-10-02T23:33:50.092-0400 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:62830 #6 (6 connections now open)
+2015-10-02T23:34:15.018-0400 I NETWORK  [conn1] end connection 127.0.0.1:62593 (5 connections now open)
+2015-10-02T23:36:42.517-0400 I CONTROL  [signalProcessingThread] got signal 15 (Terminated: 15), will terminate after current cmd ends
+2015-10-02T23:36:42.528-0400 I CONTROL  [signalProcessingThread] now exiting
+2015-10-02T23:36:42.529-0400 I NETWORK  [signalProcessingThread] shutdown: going to close listening sockets...
+2015-10-02T23:36:42.529-0400 I NETWORK  [signalProcessingThread] closing listening socket: 6
+2015-10-02T23:36:42.529-0400 I NETWORK  [signalProcessingThread] closing listening socket: 7
+2015-10-02T23:36:42.530-0400 I NETWORK  [signalProcessingThread] removing socket file: /tmp/mongodb-27017.sock
+2015-10-02T23:36:42.531-0400 I NETWORK  [signalProcessingThread] shutdown: going to flush diaglog...
+2015-10-02T23:36:42.532-0400 I NETWORK  [signalProcessingThread] shutdown: going to close sockets...
+2015-10-02T23:36:42.532-0400 I STORAGE  [signalProcessingThread] shutdown: waiting for fs preallocator...
+2015-10-02T23:36:42.532-0400 I NETWORK  [conn2] end connection 127.0.0.1:62826 (4 connections now open)
+2015-10-02T23:36:42.532-0400 I NETWORK  [conn3] end connection 127.0.0.1:62827 (4 connections now open)
+2015-10-02T23:36:42.532-0400 I NETWORK  [conn4] end connection 127.0.0.1:62828 (4 connections now open)
+2015-10-02T23:36:42.533-0400 I NETWORK  [conn5] end connection 127.0.0.1:62829 (4 connections now open)
+2015-10-02T23:36:42.533-0400 I NETWORK  [conn6] end connection 127.0.0.1:62830 (4 connections now open)
+2015-10-02T23:36:42.533-0400 I STORAGE  [signalProcessingThread] shutdown: final commit...
+2015-10-02T23:36:42.539-0400 I JOURNAL  [signalProcessingThread] journalCleanup...
+2015-10-02T23:36:42.539-0400 I JOURNAL  [signalProcessingThread] removeJournalFiles
+2015-10-02T23:36:42.540-0400 I JOURNAL  [signalProcessingThread] Terminating durability thread ...
+2015-10-02T23:36:42.652-0400 I JOURNAL  [journal writer] Journal writer thread stopped
+2015-10-02T23:36:42.653-0400 I JOURNAL  [durability] Durability thread stopped
+2015-10-02T23:36:42.653-0400 I STORAGE  [signalProcessingThread] shutdown: closing all files...
+2015-10-02T23:36:42.655-0400 I STORAGE  [signalProcessingThread] closeAllFiles() finished
+2015-10-02T23:36:42.655-0400 I STORAGE  [signalProcessingThread] shutdown: removing fs lock...
+2015-10-02T23:36:42.656-0400 I CONTROL  [signalProcessingThread] dbexit:  rc: 0
