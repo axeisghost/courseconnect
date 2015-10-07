@@ -187,16 +187,18 @@ app.controller('courseSelectionPanel', ['$scope', '$rootScope', '$http', '$filte
         $rootScope.selectedMajor = major.ident;
         $scope.majorCandidates.push(major);
     }
-    $scope.removeMajorCandidates = function(major, $event){
-        $event.stopPropagation();
+    $scope.removeMajorCandidates = function(major, ev){
+        ev.preventDefault();
+        ev.stopPropagation();
         console.log("test enter remove major c");
         var index = $scope.majorCandidates.indexOf(major);
         if(index>-1){
             $scope.majorCandidates.splice(index, 1);
         }
     }
-    $scope.removeCourseCandidate = function(course, $event){
-        $event.stopPropagation();
+    $scope.removeCourseCandidate = function(course, ev){
+        ev.preventDefault();
+        ev.stopPropagation();
         console.log("test enter remove cource c");
         if($rootScope.courseCandidates){
             var index = $rootScope.courseCandidates.indexOf(course);
