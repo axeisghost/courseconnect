@@ -169,8 +169,8 @@ app.controller('controlPanelTab', ['$scope', function($scope) {
     $scope.currentMode = $scope.operationModes[0];
 }]);
 
-app.controller('courseSelectionPanel', ['$scope', '$rootScope', '$http', 
-    'getCourseoffQueryUrl', function($scope, $rootScope, $http, getCourseoffQueryUrl){
+app.controller('courseSelectionPanel', ['$scope', '$rootScope', '$http', '$filter',
+    'getCourseoffQueryUrl', function($scope, $rootScope, $http, $filter, getCourseoffQueryUrl){
     $rootScope.selectedCollege = 'gatech';
     $rootScope.selectedTerm = '201508';
     $scope.majorCandidates = [];
@@ -186,6 +186,26 @@ app.controller('courseSelectionPanel', ['$scope', '$rootScope', '$http',
     $scope.addMajorCandidates = function(major){
         $rootScope.selectedMajor = major.ident;
         $scope.majorCandidates.push(major);
+    }
+    $scope.removeMajorCandidates = function(major, ev){
+        ev.preventDefault();
+        ev.stopPropagation();
+        console.log("test enter remove major c");
+        var index = $scope.majorCandidates.indexOf(major);
+        if(index>-1){
+            $scope.majorCandidates.splice(index, 1);
+        }
+    }
+    $scope.removeCourseCandidate = function(course, ev){
+        ev.preventDefault();
+        ev.stopPropagation();
+        console.log("test enter remove cource c");
+        if($rootScope.courseCandidates){
+            var index = $rootScope.courseCandidates.indexOf(course);
+            if(index>-1){
+                $rootScope.courseCandidates.splice(index, 1);
+            }
+        }
     }
 }]);
 
@@ -258,16 +278,16 @@ app.controller('courseCandidate', ['$scope', '$rootScope', '$http',
                     $scope.instructors.push(newInstructor);
                 }
             }
-            for (var i = 0; i < $scope.courseCandidates.length; i++) {
-                if($scope.courseCandidates[i].major === $scope.selectedMajor &&
-                    $scope.courseCandidates[i].ident === $scope.selectedCourse){
-                    $scope.courseCandidates[i].sections = sections;
+            for (var i = 0; i < $rootScope.courseCandidates.length; i++) {
+                if($rootScope.courseCandidates[i].major === $scope.selectedMajor &&
+                    $rootScope.courseCandidates[i].ident === $scope.selectedCourse){
+                    $rootScope.courseCandidates[i].sections = sections;
                     for(var j in sections){
                         sections[j].course = 
                         {
-                            major : $scope.courseCandidates[i].major,
-                            ident : $scope.courseCandidates[i].ident,
-                            name : $scope.courseCandidates[i].name
+                            major : $rootScope.courseCandidates[i].major,
+                            ident : $rootScope.courseCandidates[i].ident,
+                            name : $rootScope.courseCandidates[i].name
                         };
                     }
                 }

@@ -2,6 +2,7 @@
   	<accordion-group ng-click="selectedCourse=course.ident" is-open="true">
         <accordion-heading>
             {{course.ident}} - {{course.name}}
+            <span class="glyphicon glyphicon-remove" ng-click="removeCourseCandidate(course, $event)" style="float: right;"></span>
         </accordion-heading>
     	<div ng-repeat="instructor in instructors">
       		<course-candidate-section-item></course-candidate-section-item>
