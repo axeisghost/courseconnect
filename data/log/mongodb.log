@@ -292,3 +292,47 @@
 2015-10-02T23:36:42.655-0400 I STORAGE  [signalProcessingThread] closeAllFiles() finished
 2015-10-02T23:36:42.655-0400 I STORAGE  [signalProcessingThread] shutdown: removing fs lock...
 2015-10-02T23:36:42.656-0400 I CONTROL  [signalProcessingThread] dbexit:  rc: 0
+2015-10-04T02:00:30.085-0400 I CONTROL  ***** SERVER RESTARTED *****
+2015-10-04T02:00:30.110-0400 E NETWORK  [initandlisten] listen(): bind() failed errno:99 Cannot assign requested address for socket: 52.3.117.15:27017
+2015-10-04T02:00:30.110-0400 I STORAGE  [initandlisten] exception in initAndListen: 29 Data directory /home/fan/Dropbox/src/courseconnect/./db not found., terminating
+2015-10-04T02:00:30.110-0400 I CONTROL  [initandlisten] dbexit:  rc: 100
+2015-10-04T02:02:21.965-0400 I CONTROL  ***** SERVER RESTARTED *****
+2015-10-04T02:02:21.990-0400 E NETWORK  [initandlisten] listen(): bind() failed errno:99 Cannot assign requested address for socket: 52.3.117.15:27017
+2015-10-04T02:02:21.990-0400 I STORAGE  [initandlisten] exception in initAndListen: 29 Data directory /home/fan/Dropbox/src/courseconnect/./db not found., terminating
+2015-10-04T02:02:21.990-0400 I CONTROL  [initandlisten] dbexit:  rc: 100
+2015-10-04T02:03:30.573-0400 I CONTROL  ***** SERVER RESTARTED *****
+2015-10-04T02:03:30.598-0400 E NETWORK  [initandlisten] listen(): bind() failed errno:99 Cannot assign requested address for socket: 52.3.117.15:27017
+2015-10-04T02:03:30.601-0400 I JOURNAL  [initandlisten] journal dir=/home/fan/Dropbox/src/courseconnect/./data/db/journal
+2015-10-04T02:03:30.601-0400 I JOURNAL  [initandlisten] recover : no journal files present, no recovery needed
+2015-10-04T02:03:30.762-0400 I JOURNAL  [durability] Durability thread started
+2015-10-04T02:03:30.762-0400 I JOURNAL  [journal writer] Journal writer thread started
+2015-10-04T02:03:30.768-0400 I CONTROL  [initandlisten] MongoDB starting : pid=15314 port=27017 dbpath=/home/fan/Dropbox/src/courseconnect/./data/db 64-bit host=fan-ThinkPad-T450s
+2015-10-04T02:03:30.769-0400 I CONTROL  [initandlisten] ** WARNING: You are running this process as the root user, which is not recommended.
+2015-10-04T02:03:30.769-0400 I CONTROL  [initandlisten] 
+2015-10-04T02:03:30.769-0400 I CONTROL  [initandlisten] 
+2015-10-04T02:03:30.769-0400 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/enabled is 'always'.
+2015-10-04T02:03:30.769-0400 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2015-10-04T02:03:30.769-0400 I CONTROL  [initandlisten] 
+2015-10-04T02:03:30.769-0400 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/defrag is 'always'.
+2015-10-04T02:03:30.769-0400 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2015-10-04T02:03:30.769-0400 I CONTROL  [initandlisten] 
+2015-10-04T02:03:30.769-0400 I CONTROL  [initandlisten] db version v3.0.6
+2015-10-04T02:03:30.769-0400 I CONTROL  [initandlisten] git version: 1ef45a23a4c5e3480ac919b28afcba3c615488f2
+2015-10-04T02:03:30.769-0400 I CONTROL  [initandlisten] build info: Linux ip-10-233-162-213 3.2.0-4-amd64 #1 SMP Debian 3.2.46-1 x86_64 BOOST_LIB_VERSION=1_49
+2015-10-04T02:03:30.769-0400 I CONTROL  [initandlisten] allocator: tcmalloc
+2015-10-04T02:03:30.769-0400 I CONTROL  [initandlisten] options: { config: "./data/mongodb.conf", net: { bindIp: "52.3.117.15", port: 27017 }, processManagement: { fork: false }, storage: { dbPath: "./data/db", journal: { enabled: true } }, systemLog: { destination: "file", logAppend: true, path: "./data/log/mongodb.log" } }
+2015-10-04T02:03:30.776-0400 I CONTROL  [initandlisten] now exiting
+2015-10-04T02:03:30.776-0400 I NETWORK  [initandlisten] shutdown: going to close listening sockets...
+2015-10-04T02:03:30.776-0400 I NETWORK  [initandlisten] shutdown: going to flush diaglog...
+2015-10-04T02:03:30.776-0400 I NETWORK  [initandlisten] shutdown: going to close sockets...
+2015-10-04T02:03:30.776-0400 I STORAGE  [initandlisten] shutdown: waiting for fs preallocator...
+2015-10-04T02:03:30.776-0400 I STORAGE  [initandlisten] shutdown: final commit...
+2015-10-04T02:03:30.780-0400 I JOURNAL  [initandlisten] journalCleanup...
+2015-10-04T02:03:30.780-0400 I JOURNAL  [initandlisten] removeJournalFiles
+2015-10-04T02:03:30.782-0400 I JOURNAL  [initandlisten] Terminating durability thread ...
+2015-10-04T02:03:30.879-0400 I JOURNAL  [journal writer] Journal writer thread stopped
+2015-10-04T02:03:30.879-0400 I JOURNAL  [durability] Durability thread stopped
+2015-10-04T02:03:30.879-0400 I STORAGE  [initandlisten] shutdown: closing all files...
+2015-10-04T02:03:30.880-0400 I STORAGE  [initandlisten] closeAllFiles() finished
+2015-10-04T02:03:30.880-0400 I STORAGE  [initandlisten] shutdown: removing fs lock...
+2015-10-04T02:03:30.880-0400 I CONTROL  [initandlisten] dbexit:  rc: 48

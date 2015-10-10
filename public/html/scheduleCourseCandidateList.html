@@ -10,7 +10,7 @@
     <div class="list-group">
         <div class="list-group-item" ng-click="setSelectedAutoSchedule(schedule)" ng-repeat="schedule in auto_schedules" >
             <div ng-repeat="section in schedule">
-                <span>{{section.course.major}} </span>
+                <span>{{section.course.major.ident}} </span>
                 <span>{{section.course.ident}}</span>
                 <span>{{section.ident}}</span>
             </div>

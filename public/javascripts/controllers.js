@@ -7,111 +7,115 @@ app.controller('calendarController', ['$scope', '$rootScope', '$compile', '$http
     /* config object */
     $scope.eventSource = [];
     $scope.storedManualEventSource = null;
-    $rootScope.selectedSections = {};
     $scope.schedule = [];
-    $scope.lockUpdate = true;
     
-    $scope.$watchCollection('schedule', function() {
-        if ((!$scope.lockUpdate) && $rootScope.isLoggedIn) {
-            console.log('update start');
-            $http.put('/users/' + $rootScope.user.id, $scope.schedule).success(function(res) {
-                console.log(res);
-            });
-        }
-    });
+    var syncDB = function(){
+        $http.put('/users/' + $rootScope.user.id, $scope.schedule).success(function(res) {
+            console.log(res);
+        });
+    };
 
     $rootScope.$watch('isLoggedIn', function() {
         if ($rootScope.isLoggedIn) {
             $http.get('/users/' + $rootScope.user.id).success(function(res) {
                 if (res) {
-                    $scope.lockUpdate = true;
                     $scope.eventSource.splice(0,$scope.eventSource.length);
-                    $rootScope.selectedSections = {};
                     res.schedule.forEach(function(s) {
-                        $scope.addSection(s.section,s.course,false,s.color);
+                        $scope.addSection(s.section,false,s.color);
                     });
-                    $scope.lockUpdate = false;
                 }
             })
         }
     });
     
-    var exist = function(section) {
-        return $rootScope.selectedSections[section._id] != null;
+    var getSectionIndex = function(section) {
+        for (var i = 0; i < $scope.schedule.length; i++) {
+            if ($scope.schedule[i].section.sectionID === section.sectionID){
+                return i;
+            }
+        }
+        return -1;
     };
 
     var isPreview = function(section){
-        return exist(section) &&
-            $rootScope.selectedSections[section._id]['isPreview'];
+        var index = getSectionIndex(section);
+        if(index >= 0){
+            return $scope.schedule[index].isPreview;
+        } else{
+            return false;
+        }
     }
 
     var conflitsWithCurrentSections = function(section) {
-        for (var i in $rootScope.selectedSections) {
-            if ($rootScope.selectedSections[i] &&
-                hasSectionConflict($rootScope.selectedSections[i].section,section)){
+        for (var i = 0; i < $scope.schedule.length; i++) {
+            if (hasSectionConflict($scope.schedule[i].section,section)){
                 return true;
             }
         }
         return false;
-    }
+    };
 
-    $rootScope.addSection = function(section,course,isPreview,color){
-        if (!exist(section)){
+    /*refreshCalendar is used to update the calendar when adding or removing sections.
+      The purpose of this function is to restrict the use of $scope.eventSource.
+
+      Input : {
+        section : seciton,
+        color : color,
+        isPreview : isPreview
+      }
+    */
+    var refreshCalendar = function(changedSection){
+        for (var i = 0; i < $scope.eventSource.length; i++) {
+            if(changedSection.section.sectionID === $scope.eventSource[i][0]['id']){
+                $scope.eventSource.splice(i,1);
+                return;
+            }
+        }
+        $scope.eventSource.push(
+                    parseCourseInfo(changedSection.section,
+                        changedSection.color));
+    };
+
+    $rootScope.addSection = function(section,isPreview,color){
+        var index = getSectionIndex(section);
+        if (index<0){
             if (conflitsWithCurrentSections(section)){
                 color = 'rgba(0,125,125, 0.3)';
             }
-            $scope.eventSource.push(parseCourseInfo(course, section,color));
-            // section.course = course;
-            $rootScope.selectedSections[section._id] = {
-                "section" : section,
-                "isPreview" : isPreview
-            };
-            
-            if (!isPreview) {
-                $scope.schedule.push({section: section, course: course, color: color});
-            }
+            var newSection = {section: section, 
+                                color: color,
+                                isPreview: isPreview
+                            };
+            $scope.schedule.push(newSection);
+            refreshCalendar(newSection);
         }
     }
 
     $rootScope.removeSection = function(section, behavior){
-        var index = 0;
         if (behavior === 'click' ||
                 (behavior === 'mouseleave' && isPreview(section))){
-            for (var i = 0; i < $scope.eventSource.length; i++) {
-                if ($scope.eventSource[i][0]['id'] === section._id){
-                    index = i;
-                    break;
-                }
-            };
-            $scope.eventSource.splice(index,1);
-            $rootScope.selectedSections[section._id] = null;
-        }
-        
-        if (behavior == 'click') {
-            for (var i = 0; i < $scope.schedule.length; i++) {
-                if ($scope.schedule[i].section._id === section._id){
-                    index = i;
-                    break;
-                }
-            };
-            $scope.schedule.splice(index,1);
+            var index = getSectionIndex(section);
+            var removedSection = $scope.schedule.splice(index,1);
+            refreshCalendar(removedSection[0]);
         }
     }
     
-    $rootScope.toggleSection = function(section,course,color) {
-        if(exist(section)) {
+    $rootScope.toggleSection = function(section,color) {
+        var index = getSectionIndex(section);
+        if(index>=0) {
             if(isPreview(section)){
                 section.status = "selected";
-                $rootScope.selectedSections[section._id]['isPreview'] = false;
-                $scope.schedule.push({section: section, course: course, color: color});
+                $scope.schedule[index].isPreview = false;
+                $scope.schedule.push({section: section, color: color});
             } else {
                 section.status = "unselected";
                 $scope.removeSection(section, 'click');
             }
         } else {
             section.status = "selected";
-            $scope.addSection(section,course,false,color);
+            $scope.addSection(section,false,color);
         }
+        syncDB();
     };
 
     $rootScope.showAutoSchedule = function(){
@@ -222,8 +226,9 @@ app.controller('majorCandidate', ['$scope','$rootScope', '$http',
             });
         $scope.addCourseCandidates = function(course){
             $rootScope.selectedMajor = $scope.major.ident;
-            course.major = $scope.major.ident;
+            course.major = $scope.major;
             $rootScope.selectedCourse = course.ident;
+            $rootScope.selectedCourseName = course.name;
             if(!$rootScope.courseCandidates){
                 $rootScope.courseCandidates = [];
             }
@@ -262,7 +267,6 @@ app.controller('courseCandidate', ['$scope', '$rootScope', '$http',
             $scope.instructors = [];
             for (var i = 0; i < sections.length; i++) {
                 var exist = false;
-                sections[i].course = $
                 for(var j in $scope.instructors){
                     if(JSON.stringify(sections[i].instructor)===JSON.stringify($scope.instructors[j].instructorInfo)){
                         sections[i].sectionTimeSlot = parseSectionTimeSlots(sections[i].timeslots);
@@ -277,21 +281,11 @@ app.controller('courseCandidate', ['$scope', '$rootScope', '$http',
                         "sections" : [sections[i]]};
                     $scope.instructors.push(newInstructor);
                 }
+                sections[i].majorIdent = $scope.selectedMajor;
+                sections[i].courseIdent = $scope.selectedCourse;
+                sections[i].courseName = $scope.selectedCourseName;
+                sections[i].sectionID = $scope.selectedMajor + $scope.selectedCourse + sections[i].ident;
             }
-            for (var i = 0; i < $rootScope.courseCandidates.length; i++) {
-                if($rootScope.courseCandidates[i].major === $scope.selectedMajor &&
-                    $rootScope.courseCandidates[i].ident === $scope.selectedCourse){
-                    $rootScope.courseCandidates[i].sections = sections;
-                    for(var j in sections){
-                        sections[j].course = 
-                        {
-                            major : $rootScope.courseCandidates[i].major,
-                            ident : $rootScope.courseCandidates[i].ident,
-                            name : $rootScope.courseCandidates[i].name
-                        };
-                    }
-                }
-            };
         }, function(response) {
         });
         $scope.sectionColor = colorFactory.getNextColor();
@@ -300,7 +294,6 @@ app.controller('courseCandidate', ['$scope', '$rootScope', '$http',
         };
         $scope.$on("SchemeChanged", function(){
             $scope.sectionColor = colorFactory.getNextColor();
-            console.log("new section color");
         })
 }]);
 app.controller('scheduler', ['$scope','$rootScope','getPossibleSchedules',

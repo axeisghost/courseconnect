@@ -121,13 +121,13 @@ app.factory('getPossibleSchedules', ['conflictWithSections', function(conflictWi
 }]);
 
 app.factory('parseCourseInfo', ['getHoursAndMinutes', function(getHoursAndMinutes) {
-    return function(course, section, color) {
+    return function(section, color) {
         var weekdays = ['M','T','W','R','F']; 
         var ui_form = [];
         for(var i = 0; i < section.timeslots.length; i++){
             ui_form[i]={};
-            ui_form[i]['title']= course.major+" - "+ course['ident']+
-                "\nSection "+section['ident']+'\n'+''+course['name']+'\n';
+            ui_form[i]['title']= section.majorIdent+" - "+ section.courseIdent+
+                "\nSection "+section['ident']+'\n'+''+section.courseName+'\n';
             var startDate = new Date();
             var startTime = getHoursAndMinutes(section.timeslots[i].start_time);
             startDate.setHours(startTime.hour);
@@ -136,7 +136,7 @@ app.factory('parseCourseInfo', ['getHoursAndMinutes', function(getHoursAndMinute
             var endTime = getHoursAndMinutes(section.timeslots[i].end_time);
             endDate.setHours(endTime.hour);
             endDate.setMinutes(endTime.minute);
-            ui_form[i]['id'] = section._id;
+            ui_form[i]['id'] = section.sectionID;
             ui_form[i]['start'] = startDate;
             ui_form[i]['end'] = endDate;
             ui_form[i]['dow'] = [weekdays.indexOf(section.timeslots[i]['day'])+1];

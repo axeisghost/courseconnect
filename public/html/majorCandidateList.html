@@ -1,8 +1,8 @@
 <div ng-controller="majorCandidate" ng-repeat="major in majorCandidates" >
   <accordion-group panel-class="panel-info" is-open="true">
     <accordion-heading> 
-    	{{major.ident}} - {{major.name}} 
-    	<span class="glyphicon glyphicon-remove" ng-click="removeMajorCandidates(major, $event)" style="float: right;"></span>
+      {{major.ident}} - {{major.name}} 
+      <span class="glyphicon glyphicon-remove" ng-click="removeMajorCandidates(major, $event)" style="float: right;"></span>
     </accordion-heading>
     <div class="list-item" ng-repeat="course in courses">
       <major-candidate-course-item/>
