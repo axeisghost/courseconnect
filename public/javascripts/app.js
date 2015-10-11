@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('courseconnect', 
+angular.module('courseconnect', 
     [
     'ui.bootstrap',
     'ngFacebook',
@@ -23,3 +23,7 @@ var app = angular.module('courseconnect',
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     });
+
+angular.module('courseconnect.controllers', ['ui.calendar']);
+angular.module('courseconnect.directives', ['courseconnect.services']);
+angular.module('courseconnect.services', []);

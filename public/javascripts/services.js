@@ -1,15 +1,7 @@
 'use strict';
 
-// courseoff_api_base = "https://soc.courseoff.com/";
-// courseoff_api_college = "gatech"
-
-// urls = {
-//     majors : 
-// }
-
-var app = angular.module('courseconnect.services', []);
-
-app.factory('getCourseoffQueryUrl', function() {
+angular.module('courseconnect.services')
+.factory('getCourseoffQueryUrl', function() {
     var hierarchies = {
         'terms':'selectedTerm',
         'majors':'selectedMajor',
@@ -28,24 +20,21 @@ app.factory('getCourseoffQueryUrl', function() {
         }
         return url;
     };
-});
-
-app.factory('getHoursAndMinutes', function(){
+})
+.factory('getHoursAndMinutes', function(){
     return function(time){
         var tempTime = {};
         tempTime.hour = time / 60 | 0;
         tempTime.minute = time % 60;
         return tempTime;
     };
-});
-
-app.factory('getMinutes', function(){
+})
+.factory('getMinutes', function(){
     return function(time){
         return time.hour * 60 + time.minute;
     };
-});
-
-app.factory('hasSectionConflict', ['getMinutes', function(getMinutes){
+})
+.factory('hasSectionConflict', ['getMinutes', function(getMinutes){
     return function (section1, section2){
         for (var i = 0; i < section1.sectionTimeSlot.length; i++) {
             for (var j = 0; j < section2.sectionTimeSlot.length; j++) {
@@ -77,9 +66,8 @@ app.factory('hasSectionConflict', ['getMinutes', function(getMinutes){
         };
         return false;
     };
-}]);
-
-app.factory('conflictWithSections', ['hasSectionConflict', function(hasSectionConflict){
+}])
+.factory('conflictWithSections', ['hasSectionConflict', function(hasSectionConflict){
     return function(section, otherSections) {
         for (var i in otherSections) {
             if (otherSections[i] &&
@@ -89,10 +77,8 @@ app.factory('conflictWithSections', ['hasSectionConflict', function(hasSectionCo
         }
         return false;
     };
-}]);
-
-
-app.factory('getPossibleSchedules', ['conflictWithSections', function(conflictWithSections){
+}])
+.factory('getPossibleSchedules', ['conflictWithSections', function(conflictWithSections){
     return function(courses){
         var schedules = [];
         for(var i in courses){
@@ -118,9 +104,8 @@ app.factory('getPossibleSchedules', ['conflictWithSections', function(conflictWi
         }
         return schedules;
     };
-}]);
-
-app.factory('parseCourseInfo', ['getHoursAndMinutes', function(getHoursAndMinutes) {
+}])
+.factory('parseCourseInfo', ['getHoursAndMinutes', function(getHoursAndMinutes) {
     return function(section, color) {
         var weekdays = ['M','T','W','R','F']; 
         var ui_form = [];
@@ -150,9 +135,8 @@ app.factory('parseCourseInfo', ['getHoursAndMinutes', function(getHoursAndMinute
         }
         return ui_form;
     };
-}]);
-
-app.factory('colorFactory',function(){
+}])
+.factory('colorFactory',function(){
     var colorSchemes = {
         defaultColor:['#F16745', '#FFC65D', '#7BC8A4', '#4CC3D9', '#93648D'],
         color1:['#FFCB74', '#F78D63', '#E2646D', '#C3658F', '#996E93'],

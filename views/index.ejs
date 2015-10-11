@@ -4,6 +4,8 @@
     <meta charset='utf-8' />
     <link rel="stylesheet" href="javascripts/lib/bower_components/fullcalendar/dist/fullcalendar.css"/>
     <link rel="stylesheet" href="javascripts/lib/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="javascripts/lib/bower_components/angular-bootstrap/ui-bootstrap-csp.css"></link>
+    <link rel="stylesheet" type="text/css" href="stylesheets/index.css"/>
     <!-- jquery, moment, and angular have to get included before fullcalendar -->
     <script type="text/javascript" src="javascripts/lib/bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="javascripts/lib/bower_components/moment/min/moment.min.js"></script>
@@ -14,15 +16,24 @@
     <script type="text/javascript" src="javascripts/lib/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="javascripts/lib/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
     <script type="text/javascript" src="javascripts/lib/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="javascripts/lib/bower_components/angular-bootstrap/ui-bootstrap-csp.css"></link>
     <script src="//rawgithub.com/GoDisco/ngFacebook/master/ngFacebook.js"></script>
     <script src="javascripts/app.js"></script>
-    <script src="javascripts/controllers.js"></script>
     <script src="javascripts/services.js"></script>
-    <script src="javascripts/directives.js"></script>
-    <link rel="stylesheet" type="text/css" href="stylesheets/index.css"/>
+    <script src="components/calendar/controller.js"></script>
+    <script src="components/calendar/directive.js"></script>
+    <script src="components/majorSelection/controller.js"></script>
+    <script src="components/majorSelection/directive.js"></script>
+    <script src="components/themePicker/controller.js"></script>
+    <script src="components/themePicker/directive.js"></script>
+    <script src="components/accountManagement/controller.js"></script>
+    <script src="components/accountManagement/directive.js"></script>
+    <script src="components/courseSelection/controller.js"></script>
+    <script src="components/courseSelection/directive.js"></script>
+    <script src="components/autoScheduler/controller.js"></script>
+    <script src="components/autoScheduler/directive.js"></script>
+    
   </head>
-  <body ng-controller="themeComtroller">
+  <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -42,42 +53,11 @@
           </ul>
           
           <login-status-bar></login-status-bar>
-          <ul class="nav navbar-nav pull-right">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Theme<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li ng-repeat="(schemeName, colors) in schemeList" ng-click="selectScheme(schemeName)"><a href="">{{schemeName}}</a></li>
-              </ul>
-            </li>
-          </ul>
+          <theme-picker></theme-picker>
         </div>
         <div id="fb-root"></div>
       </div>
     </nav>
-    <div ng-controller="calendarController">
-
-      <div id='displayPanel'>
-        <div id="calendar" ui-calendar="uiConfig.calendar" ng-model='eventSource'></div>
-      </div>
-
-      <div id='controlPanel' ng-controller="controlPanelTab">
-        <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="{{currentMode=='Schedule'?'active':''}}" ng-click="currentMode='Schedule';showManualSchedule()"><a>Schedules</a></li>
-          <li role="presentation" class="{{currentMode=='Friends'?'active':''}}" ng-click="currentMode='Friends'"><a>Friends</a></li>
-          <li role="presentation" class="{{currentMode=='Auto-schedule'?'active':''}}" ng-click="currentMode='Auto-schedule';showAutoSchedule()"><a>Auto-Scheduler</a></li>
-        </ul>
-
-        <div class="placeholder" style="height:10px"></div>
-        <div class="animate-switch" ng-show="currentMode=='Schedule'">
-          <div ng-controller="courseSelectionPanel">
-            <major-selection-panel></major-selection-panel>
-          </div>
-        </div>
-        <div class="animate-switch" ng-show="currentMode=='Friends'">This will be Friends tab</div>
-        <div class="animate-switch" ng-show="currentMode=='Auto-schedule'">
-          <schedule-course-candidate-list></schedule-course-candidate-list>
-        </div>
-      </div>
-    </div>
+    <calendar></calendar>
   </body>
 </html>
