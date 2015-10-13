@@ -31,7 +31,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/user_schedule', user_schedule);
 
-mongoose.connect('mongodb://www.courseconnect.info/courseconnect');
+mongoose.connect('mongodb://52.3.117.15/courseconnect');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
