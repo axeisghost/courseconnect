@@ -6,7 +6,7 @@
   <div id='controlPanel' ng-controller="controlPanelTab">
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="{{currentMode=='Schedule'?'active':''}}" ng-click="currentMode='Schedule';showManualSchedule()"><a>Schedules</a></li>
-      <li role="presentation" class="{{currentMode=='Friends'?'active':''}}" ng-click="currentMode='Friends'"><a>Friends</a></li>
+      <li role="presentation" class="{{currentMode=='Friends'?'active':''}}" ng-click="currentMode='Friends';showFriendSchedule()"><a>Friends</a></li>
       <li role="presentation" class="{{currentMode=='Auto-schedule'?'active':''}}" ng-click="currentMode='Auto-schedule';showAutoSchedule()"><a>Auto-Scheduler</a></li>
     </ul>
 
@@ -16,7 +16,9 @@
         <major-selection-panel></major-selection-panel>
       </div>
     </div>
-    <div class="animate-switch" ng-show="currentMode=='Friends'">This will be Friends tab</div>
+    <div class="animate-switch" ng-show="currentMode=='Friends'">
+      <friends-directive></friends-directive>
+    </div>
     <div class="animate-switch" ng-show="currentMode=='Auto-schedule'">
       <schedule-course-candidate-list></schedule-course-candidate-list>
     </div>

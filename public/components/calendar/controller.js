@@ -139,6 +139,43 @@ angular.module('courseconnect.controllers')
         }
         $scope.storedManualEventSource = null;
     };
+    
+    $rootScope.showFriendSchedule = function(){
+        if(!$scope.storedManualEventSource){
+            $scope.storedManualEventSource = $scope.eventSource.splice(0,$scope.eventSource.length);
+        } else{
+            $scope.eventSource.splice(0,$scope.eventSource.length);
+        }
+        if($rootScope.selectedFriend){
+            $http.get('/users/' + $rootScope.selectedFriend.id).success(function(res) {
+                if (res) {
+                    res.schedule.forEach(function(s) {
+                        $scope.addSection(s.section,false,s.color);
+                    });
+                }
+            })
+            if($rootScope.rmedFriend) {
+                $http.get('/users/' + $rootScope.rmedFriend.id).success(function(res) {
+                    if (res) {
+                        res.schedule.forEach(function(s) {
+                            $scope.addSection(s.section,'click');
+                        });
+                    }
+                })    
+            }
+        }
+        else{
+            if($rootScope.rmedFriend) {
+                $http.get('/users/' + $rootScope.rmedFriend.id).success(function(res) {
+                    if (res) {
+                        res.schedule.forEach(function(s) {
+                            $scope.addSection(s.section,'click');
+                        });
+                    }
+                })    
+            }
+        }
+    };
 
     $scope.uiConfig = {
       calendar:{
@@ -148,7 +185,7 @@ angular.module('courseconnect.controllers')
             right: 'agendaWeek agendaDay'
         },
         minTime: "08:00:00",
-        maxTime: "22:00:00",
+        maxTime: "24:00:00",
         editable: false,
         weekends: false,
         allDaySlot: false,

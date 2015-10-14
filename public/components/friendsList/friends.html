@@ -1,0 +1,8 @@
+<div ng-controller="friendsController">
+    <div class="list-item" ng-repeat="friend in friends" >
+        <div ng-click="toggleFriend(friend)">
+            <img class="clip-circle" ng-src='{{friend.picture}}'/>&nbsp
+	        <font color='black'>{{friend.name}}</font>&nbsp
+        </div>
+    </div>
+</div>
