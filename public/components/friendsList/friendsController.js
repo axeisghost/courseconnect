@@ -5,6 +5,7 @@ angular.module('courseconnect.controllers')
     function($scope,$rootScope){
     $rootScope.selectedFriend = null;
     $rootScope.rmedFriend = null;
+    $rootScope.selectedFriendSched = [];
 
     var addFriend = function(friend){
         $rootScope.selectedFriend = friend;

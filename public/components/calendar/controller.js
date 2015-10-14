@@ -142,41 +142,64 @@ angular.module('courseconnect.controllers')
     
     $rootScope.showFriendSchedule = function(){
         if(!$scope.storedManualEventSource){
-            $scope.storedManualEventSource = $scope.eventSource.splice(0,$scope.eventSource.length);
-        } else{
-            $scope.eventSource.splice(0,$scope.eventSource.length);
+            $scope.storedManualEventSource = angular.copy($scope.eventSource); //store current user's schedule
         }
+        //console.log("storedManualEventSource "+$scope.storedManualEventSource);
         if($rootScope.selectedFriend){
+            if($rootScope.rmedFriend) {
+                $scope.eventSource.splice(0,$scope.eventSource.length);
+                if($scope.storedManualEventSource){
+                    for (var i in $scope.storedManualEventSource) {
+                        $scope.eventSource.push($scope.storedManualEventSource[i]);
+                    };
+                }
+                
+                // the following code picks out friend schedule to delete from the calendar -> supposedly no flash of empty cal, need to test after undefined section problem fixed
+                // for(var i in $rootScope.selectedFriendSched) {
+                //     for(var j=0; j<$scope.eventSource.length; j++) {
+                //         if($scope.eventSource[j][0]['id']==$rootScope.selectedFriendSched[i][0]['id']) {
+                //             $scope.eventSource.splice(j,1);
+                //             break;
+                //         }
+                //     }
+                // }
+            }
             console.log("getting "+$rootScope.selectedFriend.name+"'s schedule");
             $http.get('/users/' + $rootScope.selectedFriend.id).success(function(res) {
                 if (res) {
                     res.schedule.forEach(function(s) {
                         //console.log("getting "+$rootScope.selectedFriend.name+"'s schedule: "+s.section.call_number);
-                        $scope.eventSource.push(parseCourseInfo(s.section));
+                        var converted = parseCourseInfo(s.section, 'rgba(0,0,0, 0.2)');
+                        $rootScope.selectedFriendSched.push(converted); //store current friend's schedule
+                        $scope.eventSource.push(converted);
                     });
                 }
             })
-            // if($rootScope.rmedFriend) {
-            //     $http.get('/users/' + $rootScope.rmedFriend.id).success(function(res) {
-            //         if (res) {
-            //             res.schedule.forEach(function(s) {
-            //                 //$scope.eventSource.splice(parseCourseInfo(s.section,'rgba(0,125,100)'));
-            //             });
-            //         }
-            //     })    
-            // }
         }
-        // else{
-        //     if($rootScope.rmedFriend) {
-        //         $http.get('/users/' + $rootScope.rmedFriend.id).success(function(res) {
-        //             if (res) {
-        //                 res.schedule.forEach(function(s) {
-        //                     //$scope.addSection(s.section,'click');
-        //                 });
-        //             }
-        //         })    
-        //     }
-        // }
+        else{
+            if($rootScope.rmedFriend) { 
+                // console.log("after removing storedManualEventSource "+$scope.storedManualEventSource);
+                // console.log("removing "+$rootScope.rmedFriend.name+"'s schedule");
+                
+                // the following code first wipes out all sections and adds user's schedule -> flashes empty calendar 
+                $scope.eventSource.splice(0,$scope.eventSource.length);
+                if($scope.storedManualEventSource){
+                    for (var i in $scope.storedManualEventSource) {
+                        $scope.eventSource.push($scope.storedManualEventSource[i]);
+                    };
+                }
+                
+                // the following code picks out friend schedule to delete from the calendar -> supposedly no flash of empty cal, need to test after undefined section problem fixed
+                // for(var i in $rootScope.selectedFriendSched) {
+                //     for(var j=0; j<$scope.eventSource.length; j++) {
+                //         if($scope.eventSource[j][0]['id']==$rootScope.selectedFriendSched[i][0]['id']) {
+                //             $scope.eventSource.splice(j,1);
+                //             break;
+                //         }
+                //     }
+                // }
+            }
+        }
     };
 
     $scope.uiConfig = {
