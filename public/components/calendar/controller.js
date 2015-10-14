@@ -147,34 +147,36 @@ angular.module('courseconnect.controllers')
             $scope.eventSource.splice(0,$scope.eventSource.length);
         }
         if($rootScope.selectedFriend){
+            console.log("getting "+$rootScope.selectedFriend.name+"'s schedule");
             $http.get('/users/' + $rootScope.selectedFriend.id).success(function(res) {
                 if (res) {
                     res.schedule.forEach(function(s) {
-                        $scope.addSection(s.section,false,s.color);
+                        //console.log("getting "+$rootScope.selectedFriend.name+"'s schedule: "+s.section.call_number);
+                        $scope.eventSource.push(parseCourseInfo(s.section));
                     });
                 }
             })
-            if($rootScope.rmedFriend) {
-                $http.get('/users/' + $rootScope.rmedFriend.id).success(function(res) {
-                    if (res) {
-                        res.schedule.forEach(function(s) {
-                            $scope.addSection(s.section,'click');
-                        });
-                    }
-                })    
-            }
+            // if($rootScope.rmedFriend) {
+            //     $http.get('/users/' + $rootScope.rmedFriend.id).success(function(res) {
+            //         if (res) {
+            //             res.schedule.forEach(function(s) {
+            //                 //$scope.eventSource.splice(parseCourseInfo(s.section,'rgba(0,125,100)'));
+            //             });
+            //         }
+            //     })    
+            // }
         }
-        else{
-            if($rootScope.rmedFriend) {
-                $http.get('/users/' + $rootScope.rmedFriend.id).success(function(res) {
-                    if (res) {
-                        res.schedule.forEach(function(s) {
-                            $scope.addSection(s.section,'click');
-                        });
-                    }
-                })    
-            }
-        }
+        // else{
+        //     if($rootScope.rmedFriend) {
+        //         $http.get('/users/' + $rootScope.rmedFriend.id).success(function(res) {
+        //             if (res) {
+        //                 res.schedule.forEach(function(s) {
+        //                     //$scope.addSection(s.section,'click');
+        //                 });
+        //             }
+        //         })    
+        //     }
+        // }
     };
 
     $scope.uiConfig = {
