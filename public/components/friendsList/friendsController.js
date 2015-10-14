@@ -8,9 +8,11 @@ angular.module('courseconnect.controllers')
     $rootScope.selectedFriendSched = [];
 
     var addFriend = function(friend){
+        friend.status = "selected";
         $rootScope.selectedFriend = friend;
     };
     var removeFriend = function(friend){
+        friend.status = "unselected";
         $rootScope.rmedFriend = $rootScope.selectedFriend;
         $rootScope.selectedFriend = null;
     };

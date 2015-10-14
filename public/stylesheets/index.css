@@ -85,6 +85,22 @@ body {
     text-align: center;
 }
 
+.friend-item{
+    font-size: 15px;
+    vertical-align: middle;
+    min-height: 28px;
+}
+
+.friend-item:hover{
+    cursor: pointer;
+    background-color: floralwhite;
+}
+
+.selected{
+    cursor: pointer;
+    background-color: floralwhite;
+}
+
 .color-scheme{
     background-color: blue;
 }
