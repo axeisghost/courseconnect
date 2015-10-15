@@ -19,9 +19,11 @@ angular.module('courseconnect.controllers')
     $rootScope.friendScheds = {};
     
     var syncDB = function(){
-        $http.put('/users/' + $rootScope.user.id, $scope.schedule).success(function(res) {
-            console.log(res);
-        });
+        if ($rootScope.isLoggedIn) {
+            $http.put('/users/' + $rootScope.user.id, $scope.schedule).success(function(res) {
+                console.log(res);
+            });
+        }
     };
     
     var updateInterface = function() {
@@ -102,17 +104,17 @@ angular.module('courseconnect.controllers')
         isPreview : isPreview
       }
     */
-    var refreshCalendar = function(changedSection){
-        for (var i = 0; i < $scope.eventSource.length; i++) {
-            if(changedSection.section.sectionID == $scope.eventSource[i][0]['id']){
-                $scope.eventSource.splice(i,1);
-                return;
-            }
-        } 
-        $scope.eventSource.push(
-                    parseCourseInfo(changedSection.section,
-                        changedSection.color));
-    };
+    // var refreshCalendar = function(changedSection){
+    //     for (var i = 0; i < $scope.eventSource.length; i++) {
+    //         if(changedSection.section.sectionID == $scope.eventSource[i][0]['id']){
+    //             $scope.eventSource.splice(i,1);
+    //             return;
+    //         }
+    //     } 
+    //     $scope.eventSource.push(
+    //                 parseCourseInfo(changedSection.section,
+    //                     changedSection.color));
+    // };
 
     $rootScope.addSection = function(section,isPreview,color) {
         var index = getSectionIndex(section, false);
@@ -171,11 +173,6 @@ angular.module('courseconnect.controllers')
 
     $rootScope.showAutoSchedule = function(){
         $rootScope.currentMode = "Auto-Schedule";
-        if(!$scope.storedManualEventSource){
-            $scope.storedManualEventSource = $scope.eventSource.splice(0,$scope.eventSource.length);
-        } else{
-            $scope.eventSource.splice(0,$scope.eventSource.length);
-        }
         if($rootScope.selectedAutoSchedule){
             for (var i = 0; i < $rootScope.selectedAutoSchedule.length; i++) {
                 $scope.eventSource.push(parseCourseInfo($rootScope.selectedAutoSchedule[i],'rgba(0,125,100)'))
@@ -185,13 +182,7 @@ angular.module('courseconnect.controllers')
 
     $rootScope.showManualSchedule = function(){
         $rootScope.currentMode = "Schedule";
-        $scope.eventSource.splice(0,$scope.eventSource.length)
-        if($scope.storedManualEventSource){
-            for (var i in $scope.storedManualEventSource) {
-                $scope.eventSource.push($scope.storedManualEventSource[i]);
-            };
-        }
-        $scope.storedManualEventSource = null;
+        updateInterface();
     };
     
     $rootScope.showFriendSchedule = function(){
