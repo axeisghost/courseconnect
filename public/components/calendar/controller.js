@@ -7,7 +7,7 @@ angular.module('courseconnect.controllers')
     $scope.eventSource = [];
     $scope.storedManualEventSource = null;
     $scope.schedule = [];
-    $scope.previewedSchedule = [];
+    $scope.previewedSection = null;
     
     $rootScope.selectedSectionUI = null;
     /*
@@ -31,9 +31,10 @@ angular.module('courseconnect.controllers')
         $scope.schedule.forEach(function(s) {
             $scope.eventSource.push(parseCourseInfo(s.section, s.color));
         });
-        $scope.previewedSchedule.forEach(function(s) {
-            $scope.eventSource.push(parseCourseInfo(s.section, s.color));
-        });
+        if ($scope.previewedSection != null) {
+            $scope.eventSource.push(parseCourseInfo
+                ($scope.previewedSection.section, $scope.previewedSection.color));
+        }
     }
     
     $scope.$watchCollection('schedule', function() {
@@ -41,7 +42,7 @@ angular.module('courseconnect.controllers')
         syncDB();
     })
     
-    $scope.$watchCollection('previewedSchedule', function() {
+    $scope.$watch('previewedSection', function() {
         updateInterface();
     })
 
@@ -58,31 +59,14 @@ angular.module('courseconnect.controllers')
         }
     });
     
-    var getSectionIndex = function(section, isPreviewed) {
-        var schedule;
-        if (isPreviewed) {
-            schedule = $scope.previewedSchedule;
-        }
-        else {
-            schedule = $scope.schedule;
-        }
-        for (var i = 0; i < schedule.length; i++) {
-            if (schedule[i].section.sectionID === section.sectionID){
+    var getSectionIndex = function(section) {
+        for (var i = 0; i < $scope.schedule.length; i++) {
+            if ($scope.schedule[i].section.sectionID === section.sectionID){
                 return i;
             }
         }
         return -1;
     };
-
-    // var isPreview = function(section){
-    //     return getSectionIndex(section, true) >= 0;
-        // var index = getSectionIndex(section);
-        // if(index >= 0){
-        //     return $scope.schedule[index].isPreview;
-        // } else{
-        //     return false;
-        // }
-    // }
 
     var conflitsWithCurrentSections = function(section) {
         for (var i = 0; i < $scope.schedule.length; i++) {
@@ -117,8 +101,7 @@ angular.module('courseconnect.controllers')
     // };
 
     $rootScope.addSection = function(section,isPreview,color) {
-        var index = getSectionIndex(section, false);
-        var previewIndex = getSectionIndex(section, true);
+        var index = getSectionIndex(section);
         if (conflitsWithCurrentSections(section)){
             color = 'rgba(0,125,125, 0.3)';
         }
@@ -128,13 +111,13 @@ angular.module('courseconnect.controllers')
         };
         if (isPreview) {
             // don't do anything if the course is already selected
-            if (previewIndex < 0 && index < 0) {
-                $scope.previewedSchedule.push(newSection);
+            if (index < 0) {
+                $scope.previewedSection = newSection;
             } 
         }
         else {
-            if (previewIndex >= 0) {
-                $scope.previewedSchedule.splice(previewIndex, 1);
+            if ($scope.previewedSection != null) {
+                $scope.previewedSection = null;
             }
             if (index < 0) {
                 $scope.schedule.push(newSection);
@@ -144,26 +127,19 @@ angular.module('courseconnect.controllers')
 
     $rootScope.removeSection = function(section, fromPreview){
         if (!fromPreview) {
-            $scope.schedule.splice(getSectionIndex(section, false),1);
+            $scope.schedule.splice(getSectionIndex(section), 1);
         }
         else {
-            $scope.previewedSchedule.splice(getSectionIndex(section, true),1);
+            $scope.previewedSection = null;
         }
-        // if (behavior === 'click' ||
-        //         (behavior === 'mouseleave' && isPreview(section))){
-        //     var index = getSectionIndex(section);
-        //     var removedSection = $scope.schedule.splice(index,1);
-        //     refreshCalendar(removedSection[0]);
-        // }        
     }
     
     $rootScope.toggleSection = function(section,color) {
-        var previewedIndex = getSectionIndex(section, true);
-        if (previewedIndex < 0 && getSectionIndex(section, false) >= 0) {
+        if ($scope.previewedSection != null && getSectionIndex(section) >= 0) {
             section.status = "unselected";
             $scope.removeSection(section, false);
         } else {
-            if (previewedIndex >= 0) {
+            if ($scope.previewedSection != null) {
                 $scope.removeSection(section, true);
             }
             section.status = "selected";
