@@ -160,10 +160,15 @@ angular.module('courseconnect.controllers')
             for(var i in $rootScope.friends) {
                 var curF = $rootScope.friends[i];
                 curF.taking = 0;
+                curF.inviting = 0;
                 console.log("checking on friends: "+curF.id);
+                var count = 0;
                 $http.get('/users/' + curF.id).success(function(res) {
                     if (res) {
                         res.schedule.forEach(function(s) {
+                            /*for some reason, only id: 735234313269481 gives all the sections of all friends*/ 
+                            console.log(count);
+                            count++;
                             $rootScope.friendScheds[curF.id] = [];
                             console.log("pushing "+curF.id+": "+s.section.sectionID+ " into friends schedules");
                             $rootScope.friendScheds[curF.id].push(s.section.sectionID);  

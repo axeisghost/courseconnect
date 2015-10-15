@@ -11,17 +11,19 @@ body {
 
 #displayPanel {
     position: absolute;
-    max-width: 45%;
+    max-width: 50%;
     margin-top: 100px;
-    left: 15%;
+    top: 0%;
+    left: 5%;
 }
 
 #controlPanel {
     position: absolute;
     margin-top: 100px;
     left: 62%;
+    right:10%;
     min-width: 20%;
-    max-height: 80%;
+    max-height: 100%;
     overflow-y: auto;
 }
 
@@ -92,7 +94,7 @@ body {
 }
 
 .friend-item{
-    font-size: 30px;
+    font-size: 20px;
     vertical-align: middle;
     min-height: 28px;
 }

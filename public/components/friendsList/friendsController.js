@@ -5,6 +5,18 @@ angular.module('courseconnect.controllers')
     function($scope,$rootScope,$uibModal){
     $rootScope.selectedFriend = null;
     $rootScope.rmedFriend = null;
+    
+    /**
+     * TODO: set up invitation info for both users
+     */
+    $rootScope.inviting = false;
+    $rootScope.invitedFriend= null;
+    $scope.invite = function(friend){
+        console.log(friend.name+" is invited");
+        friend.inviting = 1;
+        $rootScope.inviting = true;
+        $rootScope.invitedFriend = friend;
+    }
 
     var addFriend = function(friend){
         friend.status = "selected";

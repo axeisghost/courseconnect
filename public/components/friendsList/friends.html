@@ -1,14 +1,17 @@
 <div ng-controller="friendsController">
     <div class="friend-list" ng-repeat="friend in friends" >        
         <span class="friend-item {{friend.status}}" ng-click="toggleFriend(friend)">
-            <img class="clip-circle" ng-src='{{friend.picture}}'/>&nbsp
-            <font color='black'>{{friend.name}}</font>&nbsp
+            <span><img class="clip-circle" ng-src='{{friend.picture}}'/>&nbsp</span>
+            <span class="label label-default">{{friend.name}}</span>
         </span>
-        <span ng-show="friend.taking==-1" style="float: right">
-            <button type="button" ng-click="open('',friend)" class="btn btn-default btnbtn-block btn-warning" ng-click="">Invite</button>
+        <span ng-show="friend.taking==-1" ng-hide="friend.inviting==1 || friend.taking!=-1" style="float: right">
+            <button type="button" ng-click="invite(friend)" class="btn btn-default btnbtn-block btn-warning" ng-click="">Invite</button>
         </span>
         <span ng-show="friend.taking==1" style="float: right">
-            <font color='black'>Taking</font>&nbsp
+            <h4><pre class="label label-info">Taking</pre></h4>
+        </span>
+        <span ng-show="friend.inviting==1" style="float: right">
+            <h4><pre class="label label-success">Invited</pre></h4>
         </span>
     </div>
 </div>
