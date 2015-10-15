@@ -5,7 +5,6 @@ angular.module('courseconnect.controllers')
     function($scope,$rootScope){
     $rootScope.selectedFriend = null;
     $rootScope.rmedFriend = null;
-    $rootScope.selectedFriendSched = [];
 
     var addFriend = function(friend){
         friend.status = "selected";
@@ -29,5 +28,22 @@ angular.module('courseconnect.controllers')
         if($rootScope.selectedFriend) console.log("selected friend: "+$rootScope.selectedFriend.name);
         if($rootScope.rmedFriend) console.log("recently removed friend: "+$rootScope.rmedFriend.name);
         $rootScope.showFriendSchedule();
+    };
+    
+    $rootScope.splitFriends = function() {
+        
+        for(var i in $rootScope.friends){
+            var curFid = $rootScope.friends[i].id;
+            for(var j in $rootScope.friendScheds[curFid]){
+                if($rootScope.friendScheds[curFid][j]==$rootScope.selectedSectionUI){
+                    console.log($rootScope.friends[i].name+" is taking as well");
+                    $rootScope.friends[i].taking = 1;
+                } else {
+                    console.log($rootScope.friends[i].name+" is not taking :(");
+                    $rootScope.friends[i].taking = -1;
+                }
+            }
+        }
+        
     };
 }]);

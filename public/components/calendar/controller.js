@@ -8,6 +8,15 @@ angular.module('courseconnect.controllers')
     $scope.storedManualEventSource = null;
     $scope.schedule = [];
     
+    $rootScope.selectedSectionUI = null;
+    /*
+        format for friendScheds:
+        {
+        friend.id : [list_of_sections]        
+        }
+    */
+    $rootScope.friendScheds = {};
+    
     var syncDB = function(){
         $http.put('/users/' + $rootScope.user.id, $scope.schedule).success(function(res) {
             console.log(res);
@@ -65,11 +74,11 @@ angular.module('courseconnect.controllers')
     */
     var refreshCalendar = function(changedSection){
         for (var i = 0; i < $scope.eventSource.length; i++) {
-            if(changedSection.section.sectionID === $scope.eventSource[i][0]['id']){
+            if(changedSection.section.sectionID == $scope.eventSource[i][0]['id']){
                 $scope.eventSource.splice(i,1);
                 return;
             }
-        }
+        } 
         $scope.eventSource.push(
                     parseCourseInfo(changedSection.section,
                         changedSection.color));
@@ -81,10 +90,11 @@ angular.module('courseconnect.controllers')
             if (conflitsWithCurrentSections(section)){
                 color = 'rgba(0,125,125, 0.3)';
             }
-            var newSection = {section: section, 
-                                color: color,
-                                isPreview: isPreview
-                            };
+            var newSection = {
+                section: section, 
+                color: color,
+                isPreview: isPreview
+            };
             $scope.schedule.push(newSection);
             refreshCalendar(newSection);
         }
@@ -96,7 +106,7 @@ angular.module('courseconnect.controllers')
             var index = getSectionIndex(section);
             var removedSection = $scope.schedule.splice(index,1);
             refreshCalendar(removedSection[0]);
-        }
+        }        
     }
     
     $rootScope.toggleSection = function(section,color) {
@@ -118,6 +128,7 @@ angular.module('courseconnect.controllers')
     };
 
     $rootScope.showAutoSchedule = function(){
+        $rootScope.currentMode = "Auto-Schedule";
         if(!$scope.storedManualEventSource){
             $scope.storedManualEventSource = $scope.eventSource.splice(0,$scope.eventSource.length);
         } else{
@@ -131,6 +142,7 @@ angular.module('courseconnect.controllers')
     };
 
     $rootScope.showManualSchedule = function(){
+        $rootScope.currentMode = "Schedule";
         $scope.eventSource.splice(0,$scope.eventSource.length)
         if($scope.storedManualEventSource){
             for (var i in $scope.storedManualEventSource) {
@@ -141,9 +153,26 @@ angular.module('courseconnect.controllers')
     };
     
     $rootScope.showFriendSchedule = function(){
+        $rootScope.currentMode = "Friends";
         if(!$scope.storedManualEventSource){
             $scope.storedManualEventSource = angular.copy($scope.eventSource); //store current user's schedule
+            // instantiate all friends' schedules
+            // for(var i in $rootScope.friends) {
+            //     var curF = $rootScope.friends[i];
+            //     curF.taking = 0;
+            //     console.log("checking on friends: "+curF.id);
+            //     $http.get('/users/' + curF.id).success(function(res) {
+            //         if (res) {
+            //             res.schedule.forEach(function(s) {
+            //                 $rootScope.friendScheds[curF.id] = [];
+            //                 console.log("pushing "+curF.id+": "+s.section.sectionID+ " into friends schedules");
+            //                 $rootScope.friendScheds[curF.id].push(s.section.sectionID);  
+            //             });
+            //         }
+            //     })
+            // }
         }
+        
         //console.log("storedManualEventSource "+$scope.storedManualEventSource);
         if($rootScope.selectedFriend){
             if($rootScope.rmedFriend) {
@@ -164,19 +193,22 @@ angular.module('courseconnect.controllers')
                 //     }
                 // }
             }
-            console.log("getting "+$rootScope.selectedFriend.name+"'s schedule");
+            //console.log("getting "+$rootScope.selectedFriend.name+"'s schedule");
+            var c =0;
             $http.get('/users/' + $rootScope.selectedFriend.id).success(function(res) {
                 if (res) {
                     res.schedule.forEach(function(s) {
-                        //console.log("getting "+$rootScope.selectedFriend.name+"'s schedule: "+s.section.call_number);
+                        // console.log(c);
+                        // c++;
+                        // console.log("getting "+$rootScope.selectedFriend.name+"'s schedule: "+s.section.sectionID);
                         var converted = parseCourseInfo(s.section, 'rgba(0,0,0, 0.2)');
-                        $rootScope.selectedFriendSched.push(converted); //store current friend's schedule
+                        //$rootScope.selectedFriendSched.push(converted); //store current friend's schedule
                         $scope.eventSource.push(converted);
+                        //$rootScope.addSection(s.section,false,'rgba(0,0,0, 0.2)',false);
                     });
                 }
             })
-        }
-        else{
+        } else{
             if($rootScope.rmedFriend) { 
                 // console.log("after removing storedManualEventSource "+$scope.storedManualEventSource);
                 // console.log("removing "+$rootScope.rmedFriend.name+"'s schedule");
@@ -188,17 +220,16 @@ angular.module('courseconnect.controllers')
                         $scope.eventSource.push($scope.storedManualEventSource[i]);
                     };
                 }
-                
-                // the following code picks out friend schedule to delete from the calendar -> supposedly no flash of empty cal, need to test after undefined section problem fixed
-                // for(var i in $rootScope.selectedFriendSched) {
-                //     for(var j=0; j<$scope.eventSource.length; j++) {
-                //         if($scope.eventSource[j][0]['id']==$rootScope.selectedFriendSched[i][0]['id']) {
-                //             $scope.eventSource.splice(j,1);
-                //             break;
-                //         }
-                //     }
-                // }
             }
+        }
+    };
+
+    $scope.clickedSection = function(event, element){
+        console.log(event.title+" selected section id: "+event.id);
+        $rootScope.selectedSectionUI = event.id;
+        if($rootScope.currentMode=="Friends") {
+            console.log("calling splitfirends()")
+            $rootScope.splitFriends();
         }
     };
 
@@ -217,6 +248,7 @@ angular.module('courseconnect.controllers')
         height: "auto",
         defaultView: "agendaWeek",
         eventLimit: true,
+        eventClick: $scope.clickedSection,
         eventRender: function(event, element) {
             element.attr({'course-tooltip': JSON.stringify({
                 title: event.title.split('\n')[2], 
