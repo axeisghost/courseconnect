@@ -157,20 +157,20 @@ angular.module('courseconnect.controllers')
         if(!$scope.storedManualEventSource){
             $scope.storedManualEventSource = angular.copy($scope.eventSource); //store current user's schedule
             // instantiate all friends' schedules
-            // for(var i in $rootScope.friends) {
-            //     var curF = $rootScope.friends[i];
-            //     curF.taking = 0;
-            //     console.log("checking on friends: "+curF.id);
-            //     $http.get('/users/' + curF.id).success(function(res) {
-            //         if (res) {
-            //             res.schedule.forEach(function(s) {
-            //                 $rootScope.friendScheds[curF.id] = [];
-            //                 console.log("pushing "+curF.id+": "+s.section.sectionID+ " into friends schedules");
-            //                 $rootScope.friendScheds[curF.id].push(s.section.sectionID);  
-            //             });
-            //         }
-            //     })
-            // }
+            for(var i in $rootScope.friends) {
+                var curF = $rootScope.friends[i];
+                curF.taking = 0;
+                console.log("checking on friends: "+curF.id);
+                $http.get('/users/' + curF.id).success(function(res) {
+                    if (res) {
+                        res.schedule.forEach(function(s) {
+                            $rootScope.friendScheds[curF.id] = [];
+                            console.log("pushing "+curF.id+": "+s.section.sectionID+ " into friends schedules");
+                            $rootScope.friendScheds[curF.id].push(s.section.sectionID);  
+                        });
+                    }
+                })
+            }
         }
         
         //console.log("storedManualEventSource "+$scope.storedManualEventSource);
@@ -181,20 +181,10 @@ angular.module('courseconnect.controllers')
                     for (var i in $scope.storedManualEventSource) {
                         $scope.eventSource.push($scope.storedManualEventSource[i]);
                     };
-                }
-                
-                // the following code picks out friend schedule to delete from the calendar -> supposedly no flash of empty cal, need to test after undefined section problem fixed
-                // for(var i in $rootScope.selectedFriendSched) {
-                //     for(var j=0; j<$scope.eventSource.length; j++) {
-                //         if($scope.eventSource[j][0]['id']==$rootScope.selectedFriendSched[i][0]['id']) {
-                //             $scope.eventSource.splice(j,1);
-                //             break;
-                //         }
-                //     }
-                // }
+                }               
             }
             //console.log("getting "+$rootScope.selectedFriend.name+"'s schedule");
-            var c =0;
+            //var c =0;
             $http.get('/users/' + $rootScope.selectedFriend.id).success(function(res) {
                 if (res) {
                     res.schedule.forEach(function(s) {

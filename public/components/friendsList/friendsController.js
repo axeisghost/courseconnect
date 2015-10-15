@@ -2,7 +2,7 @@
 
 angular.module('courseconnect.controllers')
 .controller('friendsController', ['$scope','$rootScope',
-    function($scope,$rootScope){
+    function($scope,$rootScope,$uibModal){
     $rootScope.selectedFriend = null;
     $rootScope.rmedFriend = null;
 
@@ -34,14 +34,18 @@ angular.module('courseconnect.controllers')
         
         for(var i in $rootScope.friends){
             var curFid = $rootScope.friends[i].id;
+            //console.log("looking through friends schedule in splitfriends -> "+curFid);
+            var hasSection = false;
             for(var j in $rootScope.friendScheds[curFid]){
                 if($rootScope.friendScheds[curFid][j]==$rootScope.selectedSectionUI){
-                    console.log($rootScope.friends[i].name+" is taking as well");
+                    console.log($rootScope.friends[i].name+" is taking this section as well");
                     $rootScope.friends[i].taking = 1;
-                } else {
-                    console.log($rootScope.friends[i].name+" is not taking :(");
-                    $rootScope.friends[i].taking = -1;
-                }
+                    hasSection = true;
+                } 
+            }
+            if(!hasSection) {
+                console.log($rootScope.friends[i].name+" is not taking this section:(");
+                $rootScope.friends[i].taking = -1;
             }
         }
         

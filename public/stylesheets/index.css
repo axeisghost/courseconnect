@@ -85,8 +85,14 @@ body {
     text-align: center;
 }
 
-.friend-item{
+.friend-list{
     font-size: 15px;
+    vertical-align: middle;
+    min-height: 28px;
+}
+
+.friend-item{
+    font-size: 30px;
     vertical-align: middle;
     min-height: 28px;
 }
